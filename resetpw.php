@@ -4,13 +4,13 @@ $includeroot = dirname(__FILE__);
 require("./utility/initialize-entrypoint.php");
 
 $__='__';
-$action = $_GET['action'];
-$view = $_GET['view']? $_GET['view'] : $_SESSION[$sprefix]['action'];
-$d = $_GET['day']? $_GET['day'] : $_SESSION[$sprefix]['day'];
-$m = $_GET['month']? $_GET['month'] : $_SESSION[$sprefix]['month'];
-$y = $_GET['year']? $_GET['year'] : $_SESSION[$sprefix]['year'];
-$l = $_GET['length']? $_GET['length'] : $_SESSION[$sprefix]['length'];
-$u = $_GET['unit']? $_GET['unit'] : $_SESSION[$sprefix]['unit'];
+$action = getGET('action');
+$view = getGET('view')? getGET('view') : $_SESSION[$sprefix]['action'];
+$d = getGET('day')? getGET('day') : $_SESSION[$sprefix]['day'];
+$m = getGET('month')? getGET('month') : $_SESSION[$sprefix]['month'];
+$y = getGET('year')? getGET('year') : $_SESSION[$sprefix]['year'];
+$l = getGET('length')? getGET('length') : $_SESSION[$sprefix]['length'];
+$u = getGET('unit')? getGET('unit') : $_SESSION[$sprefix]['unit'];
 $serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 
 if ( $_POST ) {

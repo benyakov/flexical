@@ -4,10 +4,10 @@ $includeroot = dirname(__FILE__);
 require('./utility/initialize-entrypoint.php');
 
 $flag = $_GET['flag'];
-$authdata = $_SESSION[$sprefix]['authdata'];
+$authdata = getIndexOr($_SESSION[$sprefix],'authdata', array());
 $serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 $auth = auth();
-$authtype = $_SESSION[$sprefix]["authdata"]["authtype"];
+$authtype = getIndexOr($authdata, "authtype");
 $_ = '__';
 
 if ( $auth == 3 && $authtype!="cookie") {
