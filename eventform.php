@@ -57,6 +57,7 @@ if (empty($id)) {
         $starttime = explode(":", $row["start_time"]);
         $shour = $starttime[0];
         $sminute = $starttime[1];
+        $spm = $epm = null;
 
         if ($_SESSION[$sprefix]['timeformat'] == 12) {
             if ($shour > 12) {
