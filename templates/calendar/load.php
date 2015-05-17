@@ -127,11 +127,11 @@ function writeCalendar($month, $year) {
         $row['usertz_start_time']->setTimezone(\userTimeZone());
         $row['usertz_end_time'] = clone $row['end_time'];
         $row['usertz_end_time']->setTimezone(\userTimeZone());
-        if (getIndexOr($_SESSION[$sprefix], "usertz", "off") == "on") {
+        if (getIndexOr($_SESSION[$sprefix], "usertz", "off") == "on")
             $rowdate = $row['usertz_start_time']->format('d');
-        } else {
+        else
             $rowdate = $row['d'];
-        }
+        $rowdate = (int) $rowdate;
         unset($row['d']);
         if ((! $row['suppress_key'])
             && (! ($row['restricted'] && ! $auth)))
