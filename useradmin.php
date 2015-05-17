@@ -358,7 +358,7 @@ function editUserForm($elementValues="", $mode="Add") {
         <td align="right"><span class="edit_user_label"><?=__('pwconfirm')?>:</span></td>
         <td><input type="password" name="pwconfirm" size="29" required maxlength="20" value="<?=($mode=="Add")?"":__('no change')?>"></td>
     </tr>
-    <?php if ($authdata['userlevel'] == 3) { ?>
+    <?php if (getIndexOr($authdata,'userlevel') == 3) { ?>
     <tr>
         <td align="right"><span class="edit_user_label"><?=__('userlevel')?>:</span></td>
         <td><select name="userlevel">
