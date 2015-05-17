@@ -1,0 +1,61 @@
+# Related Events
+
+Some events can be designated as related events, which allows them to be
+manipulated as a group.  For related events, two extra icons will appear
+with the other icons, when a user is logged in with sufficient
+privileges.  They function as follows.
+
+* ![Show All](../images/showall.png) The Show All icon immediately
+  customizes ListView to display all of the events related to the event
+  that was selected.  To return to the previous view, click the
+  "Unfilter" button in the button group at the bottom of the page.
+
+* ![Delete All](../images/multitrash.png) The Delete All icon works the
+  same as the Delete icon, only it allows you to delete *all* records
+  related to the one selected, including the selected record.  This is a
+  powerful function, so use it with caution.
+
+## Event Details Page
+
+When viewing the details of an event that's related to others, a
+line of navigation links will appear on the right side, allowing the
+user to navigate instantly to the details of the next or previous
+related event, if one exists.
+
+## Making Related Copies
+
+When copying an event, a checkbox in the copy form, when checked, will
+designate all the copies made of the current event to be related to the
+event being copied.  If the event being copied is already related to
+other events, then all of the copies will become related to the existing
+group of related events.  If not, then all the copies, together with the
+original, will form a new group of related events.
+
+## Editing Related Events Together
+
+When editing an event that is related to others, an <{Include Related}>
+checkbox will appear on the edit form. When it is checked, *all* related
+events will be updated.  If a change is made to the date of the event
+being edited, the dates of all related events will be adjusted the same
+number of days that the date of the current event is being adjusted.  If
+the <{Include Related}> checkbox is not checked, then changes are only
+made to the current event, and its relation or relatedness to other
+events will be unchanged.
+
+## Forcing a Collection of Events to Be Related
+
+In Event List View, when a filter has been set, there will be a button
+at the top of the screen that will force all events shown to be related,
+based upon the first event shown.  Note that you can also narrow the
+listing of events by category and date range before forcing them to be
+related.
+
+## Removing an Event from a Related Group
+
+If you no longer wish an event to be related to other events, you should
+copy it to a new event on the same date, while leaving the <{make copies
+related}> checkbox unchecked.  You may then delete the original, as you
+wish.  Note that you can tell which one is related to others by the
+icons that appear, as described above.
+
+<!- vim: set tw=72 ft=markdown :->

@@ -1,0 +1,109 @@
+/***************************************************************/
+/***************** Defaults for Screen media *******************/
+/***************************************************************/
+
+body { background-color: black; width: auto; font-size: 0.16in; }
+#page {background-color: white; padding: 3ex 5px 3ex 5px;
+       margin: -2px auto 10px auto; width: 99%;
+       border-top-left-radius: 20px 15px;
+       border-top-right-radius: 20px 15px;
+       border-bottom-left-radius: 15px;
+       border-bottom-right-radius: 15px;
+       border-left: 2px solid #888;
+       border-right: 2px solid #888;
+       border-top: 1px dotted #CCC;
+       z-index: 1;
+   }
+
+/**** footprint text, filter menu ****/
+ul.hbuttons              { font-size:95%; font-family:sans-serif;
+                            display: block;
+                            margin: 1ex;
+                            line-height: 150%;
+                            color: #EEE;
+                            background-color: #444;
+                            padding: .25ex; }
+ul.hbuttons > li         { display: inline;
+                            margin: .1em; }
+ul.hbuttons.footprint    { display: inline-block; vertical-align: top; }
+ul.hbuttons.footprint > li { display: list-item;
+                            list-style-type: none;
+                            width: 100%;
+                            border-bottom: thin solid black;
+                            padding: 0 .5ex 0 .5ex;
+                            margin: 0; }
+ul.hbuttons.footprint * a { width: 10em; }
+ul.hbuttons.footprint * a.half { width: 4.8em;
+                            border-top: 2px solid #EEE;
+                            border-left: 2px solid #EEE;
+                            border-right: 2px solid #888;
+                            border-bottom: 2px solid #888; }
+ul.hbuttons.footprint * a.half:active { background-color: #CCA;
+                            border-top: 2px solid #888;
+                            border-left: 2px solid #888;
+                            border-right: 2px solid #EEE;
+                            border-bottom: 2px solid #EEE; }
+.hbuttons a              { color:#000; text-decoration: none;
+                            text-align: center;
+                            background-color: #DDB;
+                            padding: 1px;
+                            white-space: nowrap;
+                            border-top: 2px solid #EEE;
+                            border-left: 2px solid #EEE;
+                            border-right: 2px solid #888;
+                            border-bottom: 2px solid #888;
+                            display: inline-block; }
+.hbuttons a:active       { background-color: #CCA;
+                            border-top: 2px solid #888;
+                            border-left: 2px solid #888;
+                            border-right: 2px solid #EEE;
+                            border-bottom: 2px solid #EEE; }
+
+.hbuttons a.deactivated { background-color: #BB9; color: #555; }
+
+/*  Only highlight today on the screen    */
+.today-cell          { border: 1.5pt solid gray !important ; }
+
+
+/**** attribution text ****/
+.attribution            {font-size: 80%; font-family:sans-serif;
+                         color: gray; background-color: transparent;
+                         margin: 1em; padding: 2px;}
+.attribution A          {font-size: 80%; font-family:sans-serif;
+                         color: gray; background-color: transparent;
+                         border: none;}
+
+/**** site tabs ****/
+
+div#sitetabs_background {
+    padding-top: 1ex;
+    padding-bottom: 2px;
+    margin-bottom: -4px;
+    border: none;
+    margin: 0;
+    z-index: 2;
+}
+
+ul#sitetabs                  { font-size: 120%; font-family: sans-serif;
+                               font-weight: bold;
+                               display: table;
+                               margin: 0pt; padding: 0pt;
+                               width: 100%; }
+ul#sitetabs A                { text-decoration: none; color: black;
+                               display: block;
+                               width: 100%; text-align: center;
+                                margin-bottom: -2px;
+                                border: 2px solid #888;
+                                border-top-left-radius: 12px;
+                                border-top-right-radius: 12px;
+                                color: #555;
+                                background-color: #BBB; }
+ul#sitetabs > li             { display: table-cell; display: table-cell;
+                               margin: 0pt;
+                               padding-left: 1em; padding-right: 1em;
+                               padding-bottom: 0pt;
+                               text-align: center; }
+ul#sitetabs > li.activated A  { border-bottom: 2px solid white;
+                               color: black;
+                               background-color: white; }
+

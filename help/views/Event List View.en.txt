@@ -1,0 +1,139 @@
+# Event List View
+
+The Event List view is extremely flexible, whereas the Calendar View is
+intentionally constrained to show only one month, in a way likely to fit
+on a single sheet of paper when printed.  Without that constraint in
+Event List view, the shape and size of the page can vary as much as
+needed to contain the events you'd like to see.  If you find that you'd
+like to see events organized in a particular way, you will probably be
+able to accomplish something close using the Event List view.
+
+## Organization of the Page
+
+At the top of the page are the tabs that allow you to switch between
+views.  Below the tabs is the large rectangular content box, and below
+that are the blocks of buttons and information about the calendar's
+configuration.  These are the same blocks of buttons that appear in
+[Calendar View](<?n=Calendar View.en.txt>).
+
+The main content box has a row of information and controls across the
+top, a table showing the events, and at the bottom, a total tally of
+events shown.
+
+### Selecting the Time Span to Display.
+
+There is almost always a particular date associated with the Event List
+view, and that date is displayed on the left side of the top row within
+the main content box.  The date may be set in the yellow control form on
+the right side of the same row.  Enter the numeric year, month, and day.
+Then, enter a span with a number and a drop-down selection of time
+units.  For example, you can select 1 day, 2 weeks, 3 months, 4 years,
+etc.  When you've selected the date and span, submit it all with the
+"Go" button, and the resulting Event List will begin at the selected
+date, and include events through the chosen span.
+
+On the left side of the top row are arrow links
+(![Previous Month](../images/leftArrow.gif)
+![Next Month](../images/rightArrow.gif))
+that you can use to jump forward or back by the span of time set in
+the yellow control form to the right.  Clicking the "Show Current" box
+will immediately set the starting date to the present, without changing
+the span.
+
+### Open Time and Overlapping Events
+
+The yellow control form also contains a check box that controls whether
+open time between events will be shown.  It's formatted to be
+inobtrusive, in a smaller font on a muted background.  Still, it's not
+always desirable, and you can shut it off.  The "<{default_open_time}>"
+setting on the configuration page determines whether to show open time
+when the browser first opens List View.
+
+When events overlap in their time spans, the starting time will appear
+in a muted pink color that stands out from the other start times.  It
+may alert you to potential conflicts, if the same person is expected to
+be in more places than one at the same time.  (Jesus of Nazareth is only
+human being capable of that, and that's only because His humanity is
+united personally with the divine nature.  Otherwise, not even the
+angels are actually capable of this, as far as we know.)
+
+### Event Information Available
+
+Almost all event information is presented in Event List View, including
+the date, start and end times, title, event description, and category.
+The category names are formatted as they are in [Calendar
+View](<?n=views/Calendar View.en.txt>)'s category key, and as the event
+titles are formatted in Calendar View.  This can be customized as
+described in [the categories section](?n=categories).  The Description
+of each event is treated as Markdown-formatted text (using PHP Markdown
+Extra), allowing for a simple way to enter and display formatting.
+
+Clicking on the event title shows the details of that event and others
+that occur on the same day in a new page.  With sufficient privileges,
+the user can perform other operations from the event details page, such
+as copying or deleting the event.  All users can see the event title and
+description, as well as start and end times.  There are links to the
+next or previous related events, if they exist.
+
+## Narrowing the Events Shown by Category and Filter
+
+There are three ways to control the scope of events that are displayed
+in List View.  One is by using the yellow control form mentioned above to
+specify the time span to be displayed.  You can also select particular
+categories to be displayed and suppress the others.  This is done with
+the "Configure Categories" button in the button block.  For more
+information, see [the categories section](?n=categories).  Another
+powerful way to specify which events to display is to set a filter,
+which is explained in [the filtering section](?n=filtering).
+
+## Manipulating Events
+
+When a user is logged in with sufficient privileges, he will see a row
+of icons appearing at the bottom of each event's Description area.  They
+function as follows.
+
+* ![Copy](../images/copy.png) The Copy icon allows the user to copy
+  the event by displaying the copy form in a new page.  For more about
+  copying, see [the copying section](?n=copying).
+
+* ![Edit](../images/edit.png) The Edit icon allows the user to edit
+  that particular event.  For more about editing events, see [the basic
+  usage section](?n=basic).
+
+* ![Delete](../images/trash.png) The Delete icon allows the user to
+  delete that event.  Javascript must be enabled to do this, so that
+  FlexiCal can use a confirmation dialog to make sure you haven't
+  clicked the delete icon by accident.
+
+Events that are related to other events will have two other icons, but
+for information on using them, please see [the related events
+page](<?n=basic/Related Events.en.txt>).
+
+### Batch Manipulation of Events
+
+When a filter has been set up (see [the filtering
+section](?n=filtering)), Event List View will show logged-in users with
+sufficient privileges a series of button links across the top of the main
+content table.  These allow the user to perform various actions on all
+of the matching events.  They are powerful commands, with potentially
+wide influence on your event database.  Use carefully!
+
+* *<{deletestr}>* allows you to delete all of the events
+  that are shown in List View.
+
+* *<{relatestr}>* allows you to make all of the events shown
+  in List View related to each other, regardless of previous
+  relations.  See [the related events page](<?n=basic/Related
+  Events.en.txt>) for a description of exactly how this works.
+
+* *<{title}>* allows the user to assign a single new
+  title for all of the events shown in List View.
+
+* *<{text}>* allows the user to write a new block of text for
+  all of the events shown in List View, replacing the previous text.
+
+* *<{category}>* allows the user to recategorize all of the
+  events shown in List View with a single category to be selected.
+
+
+<!- vim: set tw=72 ft=markdown :->

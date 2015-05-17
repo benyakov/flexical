@@ -1,0 +1,20 @@
+# Extra Views
+
+Within the `templates` directory of FlexiCal, there are PHP files
+responsible for generating the various calendar views.  Some of these
+files correspond to actual views available on the calendar's site tabs.
+Others are more specialized views that produce output useful in special
+contexts.  For example, the files `latex-bulletin.php` and
+`latex-table.php` produce a specially-formatted version of upcoming
+events that I use in church bulletins and in church newsletters.
+Another example is `this-week.php`, which produces an HTML table of
+events in the coming week, that can be incorporated into another web
+page.  I will likely produce additional views in the future.  By
+following the model of these extra views, the FlexiCal installer can
+make custom views or templates that would be useful wherever FlexiCal
+may be used.
+
+Further documentation and tips for creating these templates will go
+here.
+
+<!- vim: set tw=72 ft=markdown :->

@@ -1,0 +1,46 @@
+# Export to Google Calendar
+
+Since there's a nice interface into Google Calendar for PHP web
+applications, and since the library needed to use it is freely
+available, it is a fairly simple thing to export events from a FlexiCal
+calendar into Google Calendar.  The caveat is that the two systems work
+a little differently.
+
+If you don't care about the differences, don't read this paragraph.  For
+one thing, Google Calendar already supports the full iCalendar
+specification (As far as I know -- RFC 2445), and FlexiCal does not.  In
+fact, FlexiCal takes an approach somewhat different from iCalendar by
+allowing for arbitrarily associated
+([related](<?n=basic/Related Events.en.txt>)) events.  That helps to make up
+for the lack of repeating events in FlexiCal, but the two concepts have
+different objectives in mind.  (Related events are computationally
+cheaper to search and render, but they take up more storage space, which
+allows for wide variations between them.)  Google Calendar can import
+and export iCalendar events in a standard format.  It would be
+impossible to do so in FlexiCal without losing some information.  As of
+this writing, the decisive advantage of FlexiCal over Google Calendar in
+my view is that FlexiCal can produce a usable paper copy of a standard
+1-month calendar.
+
+Yet there are also enough similarities between FlexiCal and Google
+Calendar to make it possible to export *most* of the event data from
+FlexiCal.  If you would like to try it, you will need a login to Google
+Calendar, and then follow these steps:
+
+1. Configure FlexiCal to work with Google Calendar as instructed in [the
+   Installation help page](?n=Installation.en.txt).
+
+   Once your Google credentials are configured in FlexiCal, a filtered
+   List View will show an additional button link in the row of batch
+   buttons across the top, entitled *<{sendtogoogle}>*.
+2. Filter the events by category, date, and/or the fields in the Filter
+   form.  (See [Finding Events](<?n=filtering/Finding Events.en.txt>).)
+3. Click the *<{sendtogoogle}>* button link to send all of the filtered
+   events to your personal calendar in Google Calendar.
+
+There are other methods of exporting provided by the Google Calendar
+programming interface.  It should be practically feasible to provide a
+way to export in other ways, or to import events from Google Calendar
+into FlexiCal.
+
+<!- vim: set tw=72 ft=markdown :->

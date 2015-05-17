@@ -1,0 +1,40 @@
+# Writing Documentation
+
+## Organization
+
+In the `help` directory are directories for categorizing help
+documentation, and help files with descriptive names ending in `.txt`.
+
+Between the descriptive name and the `.txt` suffix, the files should
+have a 3-character tag composed of a period and a 2-letter language
+abbreviation.  This allows for translated versions of the help documents
+existing in the same structure.  The language abbreviation in use is
+determined by the configuration setting "<{language}>".
+
+The first part of the file name should be a short description of its
+contents, suitable for a heading.  It may contain spaces.
+
+The special name "Contents" is reserved for the table of contents, which
+is always displayed at the root of the help system.  Translations should
+use the same name, with a different 2-letter language suffix.
+
+## Formatting
+
+The help files are written using the style of PHP Markdown Extra.  That
+allows them to be readable in their original formatting, and easy to
+display in HTML.  If a file should be left unformatted, the first line
+should be the words "Suppress Formatting".
+
+Links to other help files should use urls like this:
+`?n=subdirectory/FileName.en.txt`, or if there are no subdirectories,
+and with spaces in the filename, `<?n=File Name.en.txt>`.  All urls are
+relative to the `help` directory.
+
+A help file can include language-specific text from the FlexiCal
+application by using special markup like this: &lt;`{key}`&gt; where `key` is
+a key to the `$lang` variable set from somewhere within the FlexiCal
+`lang` directory.  This markup is also ignored when the help file begins
+with the line "Suppress Formatting".
+
+
+<!- vim: set tw=72 ft=markdown :->

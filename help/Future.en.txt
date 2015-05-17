@@ -1,0 +1,11 @@
+# Idea Pipeline
+
+- Use jQuery for date picker, dialog presentation, and possibly event
+  manipulation via drag and drop.
+- finish cleaning up the code style, especially making it consistent.
+  (I learned PHP by hacking on this application.)  This will probably
+  involve using the OOP style in parts of the PHP.
+- Set up limited export and import via iCalcreator
+
+
+<!- vim: set tw=72 ft=markdown :->

@@ -1,0 +1,32 @@
+# Adding Custom Views
+
+You can add your own custom views to the provided Calendar View and
+Event List View.  Here's what it takes:
+
+1. Add a PHP file in the `templates` directory named appropriate for your
+  view.  Remember this name.
+
+2. Optionally, create a subdirectory there with the same name (minus
+  the .php extension) and place as many files in there as you like.
+  One called `load.php` is expected there, and will be sourced
+  automatically.
+
+3. On the calendar configuration screen, optionally add the name you
+   used to the `$SiteTabs` array.  (You could also make it the
+   `$DefaultAction`.) Putting it in `$SiteTabs` will make it appear in
+   the site tabs across the top of the page.  This is desirable only if
+   your custom view generates a web page.
+
+Whether it appears in the site tabs or not, the name you chose can now
+be used as the HTTP "GET' parameter `action`, like so:
+
+> `http://your.domain.name/calendar/index.php?action=the-name-you-chose`
+
+There are sample custom views already, which the author uses to help
+generate LaTeX content.
+
+Just remember that if you add a custom view, you have the responsibility
+to make sure it works.  Don't ask me about debugging your PHP code or
+SQL.  On the other hand, please use the existing views as an example.
+
+<!- vim: set tw=72 ft=markdown :->

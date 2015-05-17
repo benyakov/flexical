@@ -1,0 +1,110 @@
+# The Event Form
+
+The most generic (and least useful) way to create a new event is to
+click the <{addanevent}> button link in the block of buttons at the
+bottom of the calendar.  It will only be visible when a user with
+sufficient privileges is logged in.  The resulting page contains a form
+with all the information you may want to store in that event.  The same
+form is used for editing events that already exist.  The form contains:
+
+* The month, day, and year of the event's <{datetext}>.
+* The <{title}> for the event.
+* <{text}> that will show up on the event details page or in Event List
+  View.  Note that this text can be formatted using the rules of PHP
+  Markdown Extra.  See [the PHP Markdown web site][pmconcepts] for the
+  simple rules you can use to format event text.
+* The <{starttime}>, with separate places for hour and minute, as well as a
+  drop-down for AM and PM.  There are Javascript-powered spinner arrows
+  for these, so that you can increase or decrease the numbers in each
+  entry space.  If you enter the time in 24-hour format, you can leave
+  the AM/PM drop-down menu alone.
+* The <{endtime}>, with the same spaces as for the Start Time.
+* A checkbox for "<{All Day}>" events, which don't have a time associated
+  with them.
+* A <{category}> drop-down (see below for the <{new-category}> entry in
+  this menu.)
+* A blank space for creating a new category.  In order to use this, the
+  <{category}> drop-down menu should be set at <{new-category}>.
+
+## Creating Events
+
+In Calendar View, when a user with sufficient privileges is logged in,
+new events can be created for a certain date by clicking the number of
+that day on the calendar.  This conveniently puts the date in question
+into the appropriate fields on the event form.  The rest is up to you.
+
+See [the Related Events page](<?n=basic/Related Events.en.txt>) for the
+usage of the <{Include Related}> checkbox.
+
+In Event List View, there is no similar mechanism, because the dates
+that appear depend upon the events already in the database.
+
+## Copying Events
+
+New events can also be created by copying existing events.  When you see
+the copy icon (![Copy](../images/copy.png)), clicking it will allow you
+to copy the associated event.  It shows you a page similar to the event
+editing form, but with a different purpose.  The top of the page lists
+some data from the event you wish to copy, and the bottom allows you to
+specify what kind of copying you wish to do.
+
+* The <{repeattype}> drop-down box allows you to select from a variety
+  of ways your event might be copied, as follows:
+
+  * *<{singlerepeat}>* will copy your event to exactly one date.
+  * *<{dailyrepeat}>* will copy your event to another date, and every
+    day in between.
+  * *<{monthlydayrepeat}>* will copy your event to multiple months between
+    the original event and the target date, creating the copies on the
+    same day of the month as the original event.  For example, an
+    original event on the fourth Tuesday will result in new events on
+    the fourth Tuesday.  The new events will only be created between the
+    date of the original event (exclusive) and the target date
+    (inclusive).
+  * *<{monthlydaterepeat}>* will copy your event to the same day of
+    multiple months between the original event and the target date.  The
+    new events will only be created between the date of the original
+    event (exclusive) and the target date (inclusive).
+  * *<{annualrepeat}>* will copy your event to the same month and day,
+    each year between the original event's date (exclusive) and the
+    target date (inclusive).
+
+* The <{repeatskip}> field is only useful for the repeating types of
+  event copying.  It allows you to specify a number of matching dates
+  that will be skipped between new dates that will be created.  For
+  example, using *<{dailyrepeat}>* would normally put new events every
+  day between the original event and the target date, inclusive of the
+  target date.  You can change that to every other day by setting
+  <{repeatskip}> 1, because one day will be skipped between each new
+  event.  For every third day, use 2, and so forth.  The same principle
+  can be applied to the other repeat types.
+
+* The heading <{repeatcutoff}> specifies the target date as described
+  above.
+
+* The <{make copies related}> checkbox, if checked, will cause all of
+  the copies to be related to the original event.  If the original event
+  is already related to others, then the new ones will also be related
+  to the same group.  If not, then they will form a new related group of
+  events.  See
+  [the Related Events page](<?n=basic/Related Events.en.txt>)
+  for more details about them.
+
+## Editing Events
+
+If you are logged in with sufficient privileges, you can edit an
+existing event in Calendar View by clicking the event title to see the
+Javascript menu of icons, and then clicking the Edit icon
+(![Edit](../images/edit.png)).  (If Javascript is not enabled, you can
+also edit the event by clicking the time on events that have a time.)
+
+In Event List View, the edit icon will always be visible for users with
+sufficient privileges.
+
+The same event form used to create events is also used to edit them,
+only now it will be filled with all the data for the event you're
+editing.
+
+[pmconcepts]: http://michelf.com/projects/php-markdown/concepts/
+
+<!- vim: set tw=72 ft=markdown :->

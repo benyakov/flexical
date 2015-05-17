@@ -1,0 +1,34 @@
+
+/**** message box that may appear at the top of the calendar ****/
+div#message             { color: black; background-color: #F8F184;
+                          font-family: sans-serif;
+                          border: 0.1em solid #F6EA29;
+                          margin: 0.5em;
+                          left: 50%;
+                          padding: 0.5em;
+                          text-align: center;
+                          clear: both; }
+div.spinner {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.spinner > a {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+div.spinner > a:link {
+    color: transparent;
+}
+div.spinner > a:visited {
+    color: transparent;
+}
+div.jsonly {
+    visibility: hidden;
+}
+
+.yearinput { width: 4.25em; }
+.monthinput { width: 3em; }
+.dayinput { width: 3em; }
+.lengthinput { width: 3em; }

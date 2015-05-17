@@ -1,0 +1,21 @@
+# Translating
+
+At the present time, translations are handled through a PHP array
+`$lang`, which is set in files located in the `lang` subdirectory.  The
+filenames incorporate the 2-letter (ISO 639-1) language code describing
+the language in question.  If anyone wishes to translate FlexiCal for
+use in another language, just create new files in the same place, using
+the existing files as a model.  All you have to do is keep the same
+array keys, providing translated values.  Be aware that some of the
+values are subject to tight space restrictions in the calendar's
+interface.
+
+Help translations may be provided by simply creating new
+language-specific help files alongside the existing ones.  Again, the
+2-letter language code is part of the file name, and you can use the
+existing help files as a guide.
+
+If you have any questions, please contact me via the FlexiCal web page
+at http://www.christfor.us.
+
+<!- vim: set tw=72 ft=markdown :->

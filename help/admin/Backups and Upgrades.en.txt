@@ -1,0 +1,60 @@
+# Backups
+
+The superuser (see the [Users section](?n=admin/Users.en.php)) is able to back
+up all the contents of the calendar by using the "Backup" button in the
+button blocks at the bottom of the page.  This process will dump the
+MySQL database with a mysql utility and send it all to your web browser
+with a suggested filename based upon the time and date that the backup
+is made.  Just save the file and keep it in some secure location against
+the time when you need to restore everything in the database.  You can
+make backups as often as you like.  The file names should come out
+unique, and descriptive of when the backup was made.
+
+If you need to restore the database, click the "Restore" button below
+the "Backup" button, then select the backup file you want to use and
+click the "Send" button.  Everything else should be done automatically.
+
+Keep in mind that *everything* will be restored from the time of the
+backup.  That includes all users and passwords, and even the state of
+the database relative to the version of FlexiCal you are using.  So it's
+not generally a good idea to restore from backup files made *before* the
+last time you upgraded the calendar.
+
+Which brings us to...
+
+# Upgrades
+
+Hopefully nobody will be trying to upgrade from phpEventCalendar by
+Isaac McGowan, since FlexiCal forked away from it so long ago.  Still,
+it may be possible.  More likely, you are upgrading from a previous
+version of FlexiCal.
+
+To upgrade, follow these steps:
+
+1. Back up your calendar.
+
+2. Download the archive of the newest version and copy it over the
+    installation directory, replacing the existing files.
+
+3. Look in the `upgrades` directory for the appropriate scripts to
+   update from your old version to the new version.  Then, run them in
+   sequence from old to new to upgrade the database.  If your old
+   installation is earlier than FlexiCal 1.5, then start with the
+   `updatetables.php` script.  (It might possibly even work to upgrade
+   from phpEventCalendar.)
+
+   How do you run these scripts, you ask?  Use your web browser like so:
+   `http://your.domain.name/calendarlocation/upgrade/updateW.X-Y.Z.php`.
+   Run those in sequence, because the newer ones will depend upon the
+   older ones.  They will update your database for the newer version of
+   FlexiCal.
+
+Some of this upgrade process can be done automatically, but until
+there's a demand for it, I think we can manage it this way.  My time is
+too precious a gift to be writing code that will not even save anyone the
+same amount of time it took me to write it.  So if you'd like the
+upgrades to be automatic, drop me a line.  (And yet here I am writing
+documentation! Lord willing, this will help somebody.)
+
+
+<!- vim: set tw=72 ft=markdown :->

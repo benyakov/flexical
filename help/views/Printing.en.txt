@@ -1,0 +1,62 @@
+# Printing Calendars
+
+Printing the [List View](<?n=views/Event List View.en.txt>) is rather easy, because
+this view is just a list of rows that cross the page.  Your browser will print
+as many pages as needed, depending upon the number of rows.
+
+Printing the
+[Calendar View](<?n=views/Calendar View.en.txt>) is a little
+tougher, because we naturally expect to get a single landscape-oriented
+sheet of paper containing a one-month calendar covering most of the page.
+However, your web browser really doesn't know or care what you expect.
+
+Before explaining the nitty gritty of printing the Calendar View,
+remember that if there are blank calendar squares before day one or
+after the last day of the month, you can click in them and type there to
+include extra text that doesn't quite fit as a calendar event.  That
+text will print, but it will not be saved in any way.
+
+The navigation tabs at the top and the blocks of buttons at the bottom
+of the page are set up not to print.  You should only see a rectangular
+box around the familiar rows of cells, with a month name and light gray
+timestamp above.
+
+If your browser formats it all strictly according to the calendar's
+stylesheet, the box will be 6.25 inches (15.9 cm) tall and 9.25 inches
+(23.5 cm) wide.  That should leave plenty of room for horizontal and
+vertical margin adjustments, and for several rows containing days with
+an overabundance of events in them.  Usually, rows with expanding
+heights don't expand the overall height of the calendar box, because the
+browser will compensate by shortening other rows that are not completely
+full.
+
+If you're having trouble getting things to look right when printing from
+your browser, here are a few things to check.
+
+* Is the print orientation set to *landscape*?
+* Are your margins (top, bottom, left, right) *too wide*?
+* Look for a "shrink to fit" setting in your printing preferences.
+* If you're getting an *extra blank page* with each calendar, tell your
+  browser to print only page 1.
+
+I've noticed that some browsers have really pathetic support for
+printing something like this.  If all else fails, you can try another
+browser.  I wish I could suggest one that I know will work, but even the
+same browser can have different printing subsystems on different
+computer platforms.  I've recently had good success with Iceweasel, but
+my best recent result was in Konqueror.  If you can get them, you might
+also try Opera, Reconq, Google Chrome, Safari, or even Internet
+Explorer.  They are all freely available, but not all available on every
+operating system.
+
+Last, but not least, try to be patient.  If you get frustrated, close
+your eyes and take a few deep, slow breaths in through your nose and out
+through your mouth.  Visualize what a finished calendar might look like
+after you print it to paper.  All good gifts come down from above, and
+are given by God the Father, our Creator, on the basis of His love for
+us in Jesus Christ.  Since God's Son came and redeemed you from a
+worthless and destructive life, He has also sanctified your use of time,
+this calendar, and even your ornery web browser.  OK; now open your eyes
+and see what's been going wrong.
+
+<!- vim: set tw=72 ft=markdown :->

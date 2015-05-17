@@ -1,0 +1,87 @@
+# Regular Expressions
+
+When filtering events by title or text, you can use regular expressions as your
+search text.  This is optional, but quite powerful.  Regular expressions
+give you the power to match all events, or a selection of events that
+are not exactly the same.  Here are some rules for the syntax of regular
+expressions.  You can find more information in many places.  One good
+place to start is [at Wikipedia](http://en.wikipedia.org/wiki/Regular_expression).
+If you look at other documentation, you should know that FlexiCal's
+database system (MySQL) uses a type of regular expressions called "POSIX
+Extended Regular Expressions."
+
+Here are some simple things to get you started.
+
+Regular expressions reserve certain characters to represent something
+special.  For the most part, if a character is not mentioned below, you
+can assume it only matches itself.  If you run into trouble with that,
+try putting a backslash (\\) in front of it.
+
+## `.`
+
+A period (.) will match anything but a null character, which is any
+character we want to use.  If you want to search for a period, you have
+to put a backslash (\\) in front of it, like this: "\.".
+
+## `[]`
+
+To narrow the possible matches, you can use a collection.  Put all the
+characters you might want to match inside brackets (`[]`).  To include a
+closing bracket, put it immediately after the opening bracket.  To match
+any characters *not* in the collection, put a caret (^) immediately
+after the opening bracket.  You can also include a range of characters
+(as determined by the character encoding in use, such as ASCII, Latin-1,
+or UTF-8) within a collection by putting a hyphen (-) between two
+characters, like this: `[a-zA-Z0-9]`, which will include all lower- and
+uppercase characters, as well as the digits 0-9.  To include a literal
+hyphen, put it at the beginning or end of the collection.
+
+## Matching multiple characters
+
+Putting an asterisk (`*`) behind a character or other item will cause
+that item to match any number of that item, including zero.  Using a
+plus sign (`+`) will cause it to match one or more.  To control exactly
+how many repetitions you wish to match, put the range in brackets behind
+the character or other item, like this: `a{2,3}`.  That will match
+either "aa" or "aaa".  To include a literal asterisk, plus sign, or
+curly bracket, precede it with a backslash (\\).
+
+## Creating groups of characters or other things
+
+You can make a single item out of a group of items by enclosing them in
+parentheses, like this: `(a repetitive phrase)`.  This allows you to
+match multiple repetitions of the enclosed item by putting the asterisk,
+plus sign, or bracketed range after the closing parenthesis.  You can
+also include parenthesized items within other parenthesized items.  To
+match a literal parenthesis, put a backslash (\\) in front of it.
+
+## Alternation using |
+
+One or more vertical pipe characters (|) inside a parenthesized group
+separates the contents into a series of alternatives, any of which will
+match for the entire parenthesized group.  For example, the regular
+expression `A wise (decision|choice|option)` will match any of the
+following:
+
+* A wise decision
+* A wise choice
+* A wise option
+
+To include a literal vertical pipe character, precede it with a
+backslash (\\).
+
+## Anchoring to the beginning or end of a line
+
+A line ends with one or two special characters, depending upon the
+operating system in use.  For our purposes, it's a newline character,
+represented by the sequence `\n`.  A line begins either after the
+previous line ends, or at the beginning of the text being searched.
+
+If you wish to have your regular expression to match at the start of a
+line, precede it with a caret (^) character.  To have it match at the
+end of a line, end it with a dollar sign ($).  To make it match a whole
+line, do both.  To include a literal caret or dollar sign, precede it
+with a backslash (\\).
+
+
+<!- vim: set tw=72 ft=markdown :->

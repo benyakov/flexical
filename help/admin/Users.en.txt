@@ -1,0 +1,45 @@
+# Users
+
+Users in FlexiCal come in several flavors, depending upon what you'd
+like someone to be able to do.  Here's a summary of the kinds available:
+
+* Those who are not logged in at all (unauthenticated users, or guest
+  users) can see ordinary events and adjust which ones are listed.
+
+* Level 1 users can also see events that are marked "Hidden."
+
+* Level 2 users can also create, modify, and delete events.
+
+* Level 3 users can also create new users, change their accounts, or
+  delete them.  This is the superuser.  As far as FlexiCal is concerned,
+  he's at the top of the earthly chain of command, and just below God.
+
+
+# Creating and Deleting Users
+
+When you first install FlexiCal, it will set up an administrative-level
+user (or superuser), with the authority to do anything on the calendar.
+Whenever you have logged in as such a user, clicking the "Change
+Password" button in the button block at the bottom of the page will show
+a table of current users with links to perform administrative tasks.
+
+If you really want to change your own password, just Edit your own user.
+Otherwise, you can add a new user with the link at the top, edit any
+existing user, or delete them.  Just remember that if you delete all the
+users, you'll be in a bind, with no way to log in.  Just because it's
+possible doesn't mean it's always a good idea.
+
+When you add or edit a user, you'll see that the first and last name are
+stored, together with the email address.  The name is used to show who
+has edited various events recently.  The email address is used for...
+
+# Resetting User Passwords
+
+Of course, an administrator can reset passwords manually, but on the
+login page, there's also a link for those who have forgotten their
+password.  They can enter either their user name or their email
+address, and the calendar will send them a link to reset their password
+in a fairly secure way.
+
+
+<!- vim: set tw=72 ft=markdown :->

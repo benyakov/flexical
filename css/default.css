@@ -1,0 +1,420 @@
+/**************************************************************
+********* Formatting For Month Table and Text *****************
+**************************************************************/
+
+@import url("shared.css");
+@import url("screen.css") screen;
+@import url("print.css") print;
+
+
+p  {
+    margin: 0 auto;
+    padding-top: 2pt;
+}
+
+p.warning {
+    border: thick solid red;
+    background-color: white;
+    color: red;
+    margin: 1em;
+    padding: .5em;
+}
+
+.filternotice {
+    color: blue;
+    font-family: sans-serif;
+    background-color: transparent;
+}
+div#crosslinks {
+    font-family: sans-serif;
+    font-size: 80%;
+    font-weight: bold;
+    margin: 0 0 1ex 1em;
+    float: left;
+    color: white;
+    background-color: transparent;
+}
+div#crosslinks a {
+    text-decoration: none;
+    min-width: 5em;
+    margin: 0 1em;
+}
+div#crosslinks a:link,
+div#crosslinks a:visited { color: white; }
+
+div#login {
+    font-size: 80%;
+    font-family: arial, helvetica;
+    margin-right: 0pt;
+    float: right;
+    background-color: black;
+    color: white;
+}
+div#login a     { text-decoration: none; }
+div#login a:link,
+div#login a:visited { color: white; }
+div.username { margin: 0pt .5em;
+   background-color: transparent;
+   color: yellow;
+   display: inline;
+}
+
+label.login_label { background-color: black;
+                    color: white; }
+
+/**** month and year header at top of calendar ****/
+.date_header            { font-size: 170%;
+                          font-family: "Zapf Chancery","zapf chancery","ITC Zapf Chancery","URW Chancery","TeX Gyre Chorus",Chancery,chancery,caslon,serif;
+                          font-weight:bold; }
+.generationdate         { height: 0.15in;
+                          margin: 0; padding: 2px; text-align: center;
+                          font-size: 50%; font-family: sans-serif;
+                          font-weight: normal; color: #999; }
+.gotoday                { margin: 5pt auto; padding: 5pt; }
+.gotoday a             { font-size: 70%; font-family: sans-serif;
+                          color: black; border: thin solid black;
+                          background-color: #DDD; padding: 3pt;
+                          text-decoration: none; }
+.monthcount             { font-size: 70%; font-family: sans-serif; }
+
+/**** calendar grid ****/
+.calendarbox            { border-collapse: collapse;
+                          background-color: white;
+                          border: none;
+                          height: 6in;
+                          font-size: 120%;
+                          width: 9.25in;
+                          z-index: 3;}
+.calendarbox-container { border: 2px solid black;
+                         border-radius: 5px;
+                         box-shadow: 5px 5px 7px #000;
+                         display: table;
+                         margin: 5px auto 5px auto;}
+div.monthcalendarrow { page-break-inside: avoid;
+                          page-break-after: always; }
+div.evenrow { background-color: #005b5c;
+              padding: 2px 0 2px 0; }
+div.oddrow { background-color: #cdfbfb;
+              padding: 2px 0 2px 0; }
+table.monthheading       { width: 99%; background-color: #fff;
+                           margin: 0 auto 0 auto;
+                            border: 1px solid #AAA;
+                           border-radius: 5px; }
+.calendarweek           { height: auto; width: auto;}
+
+.calendarweek#heading {   border: 1px solid black;
+                          color:white; background-color: #b82619;
+                          font-size: 100%;
+                          font-family:sans-serif;
+                          font-weight:bold; }
+
+.calendarweek#heading .columnheader
+                        { padding-right: 3px;
+                          padding-left: 3px;
+                          height: 1em;
+                          color: inherit;
+                          background-color: transparent;}
+
+/**** color and size of calendar cells.  ****/
+.day-cell               { vertical-align: top;
+                          background-color:#FFF; height:auto; width: 14.29%;
+                          overflow: hidden;
+                          border: 1.5pt solid #333;
+                          padding: 2px; margin: 0pt;
+                          z-index: 2; }
+.empty-day-cell         { background-color:#FFF; height:auto;
+                          margin: 0pt; z-index: 2; }
+div.extramessage       { height: 100%; }
+div.extramessage form   { height: 100%; }
+div.extramessage textarea { height: 100%; width: 100%; padding: 0;
+                            border: none; overflow: hidden;
+                            resize: none; }
+/**** minimonths ****/
+.catkey-cell,
+.minimonth-cell         { vertical-align: top;
+                          color: #333; background-color: #FFE;
+                          height: auto; width: 14.29%; margin: 0; padding: 0;
+                          font-family: sans-serif; font-size: 55%;
+                          text-align: center; }
+div.catkey_name,
+div.minimonth_name      { display: block;
+                          padding-top: 0.5em;
+                          font-weight: bolder;
+                          font-size: 100%; }
+.minimonth              { margin: 0 auto;
+                          padding: 2px;
+                          border-collapse: collapse;
+                          padding-top: 1px;
+                          font-size: 100%; }
+.minicalday             { font-weight: normal;
+                          padding-left: 1px; padding-right: 1px;
+                          padding-top: 1px; }
+
+/**** used in both minimonths and date cells on 6-row calendars ****/
+.shortcell              { font-size: 89%; }
+
+/**** Category Key ****/
+ul.categorykey          { list-style: none inside;
+                          font-size: 89%;
+                          margin: 2pt; padding: 2pt;
+                          text-align: left; }
+
+/**** day number in upper corner of each cell ****/
+.day-number A           { color: black;
+                          background-color: white;
+                          text-decoration: none;
+                          display: block;
+                          width: 100%;
+                        }
+
+.day-number A:hover     { color: black;
+                          background-color: #EEEEEE;
+                        }
+
+H1.day-number          {  font-size: 110%;
+                          font-family: "Zapf Chancery","zapf chancery","ITC Zapf Chancery","URW Chancery","TeX Gyre Chorus",Chancery,Caslon,serif;
+                          color: black; font-weight: bold;
+                          background-color: white;
+                          width:1.8em;
+                          text-align: center;
+                          margin: 0 0 0 2px;
+                          float: right;
+                        }
+
+/**** title-txt is the text for each post on main page ****/
+p.title-txt a:link,
+p.title-txt a:active,
+p.title-txt a:visited    { text-decoration:none; color: inherit; }
+p.title-txt a:hover      { text-decoration:none; color: black;
+			   background: #EEE; }
+p.title-txt              { font-size:55%; font-family:sans-serif;
+                           line-height: 105%; }
+/**** When there are more than $compacttitlelimit titles... ****/
+.compact                { font-size:50% !important;
+                          line-height: 99%; }
+
+/**** time line under title text when event time given ****/
+/*  For (begin) times */
+div.start-time-str       { font-size: 50%; }
+div.end-time-str         { font-size: 45%;
+                          line-height: 80%;
+                          text-align: right; }
+div.end-time-str a:link,
+div.end-time-str a:active,
+div.end-time-str a:visited { text-decoration: none; color: inherit; }
+div.end-time-str a:hover   { text-decoration: none; color: black;
+                background: #EEE; }
+
+/**** column headers or days of the week ****/
+div.column_header       { }
+
+/**** events displayed in listview ****/
+td.eventdate              { background-color: #EEF; font-size: small;
+                          font-family: sans-serif; color: black;
+                          font-weight: bold; text-align: left;
+                          padding-right: 3px; padding-left: 3px; }
+td.hbar                   { border-top: thin solid #99B; }
+td.eventstarttime         { background-color: #EEE; font-size: x-small;
+                          font-family: sans-serif; color: #000;
+                          text-align: right;
+                          padding-right: 3px; padding-left: 3px; }
+td.eventendtime           { background-color: #EEE; font-size: x-small;
+                          font-family: sans-serif; color: #000;
+                          text-align: right;
+                          padding-right: 3px; padding-left: 3px; }
+td.coincident             { background-color: #FDD; }
+tr.allday .eventstarttime,
+tr.allday .eventendtime { background-color: transparent; }
+td.eventtitle             { background-color: transparent; font-size: small;
+                          font-family: sans-serif; color: #000;
+                          padding-right: 3px; padding-left: 3px; }
+td.eventdescription       { background-color: transparent; font-size: small;
+                          font-family: sans-serif; color: #320;
+                          padding-right: 3px; padding-left: 3px; }
+td.eventcategory          { background-color: #EEF; font-size: small;
+                          font-family: sans-serif; color: #000;
+                          text-align: left;
+                          padding-right: 3px; padding-left: 3px;
+                          border-top: thin solid #9BBB9B;
+                          border-bottom: thin solid #9BBB9B; }
+tr.columnheader           { background-color: #EEF; color: black;
+                          text-align: center; font-family: sans-serif;
+                          font-weight: bold; border-bottom: thin solid #99b;}
+tr.columnheader>td        { padding: 1ex 0; }
+td.eventdescription dt    { display: block; font-weight: bold;
+                          font-family: serif; text-align: left;
+                          margin-right: 1em; }
+td.open-time              { font-size: x-small;
+                          background-color: #eee; color: #555; }
+tr.oddrow               { background-color: #ffd; }
+tr.allday               { background-color: #ddd; color: black; }
+td.eventdescription h1  { font-size: 112%; }
+td.eventdescription h2  { font-size: 109%; }
+td.eventdescription h3  { font-size: 106%; }
+td.eventdescription h4  { font-size: 103%; }
+td.eventdescription h5  { font-size: 101%; }
+
+/**** MonthMenu is the js/css context menu ****/
+div#MonthMenu { z-index: 5;
+                border: 4px solid white;}
+/* a.menuanchor { position: relative; } */
+div#MonthMenu p { width: 10em; height: auto; }
+div#MonthMenu img { border: none; }
+
+/**** listview components ****/
+
+#event-header { width: 100%; }
+
+#displayspan { font-family: sans-serif; font-weight: bold;
+               font-size: 10pt;
+               white-space: nowrap;
+               color: #066; background-color: #fff;
+               padding: 3px; height: auto; width: auto;
+               display: inline-block;
+               margin: 0 auto 0 auto;
+               float: right; }
+
+#displayspan div { display: inline-block;
+                   text-align: center; }
+
+#displayspan-span { border-top: thin solid #066; }
+
+#displayspan .yearbox { width: 5em; }
+#displayspan .monthbox { width: 3.5em; }
+#displayspan .daybox { width: 3.5em; }
+#displayspan .lengthbox { width: 4em; }
+
+#displayspan *   { margin-bottom: 0; padding-bottom: 0; }
+table#eventlisting    { table-layout: fixed;
+                        margin: 2em auto 0.5em auto;
+                        padding: 1em;
+                        border-collapse: collapse;
+                        border: thin solid black;
+                        box-shadow: 5px 5px 7px #000; }
+/* These are also used in month view for js menu */
+div.actionicons  { display: inline-block;
+                   border: 1px solid #888;
+                   background-color: #EEF;
+                   padding: 3px 3px 0 3px; width: auto; height: auto; }
+div.actionicons > a { border: none; }
+div.actionicons > a:link,
+div.actionicons > a:visited { color: transparent; }
+div.cancelbox {
+    display: inline-block;
+    padding: 1px;
+    position: relative;
+    bottom: 2ex;
+    font-family: sans-serif;
+    font-size: 5pt;
+}
+div.cancelbox a:link,
+div.cancelbox a:visited { color: red; text-decoration: none; }
+
+input {
+    margin-right: 0;
+}
+
+p.rowcount { font-size: small; }
+
+/***** Event View  *****/
+
+#eventview-content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40em;
+}
+
+div.title_bar {
+    height: 1.25em;
+    color: white;
+    background-color: blue;
+}
+div.display_title      {
+    font-family:sans-serif;
+    font-weight:bold;
+    float: left;
+    clear: none;
+    padding-left: .25em
+}
+div.display_time {
+    font-family: sans-serif;
+    color:#DD0;
+    font-weight: bold;
+    float: right;
+    clear: none;
+    padding-right: .25em;
+}
+
+div.display_area     {
+    background-color:#EDECD8;
+    font-family:sans-serif;
+    color: black;
+    clear: both;
+    padding: 2px;
+}
+div.display_user,
+div.display_category  {
+    font-size:smaller;
+    font-weight:bold;
+}
+div.display_user {
+    color:#999999;
+}
+.display_category   {
+    color:#8888BB;
+}
+div.display_edit,
+div.display_related    {
+    font-size:xx-small;
+    font-family:sans-serif;
+    text-align: right;
+}
+
+div.current-event {
+    border: 2px solid #00F;
+}
+div.other-event {
+    border: 1px solid blue;
+    opacity: 0.5;
+}
+span.hournumber {
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #555;
+    background-color: transparent;
+}
+span.hourlabel {
+    color: black;
+    background-color: transparent;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+td.hourcolumn {
+    width: 3em;
+    padding: 0 6px 0 3px;
+    background-color: #F9F9F9;
+    border-left: thin solid black;
+    border-right: thin solid black;
+}
+td.topborder {
+    border-top: thin solid black;
+}
+td.bottomborder {
+    border-bottom: thin solid black;
+}
+
+/**** Range Summary ****/
+
+#summarytitle {
+    margin: .1in 0;
+}
+
+div.eventlist dt {
+    float: left;
+    margin-right: .5em;
+}
+
+
+/**** General tweaks used anywhere needed ****/
+
+.remindersize           { font-size: 75%; }

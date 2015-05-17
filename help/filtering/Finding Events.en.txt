@@ -1,0 +1,45 @@
+# Finding Events
+
+There are three ways you can narrow the scope of events that will appear
+in the calendar.
+
+* If you wish to find events by *category*, then you should use the
+  [Category features](?n=Categories.en.txt) of the calendar.
+* If you wish to find events by *date*, then you should either navigate
+  to the time span in question (using arrows or drop-down menus as in
+  [Calendar View](<?n=views/Calendar View.en.txt>)), or specify the starting
+  date and time span you're looking for via the controls in
+  [Event List View](<?n=views/Event List View.en.txt>).
+* If you wish to find events by the time of day when they begin or end,
+  or by their title or description, then you can set a filter.  This
+  help page describes how to do that.
+
+Any of these three methods can be use simultaneously for maximum control
+over which events appear in the calendar.
+
+To begin filtering on the time, title, or description, click the
+<{filter}> button in the button block below the calendar.  Once a filter
+has been set, you can remove it in one click with the <{unfilter}>
+button.  You can also remove it from the "<{filtertitle}>" form
+described below.
+
+The form used for configuring an event filter allows you to specify
+a way to match the title, the description text, and/or the start and end
+times.  If the title or description is left blank, or the time settings
+are left as a hyphen (-) that field will not be used to filter events.
+
+As with the Event Form, the times can be in 24-hour or 12-hour format.
+The title and description, however, are special.  You can simply enter
+an exact piece of the text you wish to find, and the filter will find
+any events that happen to match it exactly.
+
+You can also use [Regular Expressions](<?n=filtering/Regular Expressions.en.txt>), a
+powerful way to match a wider variety of things.  For example, entering
+a period (.) in the title will match any event that has anything in its
+title.  That may not sound very useful, but it is, because it allows you
+to manipulate all of those events together in one
+[batch](<?n=filtering/Manipulating Events in Batches.en.txt>), even though you may not be
+interested in filtering by title, description text, or time.
+
+
+<!- vim: set tw=72 ft=markdown :->

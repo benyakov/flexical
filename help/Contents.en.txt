@@ -1,0 +1,37 @@
+<!-- Once FlexiCal is installed, these help files are available for
+browsing. -->
+
+# FlexiCal Help Contents
+
+1. [Installation](?n=Installation.en.txt)
+2. [Views](?n=views)
+    * Calendar View and Event List View
+    * Adding Custom Views
+    * Suggestions for Printing
+3. [Calendar Administration](?n=admin)
+    * Creating and Deleting Login Users
+    * User access levels
+    * Resetting passwords
+    * Backing up, Restoring, and Upgrading the Calendar
+4. [Basic Event Usage](?n=basic)
+    * Making new events, altering or copying them
+    * Filling with Data
+    * Formatting descriptions
+    * Using related events
+5. [Event Categories](?n=Categories.en.txt)
+    * Creating new categories
+    * Hidden categories
+    * Suppressing listing in category key
+    * Setting event title formatting by category
+6. [Event Filtering](?n=filtering)
+    * How to search for matching events
+    * Narrowing the focus by category and time
+    * Changing the filtered events in one batch
+7. [Google Calendar export](<?n=Google Calendar.en.txt>)
+8. [Translating](?n=Translating.en.txt)
+9. [Writing Documentation](?n=Documenting.en.txt)
+10. [Idea Pipeline](?n=Future.en.txt)
+11. [Licenses](?n=licenses)
+
+
+<!- vim: set tw=72 ft=markdown :->

@@ -1,0 +1,168 @@
+# Calendar View
+
+The classic printed calendar is a landscape-oriented page, wider than
+its height.  Weeks are rows, and days of the week are columns.  The
+traditional ordering of days begins on Sunday and ends on Saturday.
+
+## Why Sunday through Saturday?
+
+Despite the pagan history of those names, this ordering reflects the
+biblical worldview of a 7-day time in which God created the world and
+then rested from His work.  The day that God rested also became the day
+on which the Israelites rested on a weekly basis, their "Sabbath Day."
+That day was viewed as the last day of the week, and corresponds to our
+"Saturday."  Despite the similarity between "Sabbath" and "Satur-", the
+two words are not related.  "Sabbath" is the Hebrew word "rest," and
+"Saturday" is named after the pagan Roman agricultural god, Saturn.
+
+Though we could conceivably reckon the start of our weeks on any day we
+choose, and we could possibly use weeks of any arbitrary number of days,
+Calendar View respects the biblical worldview.  Some people have started
+their weeks on Monday, so that the entire weekend (Saturday and Sunday)
+is reckoned in the same week.  That is possible, but it leads to
+confusion.  Besides that, it also betrays a lack of historical grounding
+in the reasons for ending our weeks on Saturday and beginning them on
+Sunday.
+
+As for ending on Saturday, the reason should be obvious:  all things
+were made in six days, and God rested on the seventh, which He later
+established as the Sabbath Day, and is now called Saturday.  By ending
+our weeks on Saturday, we remind ourselves that the time always comes
+for our work and productivity to end, whether at the end of the week,
+the end of our lives, or the end of the world.  Just as God rested on
+the seventh day, our use of the same day reminds us of these things.
+
+As for beginning the week on Sunday, it follows from identifying
+Saturday with the Sabbath that the first day of Creation was what we
+call "Sunday" (though the sun wasn't created until the fourth day).  The
+first "Sunday" was the beginning of everything.  Then, when the eternal
+Son of God, who is one essence with the Father, became a man and died on
+a Friday, He rested over the Sabbath and rose to life again on a
+"Sunday."  It became the beginning of all things all over again, since
+the resurrection of God's Son is the proof that mankind is redeemed.
+
+Because of all these things, the weeks in Calendar View begin on Sunday
+and end on Saturday, which has been the traditional arrangement for all
+wall and checkbook calendars for some time now.
+
+## Suitable for Printing
+
+FlexiCal's Calendar View provides a web page oriented and sized to print
+on the traditional landscape-oriented calendar page, with one month per
+page.  Printing the calendar view with pleasing results should be easy,
+but that always depends upon the way the user's web browser handles
+the printing of web pages.  See
+[the help page on printing](?n=views/Printing.en.txt) for more information.
+
+## Features
+
+To see the Calendar View, click the tab at the top of the screen by that
+name.  Under the white calendar page, you'll see a block of buttons
+and configuration settings.  Within the white page, you'll see a row
+of minimal controls and labels across the top, and the familiar
+one-month calendar box below it.
+
+### Navigation
+
+To move one month forward or backward in time, click the two arrows
+(![Previous Month](../images/leftArrow.gif)
+![Next Month](../images/rightArrow.gif))
+found the left of the month name and year.  To select a specific month and
+year, use the drop-down menus on the right side, and then click the "GO"
+button.  To immediately see the current month, click the "Show Current"
+box.
+
+### Cell Contents
+
+Most months have at least four extra, blank cells.  Within those extra cells,
+the calendar will generate a mini-month display for the prior and
+following months, and then show a key of the event categories that
+happen to be visible in that month.  (For more about categories, see
+[the categories section](?n=categories).) If the calendar runs out of
+extra boxes, it will just stop inserting the extra things.
+
+If there are too many category names to fit in one extra box, it will
+use more.  An administrator can configure the maximum number of
+categories to list in each box with the configuration setting labeled
+"<{category_key_limit}>".  You can suppress the category key altogether by
+setting "<{show_category_key}>" to false.  Unused blank boxes appear joined
+together with a white background.  For convenience in generating printed
+calendars, these areas can accept text by clicking on them and typing
+directly into them.  The text will appear on the printed calendar, but
+is not saved in any way.
+
+The rest of the cells correspond to the days of the month.  Each has its
+number in the top-right corner, which becomes a link for certain
+logged-in users to create a new event on that date.  The event titles
+will fill the box from top to bottom, with long lines wrapping.  (By the
+way, the reason I've continued to improve this calendar instead of using
+Google Calendar is because it's month view does not wrap long lines.)
+Their formatting can be customized as explained in [the Categories
+section](?n=categories).
+
+You can configure how many events appear by setting "<{title_limit}>" to
+the number of your choice.  If there are more events than that on a
+given day, the extra ones will not appear on the calendar.  You might be
+able to squeeze in more by setting "<{compact_title_limit}>" to a
+reasonable number.  When there are more entries on a given day than
+that, they will all appear in a slightly smaller font.  You can limit
+the length of each event's displayed title by setting
+"<{title_char_limit}>" configuration variable.  Any titles longer than
+that limit will be chopped off, leaving an ellipsis.
+
+In Calendar View, event titles may be displayed together with the
+starting time, or both the starting time and the ending time for the
+event.  To enable the latter, set "<{includeendtimes}>" to true.
+
+All of the configuration variables are available for administrators
+only, and they must be set by editing a configuration file.  It's
+possible that a future version will keep these settings in a database
+table instead, and allow administrators to set them with their web
+browser.
+
+### Seeing Details and Manipulating Events
+
+Users with sufficient privileges can manipulate events in Calendar View
+by clicking on the event title or time.  With a Javascript-enabled web
+browser, a small row of icons will be displayed to allow various
+operations.
+
+* ![Show](../images/show.png) The Show icon displays event details in
+  a new page.  With sufficient privileges, the user can perform other
+  operations from the event details page, such as copying or deleting
+  the event.  All users can see the event title and description, as well
+  as start and end times.  There are links to the next or previous related
+  events, if they exist.
+
+* ![Copy](../images/copy.png) The Copy icon allows the user to copy
+  the event by displaying the copy form in a new page.  For more about
+  copying, see [the copying section](?n=copying).
+
+* ![Edit](../images/edit.png) The Edit icon allows the user to edit
+  that particular event.  For more about editing events, see [the basic
+  usage section](?n=basic).
+
+* ![Delete](../images/trash.png) The Delete icon allows the user to
+  delete that event.  Javascript must be enabled to do this, so that
+  FlexiCal can use a confirmation dialog to make sure you haven't
+  clicked the delete icon by accident.
+
+Events that are related to other events will have two other icons, but
+for information on using them, please see [the related events
+page](<?n=basic/Related Events.en.txt>).
+
+For information on using the block of buttons below the calendar, please
+see [the footprint buttons page](<?n=basic/Footprint Buttons.en.txt>).
+
+## Narrowing the Events Shown by Category and Filter
+
+There are three ways to control the scope of events that are displayed
+in Calendar View.  One is by selecting the month you want displayed.
+You can also select particular categories to be displayed and suppress
+the others.  This is done with the "Configure Categories" button in the
+button block.  For more information, see [the categories
+section](?n=categories).  Another powerful way to specify which events
+to display is to set a filter, which is explained in [the filtering
+section](?n=filtering).
+
+<!- vim: set tw=72 ft=markdown :->

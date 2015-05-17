@@ -1,0 +1,14 @@
+/**** Custom attributes for event titles by category and other elements
+ *
+ * *** For Category Names: ***
+ * - [A-Za-z0-9] allowed
+ * - Other characters at beginning dropped.
+ * - Strings of other characters inside translated to "-")
+ * - e.g. "span.Category-name A { color: blue; }"
+ *
+ * ****/
+
+.calendarweek#heading  { background-color: #b82619;
+                         color: #ddd;
+                         text-shadow: 0.1em 0.1em 2px #000;}
+.day-cell       { border-color: #444; }

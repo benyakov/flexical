@@ -1,0 +1,92 @@
+# Range Summary View
+
+A range summary is what we call the traditional layout often used to
+show major events in a school year. Events are grouped under month
+headings in the center of the page, while mini-month calendars along the
+sides show which days are affected. In this version, there's also a
+tally of days in each category.
+
+## Month Range
+
+This view doesn't span from date to date, but from month to month.  When
+first loaded, the configuration interface for this is hidden, and
+defaults to only the current month. Clicking the plus (+) link expands
+the interface so that the months may be specified. The format is yyyy-mm
+for the beginning and ending months. When the user clicks "set range,"
+these parameters are saved to the current PHP session. (Not the
+long-term, [configurable](?n=admin/Configuration.en.txt) extended
+auth session.)
+
+## <{show day tally}> Checkbox
+
+The <{show day tally}> checkbox controls whether the tally of events in
+each category will be shown. This setting is also saved to the PHP
+session, like the month parameters.
+
+## Linking to the Page
+
+It may not be desirable to show all categories in this view, if
+there are too many events, or categories that are less useful. The user
+may select the categories to display in the usual way, limiting the
+number of categories shown.
+
+As a convenience, Flexical generates a special link under the text
+<{direct link}> that will automatically configure the selected
+categories as well as the month and <{show day tally}> parameters. It's
+not immediately useful to someone already viewing this page, but the
+link may be copied and used elsewhere, so that the page in its current
+configuration may be instantly loaded, without the hassle of
+reconfiguring it.
+
+## Printing
+
+This layout uses Javascript to set up a double-column format, with
+balanced columns. As a result, some web browsers may not be able to
+print this page exactly as seen on screen. To help with this, the
+<{print}> link uses Javascript that may bypass the usual printing
+mechanism, allowing the format to preserved in the printed copy.
+
+The page is designed to look best when printed in portrait orientation.
+The extra space to the left of the right column of calendars should
+disappear on paper, in this orientation.
+
+## Special Tally Configuration
+
+Besides showing the number of events in a category, the
+<{show day tally}> configuration allows for more configurable counting of
+days within a time span. This is accomplished by including special
+commands in the event description of an event that starts a range of
+days and another event that ends the range. The commands must appear at
+the beginning of a line, and be followed by a double-quoted label used
+in the tally listing. Here is an example:
+
+    StartCount "Student Contact Days"
+
+...and in a later event:
+
+    EndCount "Student Contact Days"
+
+Certain days in the range may be excluded from the count by putting an
+event on those days in one of the calendar's event categories. All
+events in that category may be excluded by putting an additional command
+in the same event description that contains `StartCount`:
+
+    StartCount "Student Contact Days"
+    ExcludeCount "In-Service"
+    ExcludeCount "Holidays"
+
+In addition, special names are available to be excluded, which will
+exclude every instance of the days indicated. The following is just for
+illustration, since it would exclude every day:
+
+    StartCount "Student Contact Days"
+    ExcludeCount "Sundays"
+    ExcludeCount "Mondays"
+    ExcludeCount "Tuesdays"
+    ExcludeCount "Wednesdays"
+    ExcludeCount "Thursdays"
+    ExcludeCount "Fridays"
+    ExcludeCount "Saturdays"
+    ExcludeCount "Weekends"
+    ExcludeCount "Weekdays"
+

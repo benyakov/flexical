@@ -1,0 +1,19 @@
+# Event View
+
+Event View shows a selected event, along with other events that happen to
+fall on the same day.  It will remember the selected event during the
+session, but if no event has been specified in the session, it will show
+a message asking you to select an event first.
+
+Events related to others show a set of navigation links to jump
+directly to the next or previous related event (as long as it exists).
+
+When the user has sufficient permissions, there will be a set of links
+to copy, edit, or delete the event.  The text of the event is displayed
+under the title and date, with Markdown formatting displayed.
+
+The user name of the last user to edit the event also shows up under the
+event text, as well as the event's category.
+
+
+<!- vim: set tw=72 ft=markdown :->

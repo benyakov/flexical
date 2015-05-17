@@ -1,0 +1,135 @@
+# Categories
+
+Events in FlexiCal can be assigned to categories with custom names.
+These categories then allow for customized formatting of event titles by
+category, and selection of events to be displayed by category.
+
+## Creating New Categories
+
+Category creation is accomplished in the event form described in [the
+page on creating events](<?n=basic/Creating, Editing and Copying Events.en.txt>).
+Toward the bottom of that form there is a drop-down menu for selecting a
+category for the event being edited.  Within that menu is the selection
+"<{new-category}>".  To create a new category, use that selection and
+then type the new category name in the blank space to the right.  If you
+leave out a name by accident, the new category name will be set to
+"<{unspecified}>".
+
+Note that events in new categories are not automatically displayed on the
+calendar.  To configure the calendar to display the new category, read
+the next section.
+
+## Selecting Categories for Display
+
+In the button block below the calendar, there is a button labeled
+<{configure}> next to the label *<{categories}>* and a number.  The number
+reflects how many categories are currently displayed on the calendar.
+You can customize which categories are displayed by clicking the
+<{configure}> button to reach Category Selection form, then selecting
+the checkboxes for the categories you want to display, or deselecting
+the ones for the categories you want to suppress.  This is possible for
+all users, and the categories selected for display are remembered as
+long as the session lasts.
+
+## Category Administration
+
+With sufficient privileges, user will see a button in the blocks of
+button links below the calendar that says <{modcategories}>.  This leads
+to a page containing a form in which you can make lots of customized
+changes to the categories present in the calendar.
+
+### Formatting Event Titles and Event Key Entries
+
+In Calendar View, event titles can be easily distinguished by category
+with the help of custom formatting.  In the Modify Categories form
+mentioned above, there is a text field entitled <{style}>, where you can
+customize the text style for each category.  This affects not only the
+event titles in Calendar View, but also the style of category names in
+the Category Key and in the Event List View.  The styles are simple
+property value declarations as found in Cascading Style Sheets.
+
+Here are some basic pointers.  A property name should be followed by a
+colon (:) and an optional space.  After that, write the value you wish
+to assign that property, followed by a semicolon (;).  For example, you
+can set the text color to red using the property "color" and the value
+"red" like this: `color: red;`.  Another property setting may follow the
+semicolon, like this: `color: red; background-color: transparent;`.
+
+There is plentiful reference information online for properties in
+Cascading Style Sheets.  For example see the information found [on the
+Colors page of CSS documentation][w3colors].  You can adjust fonts using
+properties [from the Fonts page][w3fonts].  Some of the properties [on
+the Text page][w3text] may also be useful.
+
+[w3colors]:  http://www.w3.org/TR/CSS2/colors.html
+[w3fonts]: http://www.w3.org/TR/CSS2/fonts.html
+[w3text]: http://www.w3.org/TR/CSS2/text.html
+
+While many different property settings may produce an effect, they will
+not all be equally useful.  You will quickly see the effects of your
+changes by experimentation.  For your convenience, there is a button on
+the Modify Categories form that will show you those effects on the form
+itself, without actually leaving the form.  The button is labeled
+<{savebutton}>.
+
+### Renaming Categories
+
+Another text field on the Modify Categories form has the heading
+<{newname}>.  Any text typed into that field for any of the categories
+will become the new name for that category when the form is saved.
+
+### Deleting Categories
+
+Categories may be deleted by checking the checkbox in the <{deletestr}>
+column of the Modify Categories form.  However, be warned that this will
+also delete all events in that category too.  Because of the potential
+loss of data, any category deletions must be confirmed by using the
+checkbox at the very bottom of the form *in addition* to the delete
+checkboxes for each category to be deleted.
+
+If you wish to delete categories without deleting all the associated
+events, then you will have to use the event filtering feature to change
+the categories of the events you wish to save *before* you delete the
+categories in question.  Here are the steps to use:
+
+1. Go to Event List View, on a date at or before the first event you want to
+  save, and with a span reaching at least to the latest event you wish
+  to save.  (See the documentation on
+  [Event List View](<?n=views/Event List View.en.txt>) for more information.)
+
+2. Using the Category Selection form (described above), choose to display
+  *only* the category you wish to delete.
+
+3. Click the <{filter}> button in the button block below the calendar,
+  To configure the filter, put `.*` in the title, and click
+  "<{filtersubmitstr}>".  (For more information, see [the section on
+  Filtering events](?n=filtering).  At this point, you should see only
+  the events you wish to save.
+
+4. At the top of the event listing, there will be a series of button
+  links.  Click the one labeled <{category}>, and either choose an
+  existing category in which to save the events, or create a new
+  category name the same way you would in the Event Form, as described
+  above.
+
+Once the events have been changed to a different category, you can go
+ahead and delete the original category, with all of its remaining
+events.
+
+### Hiding Categories
+
+You can make certain categories of events hidden from view for anonymous
+users, who are not logged in.  In the Modify Categories form, simply
+check the checkbox in the <{hide}> column for the categories you wish to
+hide, and submit or save the form.
+
+### Suppressing Category Listing in the Category Key
+
+Sometimes you might want to suppress the listing of a category in the
+category key in Calendar View.  The events will still appear in the
+calendar, but there will be no entry in the Category Key to associate
+their formatting with the event titles.  To suppress the listing, click
+the checkbox in the <{suppress key listing}> column for the categories
+you wish to suppress.
+
+<!- vim: set tw=72 ft=markdown :->

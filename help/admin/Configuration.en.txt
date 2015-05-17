@@ -1,0 +1,171 @@
+
+# Configuration
+
+A super-user, like the first one created when the calendar is first
+installed, will see a block of button links below the calendar containing the
+button *<{configure}>*.  Clicking that button will show the
+configuration screen, where the current configuration can be adjusted
+and a new group of settings saved.
+
+## Configuration Options
+
+*<{language}>*
+: A 2-letter code that configures Flexical to use the
+   correct translation for its interface.
+
+*<{site_title}>*
+: An overall name for this installation.
+
+*<{sitetabs}>*
+: Which site tabs will appear in the interface, in the
+   order they should appear from left to right. Each site tab is
+   template module under /templates.
+
+*<{default_action}>*
+: What will be loaded when no tab/template has been chosen.
+
+*<{title_limit}>*
+: In a normal font-size, how many events may be listed
+   on the 1-month calendar template. Surplus events will be omitted.
+
+*<{compact_title_limit}>*
+: The same as above, when the font size has
+   been adjusted for a compact calendar.
+
+*<{title_char_limit}>*
+:  The longest possible tite displayed in the
+   1-month calendar template. Surplus characters will be omitted, with
+   an ellipsis.
+
+*<{category_key_limit}>*
+: The number of categories permitted in a
+   single calendar cell for the category key in the 1-month template.
+
+*<{show_category_key}>*
+: Whether to show or hide the category key in
+   the 1-month template.
+
+*<{include_end_times}>*
+: Should event end times be shown in the 1-month view?
+
+*<{default_time}>*
+: When it has not been set by the user, which time
+    format should be displayed for events in all views?
+
+*<{default_open_time}>*
+: In the list-view template, should open time
+    between events be displayed by default?
+
+*<{cross_links}>*
+: A JSON-formatted associative array showing the link
+    text (array key) and link destination (array value) for a series of
+    links to display across the very top of the calendar screen. This
+    allows for better integration with a larger web site.
+
+*<{email_from_address}>*
+: When a user requests a password reset, this
+    address will be used in the "from" field of the email.
+
+*<{google_user}>*
+: The Google username to use when exporting events
+    into that person's default Google calendar.
+
+*<{google_password}>*
+: The password for the above Google username.
+
+*<{default_timezone}>*
+: New events will be given this timezone by
+    default.
+
+*<{local_php_library}>*
+: Where Flexical should look for a PHP library
+    providing the ability to export to a Google calendar.
+
+*<{authcookie_max_age}>*
+: To extend the normal PHP session, an
+    additional authorization cookie may be saved in the user's browser,
+    so that when the PHP session has expired, the user may still be
+    recognized by Flexical. This sets the number of days that the
+    authorization cookie will last.
+
+*<{authcookie_path}>*
+: Flexical also stores authorization cookie data
+    on the server. This setting determines where that will be stored.
+    When a site has multiple Flexical installations, they can share a
+    location for this, so that all user sessions may be extended at the
+    same time. This is a limited implementation of single sign-on.
+
+## Configuration History
+
+FlexiCal is designed to save the old settings, associated with the date
+on which they were last made effective.  If you make a mistake with the
+settings, and would like to revert to an old set, then use the link
+under the heading of the configuration screen, where it says
+"<{configuration history}>".
+
+That link will show a self-documented page listing all of the saved
+calendar configurations.  To revert to an old configuration, click on
+the date above it.  The current (left-most) configuration will be saved,
+while the chosen older configuration moved to its left and given a new
+time and date stamp.
+
+If you would like *permanently* to remove some of the saved
+configurations, click on the checkbox near the time and date stamp, and
+then click the  *<{delete}>* button in the top-left corner of the table.
+If the currently active configuration is deleted, then the next most
+recent configuration will become active.  If all configurations are
+deleted, then a new one will have to be created immediately.
+
+## Recovering from Hosed Calendar Installation
+
+A handful of things can go wrong with your calendar installation.  Here
+are some tips for repairing or recovering your calendar.  I'll write
+the tips in increasing order of severity.  If the first doesn't work,
+then you can try the second, and so forth.
+
+### Corrupted or Broken Database Tables
+
+1. Restore from backup.  You have backups, right?
+
+2. Remove and reinstall the database tables by loading the special
+   script mentioned in the
+   [Installation document](?n=Installation.en.php).
+
+### There are no configurations, but you can't create one, because you're not logged in.
+
+1. Log in.  From the root of the installation, load `login.php`
+   directly.  That just might work.
+
+2. In some cases, there might be no users defined yet.  So define some
+   by going to `index.php?initialize=Flexical` from the root of the
+   installation.
+
+### You have configured the calendar but somehow deleted `db.php`
+
+That file contains the database connection information for the calendar,
+so losing it means that the calendar can't connect to the databases.
+Your data should still be safe in its database tables, so just load the
+calendar into your web browser as normal.  It will detect what needs to
+be done and ask you for the information it needs.  You *did* save your
+database connection information somewhere, right?  If not, you can
+probably get it from your web host.
+
+### Failure in restoring a backup to a newer calendar version
+
+Follow these steps:
+
+1. Install an older calendar version.
+
+2. Restore the backup.  If it doesn't work, try a version older still.
+
+3. Upgrade the calendar installation by copying the contents of a new
+   archive right over the top of the existing installation, replacing
+   files where necessary.
+
+4. Upgrade as described in
+   [Backups and Upgrades](<?n=admin/Backups and Upgrades.en.txt>).
+
+5. Check your data and installation.
+
+
+<!- vim: set tw=72 ft=markdown :->

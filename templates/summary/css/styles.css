@@ -1,0 +1,79 @@
+div#page {
+    overflow: auto;
+    width: 100%;
+}
+div.leftcolumn {
+    float: left;
+    padding: 0 1em 0 0.2in;
+    font-size: 75%;
+    text-align: center;
+}
+div.rightcolumn {
+    float: right;
+    padding: 0 0.2in 0 1em;
+    font-size: 75%;
+    text-align: center;
+}
+td.minicalday {
+    text-align: center;
+}
+div.eventlist {
+    width: 4in;
+    font-size: 75%;
+    float: left;
+}
+div.eventlist > div.column > * {
+    padding: 0 .5em;
+}
+div.eventlist dd {
+    margin-left: 1em;
+    display: inline;
+}
+div.eventlist dd :after {
+    display: block;
+    content: '';
+    margin: 0;
+    padding: 0;
+}
+div.eventlist dt {
+    display: inline-block;
+}
+div.eventlist dt:first-of-type {
+    margin-left: .25em;
+}
+div.eventlist h3 {
+    margin: 1.25ex 0 .5ex 0;
+}
+div.eventlist dl {
+    margin: 0px 0px;
+}
+div.clear {
+    clear: both;
+}
+td.specialday {
+    border: thin solid #777;
+    padding: 0;
+}
+h3.monthname { text-align: left; }
+dl.monthlist dt {
+    font-weight: bold; margin-top: 0.8em;
+}
+dl.monthlist dd {
+}
+div.daycount {
+    padding: .5ex;
+    font-size: 60%;
+    width: 1.5in;
+    margin: 1ex auto 0;
+}
+table.daycount th {
+    text-align: right;
+    padding-right: 1em;
+    margin: .5em 1em;
+}
+
+@media print {
+    div#controls {
+        display: none;
+    }
+}

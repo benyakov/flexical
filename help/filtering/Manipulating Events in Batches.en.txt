@@ -1,0 +1,54 @@
+# Manipulating Events in Batches
+
+Once a filter has been set (see
+[Finding Events](<?n=filtering/Finding Events.en.txt>)), and if the
+currently logged-in user has sufficient permissions,
+[Event List View](<?n=views/Event List View.en.txt>) will show a series
+of buttons across the top that perform batch operations on all of the
+events displayed with the filter in place, and under the current category
+and date settings.
+
+* The first button, *<{deletestr}>*, will delete *all* of the events found
+by the filter.  It will not delete their categories, even if the
+categories end up with no events, but *it will delete all the events.*
+Use it wisely.  When you click the button, a Javascript dialog will ask
+for you to confirm the action.  If you confirm it, your filtered events
+will disappear.  If nothing happens when you click the <{deletestr}>
+button link, then you probably don't have Javascript enabled in your
+browser.
+
+* The *<{relatestr}>* button will force all of the filtered events to become
+[related](<?n=basic/Related Events.en.txt>) to each other.  If any of
+them were previously related to another set of events, that relation
+will be replaced with this one.  Again, a Javascript dialog will confirm
+the action, but if you proceed, there is no easy way to undo this
+operation.
+
+The remaining buttons allow you to set information for the entire
+collection of filtered events that would otherwise have to be set
+individually using the
+[Event Form](<?n=basic/Creating, Editing and Copying Events.en.txt>).
+
+* The *<{title}>* button will show a form that can set the title of all the
+filtered events to whatever you would like.  Note that if the current
+filter uses the title, and you change all of the titles so that they no
+longer match the filter, all of the filtered events will seem to
+disappear.  Just click the <{unfilter}> button below the calendar to see
+everything again, or the <{filter}> button to reconfigure the filter.
+
+* The *<{text}>* button does the same thing for the description text fields
+of all the filtered events as the <{title}> button does for the title.
+The same caveat applies, if the current filter is based upon the
+description.
+
+* The *<{time}>* button allows you to set the start *and* end times for all
+of the filtered events.  You can use 12- or 24-hour time.
+
+* The *<{category}>* button allows you to set the category for all of the
+filtered events, or to put them into a new category that you can
+specify, just like on the
+[Event Form](<?n=basic/Creating, Editing and Copying Events.en.txt>).
+
+
+
+<!- vim: set tw=72 ft=markdown :->

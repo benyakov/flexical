@@ -1,0 +1,82 @@
+# FlexiCal Installation
+
+To install FlexiCal yourself, you need filesystem access (though not
+necessarily shell access) on a web server that provides the familiar
+LAMP stack of software or an equivalent.  (LAMP stands for Linux,
+Apache, MySQL, and PHP.)  PHP 5 is preferred, and may be necessary at
+this point.  MySQL is also a requirement.  Though I don't prefer writing
+PHP, I have continued to develop FlexiCal with it because it's available
+from practically every web hosting company, while Python (my language of
+choice) is not.
+
+For PHP programmers who happen to look through my code, I have something
+to confess.  My own PHP style is probably not normal, and certainly not
+executed as consistently as I'd like.  This was the first PHP project I
+worked on, and have been learning the language from the start.  I've
+only begun to use PHP's OOP mechanisms here.  If you don't like the
+code, please forgive me.
+
+To install FlexiCal:
+
+1. Choose a location in your web site's filesystem structure that makes
+    sense.  For example, a folder named "calendar" in your web site's root.
+
+2. Unpack the FlexiCal distribution archive with a command like `unzip
+   FlexiCal-2.0.zip` or `tar xzf FlexiCal-2.0.tar.gz`, or with your
+   favorite graphical archive-handling application.
+
+3. Move the contents of the resulting "calendar" subdirectory to the
+   location where you want your web calendar to live.  You might use
+   FTP, WebDAV, scp, or another appropriate means to move these files
+   your web host.
+
+4. You should have obtained certain information needed for connecting to
+   your MySQL database.  That includes a user name, a password, a
+   host name (the name of the computer where the database is located),
+   and the name of the MySQL database you want to use.  Keep that
+   information in a safe place, and point your web browser to the
+   installation location of your calendar.  It will set itself up,
+   asking you to give it the necessary information at the appropriate
+   time.
+
+Enjoy!
+
+## If something goes wrong
+
+You can wipe away the entire calendar by loading the file at
+`utility/installagain.php`.  (Name obfuscated to avoid malicious use.
+Check the folder for the actual name.) I can't warn you enough about
+this.  It will delete all your data.  That's what it does, on purpose.
+You may want to back up first, but that's your call.  Once everything's
+gone forever, the calendar will revert to the installation procedure.
+
+Since this tool may be needed before users are set up, it does not
+thoroughly check for authorization.  Anyone can load it, if they know
+the URL.  If you wish, you can rename or delete the file for security
+purposes.  I'd suggest using a name that no malicious intent would guess.
+
+## Setting up Google Calendar Export
+
+Google Calendar support is optional.  If you don't want to use it, just
+leave those configuration options blank.  To set up export to Google
+Calendar, you will need an account on Google Calendar to which the
+events will be exported.  Set up your Google credentials on the
+configuration screen.
+
+Then, you will probably have to obtain the [Zend Framework Gdata
+library][gdata], and save the extracted archive to a place on your web
+server.  (At the time of this writing, it requires PHP 5.2.4 or later.)
+Any place will do; the library need not be accessible through a web
+browser.  Then, put the path of that location in the appropriate space
+on the configuration screen.
+
+It's possible that your hosting provider already has the Zend Framework
+installed.  You can try exporting with only your Google credentials set
+to see if it works.  For information on exporting events to Google
+Calendar, see the help document
+[Google Calendar](<?n=Google Calendar.en.txt>).
+
+[gdata]: http://framework.zend.com/download/gdata
+
+
+<!- vim: set tw=72 ft=markdown :->
