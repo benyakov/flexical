@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteRule "(^|/)\." - [F]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !=/favicon.ico
+# The following may need to be rewritten to reflect the install directory
+# in relation to the one being served
+RewriteRule ^ api.php [NC,NS,L]

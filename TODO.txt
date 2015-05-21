@@ -1,0 +1,14 @@
+Backend calls needed:
+    auth() - return user level, authtype (use for login)
+    crosslinks() - return crosslinks
+    sitetabs() - return available tabs as a JSON list
+    loginpanel() - a bare login panel
+    resetpw() - a forgotten password form
+    usersetup() - A blank form for subscribers, etc.
+
+Add composer install and setup to init code
+Add a setup for the web path .htaccess
+
+Convert $lang setup to source configfiles, including in template dirs
+Convert html to html5
+Convert dialogs, login, and messages to use jquery.
