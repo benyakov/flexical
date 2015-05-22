@@ -121,18 +121,17 @@ if (! is_numeric($year)) {
 }
 
 // Set up categories for display
-$q = $dbh->query("SELECT `name` FROM `{$tablepre}categories`
-    ORDER BY `name`");
+if (! isset($_SESSION[$sprefix]['allcategories'])) {
+    $q = $dbh->query("SELECT `name` FROM `{$tablepre}categories`
+        ORDER BY `name`");
+    while ($row = $q->fetch()) $_SESSION[$sprefix]['allcategories'][] = $row[0];
+}
 if (getGET('categories')) {
     $newcategories = explode(",", $_GET['categories']);
-    $categorynames = array();
-    while ($row = $q->fetch()) $categorynames[] = $row[0];
-    $_SESSION[$sprefix]['categories'] = array_intersect($newcategories, $categorynames);
+    $_SESSION[$sprefix]['categories'] = array_intersect(
+        $_SESSION[$sprefix]['allcategories'], $categorynames);
 } elseif (! array_key_exists('categories', $_SESSION[$sprefix])) {
-    $_SESSION[$sprefix]['categories'] = array();
-    while ($row = $q->fetch()) {
-        array_push($_SESSION[$sprefix]['categories'], $row[0]);
-    }
+    $_SESSION[$sprefix]['categories'] = $_SESSION[$sprefix]['allcategories'];
 }
 
 /******** set up the site tabs ****************/

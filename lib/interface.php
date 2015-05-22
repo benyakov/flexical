@@ -305,7 +305,8 @@ function footprint($auth) {
     <ul class="hbuttons footprint">
     <li><a href="help/?n=Contents.<?=$configuration['language']?>.txt"><?=__('help')?></a> <?=__('manual')?></li>
     <li><a href="categorychooser.php"><?=__('Choose')?></a>
-       <?=__('categories').": ".count($_SESSION[$sprefix]['categories'])?>
+       <?=__('categories').": ".count($_SESSION[$sprefix]['categories']).'/'.
+       count($_SESSION[$sprefix]['allcategories'])?>
     </li>
     <li><a class="half" href="filter.php"><?=__('filter')?></a><?php
     if (array_key_exists('filters', $_SESSION[$sprefix]) && $_SESSION[$sprefix]['filters']) {

@@ -215,6 +215,7 @@ function submitEventData ($id="") {
     $q->execute() or die(array_pop($q->errorInfo()));
     $dbh->commit();
     $rowcount = $q->rowCount();
+    unset $_SESSION[$sprefix]['allcategories'];
     return $_POST['title'] . " {$result} ({$rowcount})";
 }
 
