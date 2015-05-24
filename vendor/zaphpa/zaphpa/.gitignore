@@ -1,7 +1,0 @@
-.project
-.idea
-nbproject
-.settings
-vendor
-composer.phar
-composer.lock

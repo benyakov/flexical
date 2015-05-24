@@ -1,5 +1,11 @@
 {
     "require" : {
-        "zaphpa/zaphpa": "^2.0.0"
+        "zaphpa/zaphpa": "^2.0.0",
+        "components/angular.js": "^1.2.0",
+        "components/angular-route": "^1.2.0",
+        "components/bootstrap": "3.3.*",
+        "components/bootstrap-default": "3.2.*",
+        "twig/twig": "1.18.*",
+        "leafo/scssphp": "^0.1.1"
     }
 }
