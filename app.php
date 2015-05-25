@@ -14,35 +14,36 @@ require("./init.php");
     <script src="components/angular/angular-route.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/mainElements.js"></script>
 </head>
-<body>
+<body ng-controller="flexicalController as calendar">
 
     <nav class="navbar-static-top navbar-inverse">
         <div class="container-fluid">
-            <div class="col-xs-12 col-md-6 cross-links">
-                {{flexicalApp.cross-links}}
+            <div class="col-xs-12 col-md-6 cross-links" ng->
+                <cross-links></cross-links>
             </div>
             <div class="col-xs-12 col-md-6 login-panel">
-                {{flexicalApp.login-panel}}<br>
-                {{flexicalApp.user-links}}
+                <login-panel user=""></login-panel><br>
+                <user-links></user-links>
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="actionController as action">
         <div class="row">
         <ul class="nav nav-pills siteactions col-xs-12"> <!-- Used to be sitetabs -->
             <!-- <li role="presentation" class="active"><a href=...>txt</a></li>-->
-            {{flexicalApp.siteActions}}
+            <site-actions current="{{action.current}}"></site-actions>
         </ul>
         </div>
         <div class="row">
         <div class="col-xs-12 content-container">
-            {{flexicalApp.siteContent}}
+            <site-content current="{{action.current}}"></site-content>
         </div>
         </div>
         <div class="row">
-        <div class="center-block">
-            {{flexicalApp.generalControls}}
+        <div class="center-block" userlevel="{{calendar.userlevel}}">
+            <controls></controls>
         <div>
         </div>
         <div

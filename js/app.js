@@ -1,6 +1,8 @@
-(function() { var flexicalApp = angular.module('flexicalApp', [
+(function() { 
+    var flexicalApp = angular.module('flexicalApp', [
         'ngRoute',
-        'flexicalControllers'
+        'mainElements',
+        'mainControllers'
         ]);
 
     // Routing based on the hash fragment (after #)
