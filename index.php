@@ -90,7 +90,9 @@ $id = (getGET('id'))? intval(getGET('id')) :
     getIndexOr($_SESSION[$sprefix], 'id', -1);
 $length = getGET('length')? intval(getGET('length')) : $_SESSION[$sprefix]['length'];
 $unit = getGET('unit')? getGET('unit') : $_SESSION[$sprefix]['unit'];
-$action = getGET('action')? getGET('action') : $configuration['default_action'];
+$action = getGET('action')? getGET('action') :
+        getIndexOr($_SESSION[$sprefix], 'action',
+            $configuration['default_action']);
 $toggle = getGET('toggle');
 $current = getGET('current', false);
 if (getGET('listsubmit') && ! array_key_exists('opentime', $_GET)) {
