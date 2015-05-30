@@ -20,9 +20,9 @@ div#shortcuturl,
 #print          { display: none; }
 
 div.evenrow,
-div.oddrow  { background-color: #fff; 
+div.oddrow  { background-color: #fff;
                 padding: 0;}
-.calendarbox-container { 
+.calendarbox-container {
     box-shadow: 0px 0px 0px #000;
     margin: 0 auto 0 auto; }
 table.monthheading { border: none; width: 100%; }
