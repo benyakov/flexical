@@ -256,6 +256,7 @@ $lang['tabtext-calendar'] = "Calendar Month";
 $lang['tabtext-eventlist'] = "Event List";
 $lang['tabtext-eventdisplay'] = "Event";
 $lang['tabtext-summary'] = "Range Summary";
+$lang['tabtext-customstyles'] = "Custom Stylesheet Editor";
 $lang['catkeytitle'] = "Category Key";
 $lang['filternotice'] = "The events here are filtered.  Click here to remove the filter.";
 
