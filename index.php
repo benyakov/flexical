@@ -131,7 +131,7 @@ if (! isset($_SESSION[$sprefix]['allcategories'])) {
 if (getGET('categories')) {
     $newcategories = explode(",", $_GET['categories']);
     $_SESSION[$sprefix]['categories'] = array_intersect(
-        $_SESSION[$sprefix]['allcategories'], $categorynames);
+        $_SESSION[$sprefix]['allcategories'], $newcategories);
 } elseif (! array_key_exists('categories', $_SESSION[$sprefix])) {
     $_SESSION[$sprefix]['categories'] = $_SESSION[$sprefix]['allcategories'];
 }
