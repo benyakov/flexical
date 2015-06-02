@@ -369,6 +369,6 @@ $lang['Reminder exists'] = "You already have a reminder set up for that.";
 $lang['Remind Header'] = "Reminder Setup";
 
 // SiteTabs
-$lang['Unknown Template: '] = "Unknown Template: ";
+$lang['unknown template:'] = "Unknown Template: ";
 
 // vim: set tags+=../../**/tags :

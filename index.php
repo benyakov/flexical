@@ -219,7 +219,8 @@ if (in_array($action, $templates)) {
     }
     require("./templates/{$action}.php");
 } else {
-    echo "Error: Unknown action.";
+    echo __("unknown template:").htmlspecialchars($action);
+    unset($_SESSION[$sprefix]['action']);
 }
 
 function recordMinorErrors($errno, $errstr, $errfile, $errline)
