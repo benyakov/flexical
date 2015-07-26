@@ -256,6 +256,7 @@ $lang['tabtext-calendar'] = "Calendar Month";
 $lang['tabtext-eventlist'] = "Event List";
 $lang['tabtext-eventdisplay'] = "Event";
 $lang['tabtext-summary'] = "Range Summary";
+$lang['tabtext-customstyles'] = "Custom Stylesheet Editor";
 $lang['catkeytitle'] = "Category Key";
 $lang['filternotice'] = "The events here are filtered.  Click here to remove the filter.";
 
@@ -368,6 +369,6 @@ $lang['Reminder exists'] = "You already have a reminder set up for that.";
 $lang['Remind Header'] = "Reminder Setup";
 
 // SiteTabs
-$lang['Unknown Template: '] = "Unknown Template: ";
+$lang['unknown template:'] = "Unknown Template: ";
 
 // vim: set tags+=../../**/tags :

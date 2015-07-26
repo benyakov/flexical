@@ -19,6 +19,7 @@
     </script>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/categorystyles.css">
+    <link rel="stylesheet" type="text/css" media="print" href="css/print.css">
     <style type="text/css" media="print">
         <!--
         @page { size: landscape; }

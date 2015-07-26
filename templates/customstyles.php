@@ -19,6 +19,7 @@ if (getPOST('stylesheet')) {
 <head>
     <title><?=$configuration['site_title']?></title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport"></meta>
     <?php
     jqueryCDN();
     ?>
@@ -26,8 +27,10 @@ if (getPOST('stylesheet')) {
     <link rel="stylesheet" type="text/css" href="templates/customstyles/css/styles.css">
 </head>
 <body>
+
+<?php echo topMatter($action, $sitetabs); ?>
+
 <div id="page">
-    <a href="<?=$installroot?>" class="returnlink"><?=__("return")?></a>
     <h1><?=__("custom stylesheet editor")?></h1>
     <form method="post" action="<?=$installroot?>/?action=customstyles">
     <div id="stylesheet">

@@ -43,7 +43,7 @@ class CalendarEvent extends CalendarItem
         $out = array();
         if ($compactfmt) $compact_text = " compact";
         else $compact_text = "";
-        $out[] = "<p class=\"title-txt{$compactfmt}\"><span class=\"".
+        $out[] = "<p class=\"title-txt{$compact_text}\"><span class=\"".
             $this->categoryClass()."\">";
         if ($auth > 1) {
             $onclick = "class=\"menuanchor\" data-event-id=\"{$this->id}\" "

@@ -90,7 +90,9 @@ $id = (getGET('id'))? intval(getGET('id')) :
     getIndexOr($_SESSION[$sprefix], 'id', -1);
 $length = getGET('length')? intval(getGET('length')) : $_SESSION[$sprefix]['length'];
 $unit = getGET('unit')? getGET('unit') : $_SESSION[$sprefix]['unit'];
-$action = getGET('action')? getGET('action') : $configuration['default_action'];
+$action = getGET('action')? getGET('action') :
+        getIndexOr($_SESSION[$sprefix], 'action',
+            $configuration['default_action']);
 $toggle = getGET('toggle');
 $current = getGET('current', false);
 if (getGET('listsubmit') && ! array_key_exists('opentime', $_GET)) {
@@ -129,7 +131,7 @@ if (! isset($_SESSION[$sprefix]['allcategories'])) {
 if (getGET('categories')) {
     $newcategories = explode(",", $_GET['categories']);
     $_SESSION[$sprefix]['categories'] = array_intersect(
-        $_SESSION[$sprefix]['allcategories'], $categorynames);
+        $_SESSION[$sprefix]['allcategories'], $newcategories);
 } elseif (! array_key_exists('categories', $_SESSION[$sprefix])) {
     $_SESSION[$sprefix]['categories'] = $_SESSION[$sprefix]['allcategories'];
 }
@@ -217,7 +219,8 @@ if (in_array($action, $templates)) {
     }
     require("./templates/{$action}.php");
 } else {
-    echo "Error: Unknown action.";
+    echo __("unknown template:").htmlspecialchars($action);
+    unset($_SESSION[$sprefix]['action']);
 }
 
 function recordMinorErrors($errno, $errstr, $errfile, $errline)

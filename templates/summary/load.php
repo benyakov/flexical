@@ -30,7 +30,7 @@ class SummaryEvent
  */
 function leftCalendars($start, $end, $eventdays) {
     // Normalize to the first of the month
-    $monthcount = floor(time_monthDiff($start, $end)/2);
+    $monthcount = ceil(time_monthDiff($start, $end)/2);
     if (0 == $monthcount) $monthcount = 1;
     for ($inc=0; $inc<$monthcount; $inc++) {
         $thismonth = time_add($start, 0, 0, 0, 0, $inc, 0);
@@ -46,8 +46,8 @@ function leftCalendars($start, $end, $eventdays) {
  */
 function rightCalendars($start, $end, $eventdays) {
     // Normalize to the first of the month
-    $startmonth = floor(time_monthDiff($start, $end)/2);
-    $monthcount = time_monthDiff($start, $end);
+    $startmonth = ceil(time_monthDiff($start, $end)/2);
+    $monthcount = time_monthDiff($start, $end)+1;
     $monthmax = time_getMonth($end);
     for ($inc = $startmonth; $inc<$monthcount; $inc++) {
         $thismonth = time_add($start, 0, 0, 0, 0, $inc, 0);

@@ -7,6 +7,7 @@ if ('next' == $_GET['week']) {
     $m = time_getMonth($date);
     $y = time_getYear($date);
 }
+unset($_SESSION[$sprefix]['action']);
 ?>
 <table <?php if ($_GET['classes']) echo "class='{$_GET["classes"]}'";?>>
 <?= writeHTML_thisweek($d, $m, $y) ?>

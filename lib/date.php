@@ -113,7 +113,8 @@ function time_dayDiff($timestamp1,$timestamp2) {
    return $secondsdiff/(24*60*60);
 }
 /**
- * Return the difference in months between the two timestamps
+ * Return the difference in months between the two timestamps,
+ * exclusive of the first one.
  */
 function time_monthDiff($timestamp1,$timestamp2) {
     $later = $timestamp1>$timestamp2?$timestamp1:$timestamp2;
@@ -123,7 +124,7 @@ function time_monthDiff($timestamp1,$timestamp2) {
     if ($year1 == $year2)
         return time_getMonth($later)-time_getMonth($earlier);
     $yeardiff = $year2-$year1-1;
-    return $yeardiff*12 + (13-time_getMonth($earlier)) + time_getMonth($later);
+    return $yeardiff*12 + (12-time_getMonth($earlier))+time_getMonth($later);
 }
 function time_nthWeekDay($timestamp, $n, $weekday) {
     // Return the timestamp for the $n-th $weekday in the month
