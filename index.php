@@ -140,7 +140,8 @@ if (getGET('categories')) {
 $sitetabs = array_combine($configuration['sitetabs'], array_fill(0, count($configuration['sitetabs']), 0));
 
 /******** get time of last event modification ***********/
-$lastmodtime = filemtime("timestamp.txt");
+if (file_exists("timestamp.txt")) $lastmodtime = filemtime("timestamp.txt");
+else $lastmodtime = 0;
 
 /*********
  * Set day, month and year to present if

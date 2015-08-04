@@ -152,8 +152,11 @@ if (empty($id)) {
             <input type="hidden" id="DatePicker" value="<?="{$y}-{$m}-{$d}"?>">
             <?php monthPullDown($m, __('months')); dayPullDown($d); yearPullDown($y); ?></td>
             <?php if ($related) { ?>
-            <td><span class="form_labels"><?=__('Include Related')?></span>&nbsp;
-                <input type="checkbox" name="include_related" value="1">
+            <td rowspan="2" class="related-options">
+                <span class="form_labels"><?=__('Include Related')?></span>&nbsp;
+                <input type="checkbox" name="include_related" value="1"><br>
+                <span class="form_labels"><?=__('future only')?></span>&nbsp;
+                <input type="checkbox" name="future_only" value="1"><br>
             </td>
             <?php } ?>
         </tr>

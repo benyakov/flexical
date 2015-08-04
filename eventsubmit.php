@@ -25,7 +25,7 @@ if (!auth()) {
 } else {
 
 	$flag = $_GET['flag'];
-	$id = $_GET['id'];
+	$id = (int) $_GET['id'];
 
 	if ($flag == "add") {
 		setMessage(submitEventData());
@@ -40,21 +40,29 @@ if (!auth()) {
         $dbh->beginTransaction();
         $related_txt = "";
         $related_id = false;
-        if (array_key_exists('include_related', $_GET) && $_GET['include_related']) {
-            $qs = $dbh->prepare("SELECT `related` FROM `{$tablepre}eventstb`
-                WHERE `id` = :id");
+        if (getIndexOr($_GET, 'include_related', false)) {
+            $qs = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
+                as `date`, `related`
+                FROM `{$tablepre}eventstb` WHERE `id` = :id");
             $qs->bindParam(':id', $id);
             $qs->execute() or die(array_pop($q->errorInfo()));
-            $related_id = $qs->fetchColumn(0);
+            $row = $qs->fetch(PDO::FETCH_ASSOC);
+            $origdate = $row['date'];
+            $related_id = $row['related'];
             if ($related_id) {
-                $related_txt = " OR `related` = :related_id";
-            }
+                $related_txt = "`related` = :related_id";
+                if (getIndexOr($_GET, 'future_only', false)) {
+                    $future_only = " AND date >= :date";
+                } else $future_only = "";
+                $related_txt = " OR ({$related_txt}{$future_only})";
+            } else $related_txt = "";
         }
         $q = $dbh->prepare("DELETE FROM `{$tablepre}eventstb`
             WHERE `id` = :id $related_txt");
         $q->bindValue(':id', $id);
         if ($related_id) {
             $q->bindParam(':related_id', $related_id);
+            if ($future_only) $q->bindValue(':date', $origdate);
         }
 		$q->execute() or die(array_pop($q->errorInfo()));
         $dbh->commit() or die(array_pop($q->errorInfo()));
@@ -73,11 +81,7 @@ function submitEventData ($id="") {
     $tablepre = $dbh->getPrefix();
 	global $sprefix;
     $rv = "";
-    if (array_key_exists('include_related', $_POST)) {
-        $include_related = $_POST['include_related'];
-    } else {
-        $include_related = '';
-    }
+    $include_related = getIndexOr($_POST, 'include_related', '');
 	$uid = $_POST['uid'];
 	$month = $_POST['month'];
 	$day = $_POST['day'];
@@ -150,21 +154,27 @@ function submitEventData ($id="") {
 	if ($id) {
         if ($include_related) {
             /* Determine how much the date has changed */
-            $q = $dbh->prepare("SELECT DATEDIFF(date, :selecteddate)
+            $q = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
+                AS `date`, DATEDIFF(date, :selecteddate) AS `diff`
                 FROM `{$tablepre}eventstb`
                 WHERE id=:id");
             $q->bindValue(":selecteddate",
                 "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
             $q->bindParam(":id", $id);
             $q->execute() or die("Problem getting datediff");
-            $datediff = $q->fetchColumn(0);
+            $row = $q->fetch(PDO::FETCH_ASSOC);
+            $thisdate = $row['date'];
+            $datediff = $row['diff'];
+            if (getIndexOr($_POST, 'future_only', false)) {
+                $future_only = " AND date >= :thisdate";
+            } else $future_only = "";
             $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
                 `date` = DATE_SUB(date, INTERVAL :diff DAY),
                 `uid`=:uid,
                 `start_time`=:starttime, `end_time`=:endtime,
                 `title`=:title, `category`=:categoryid, `text`=:text,
                 `all_day`=:all_day, `timezone`=:timezone
-                WHERE `related`=:related");
+                WHERE `related`=:related {$future_only}");
             $q->bindParam(':diff', $datediff);
             $q->bindParam(':uid', $_POST['uid']);
             $q->bindParam(':starttime', $starttime);
@@ -175,6 +185,7 @@ function submitEventData ($id="") {
             $q->bindParam(':all_day', $all_day);
             $q->bindParam(':timezone', $timezone);
             $q->bindparam(':related', $_POST['related']);
+            if ($future_only) $q->bindParam(":thisdate", $thisdate);
         } else {
             $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
                 `uid`=:uid, `date`=:date,
@@ -243,7 +254,7 @@ function copyEvent($id)
         $month = 1;
         $day = 18;
     }
-    $include_related = $_POST['include_related'];
+    $include_related = getIndexOr($_POST, 'include_related', false);
     $dbh->beginTransaction();
     $q = $dbh->prepare("SELECT `id`, DAY(`date`) AS `d`,
         MONTH(`date`) AS `m`, YEAR(`date`) AS `y`,

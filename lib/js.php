@@ -18,7 +18,26 @@ function javaScript() {
     function deleteRelated(eid) {
         var msg = "<?= __('relateddeleteconfirm') ?>";
         if (confirm(msg)) {
-            window.location = "eventsubmit.php?flag=delete&include_related=1&id=" + eid;
+            $('<div></div>').appendTo('body')
+                .html('<div><h6><?= __('futureonlyconfirm') ?></h6></div>')
+                .dialog({
+                    modal: true,
+                    zIndex: 10000,
+                    autoOpen: true,
+                    width: 'auto',
+                    resizable: false,
+                    buttons: {
+                        Yes: function() {
+                            window.location = "eventsubmit.php?flag=delete&future_only=1&include_related=1&id=" + eid;
+                        },
+                        No: function() {
+                            window.location = "eventsubmit.php?flag=delete&include_related=1&id=" + eid;
+                        }
+                    },
+                    close: function (event, ui) {
+                        $(this).remove();
+                    }
+            });
         } else {
             return;
         }

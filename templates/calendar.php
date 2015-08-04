@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"></meta>
     <?php
     jqueryCDN();
+    jqueryuiCDN();
     javaScript();
     ?>
     <script type="text/javascript" language="JavaScript">

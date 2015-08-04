@@ -59,3 +59,6 @@ div.checkbox-heading  { width: 4em; font-size: .7em; }
 th.history-field { text-align: right; color: black; background-color: #CCC;
                     padding-right: .5em; }
 
+.related-options {
+    text-align: right;
+}
