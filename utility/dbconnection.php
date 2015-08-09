@@ -43,7 +43,7 @@ class DBConnection {
     private function setupConnection($pathtoroot) {
         if ($pathtoroot) chdir($pathtoroot);
         require_once("./utility/configfile.php");
-        $cf = new ConfigFile("dbconnection.ini");
+        $cf = new ConfigFile("dbconnection.ini", array("writeLock"=>false));
         self::$connection = array(
             "host"=>$cf->get("dbhost"),
             "name"=>$cf->get("dbname"),
