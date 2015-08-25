@@ -5,6 +5,10 @@ if (auth() < 3) {
     exit(0);
 }
 $tabledescfile = "tabledesc.sql";
+if (! file_exists($tabledescfile)) {
+    $GEN_TABLEDESC = true;
+    require_once("./utility/createtables.php");
+}
 $tabledesclines = file($tabledescfile, FILE_IGNORE_NEW_LINES);
 function gettablename ($line) {
     if (preg_match('/TABLE.*? `([-\w]+)/', $line, $matches))
