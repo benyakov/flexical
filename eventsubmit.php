@@ -11,7 +11,7 @@ $l = $_SESSION[$sprefix]['length'];
 $u = $_SESSION[$sprefix]['unit'];
 $action = $_SESSION[$sprefix]['action'];
 
-if (array_key_exists('cancel', $_POST)) {
+if (array_key_exists('cancel', $_GET)) {
     setMessage(__('operationcancelled'));
     header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
     exit(0);

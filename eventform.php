@@ -164,7 +164,7 @@ if (empty($id)) {
             <td valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('title')?></span></td>
             <td colspan=2>
-            <input type="text" name="title" size="25" value="<?= $title ?>" maxlength="50"></td>
+            <input required type="text" name="title" size="25" value="<?= $title ?>" maxlength="50"></td>
         </tr>
         <tr>
             <td valign="top" align="right" nowrap>
@@ -203,7 +203,7 @@ if (empty($id)) {
         </tr>
         <tr><td></td><td><br>
     <input type="submit" name="submit" value="<?= $buttonstr ?>">&nbsp;
-    <input type="submit" name="cancel" value="<?= __('cancel') ?>">
+    <a class="tinybutton" href="eventsubmit.php?cancel=1" title="Cancel"><?= __('cancel') ?></a>
     </td></tr>
     </form>
     </table>
