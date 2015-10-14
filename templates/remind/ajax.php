@@ -14,7 +14,6 @@ case 'add':
         echo json_encode(__('Reminder exists'));
         exit(0);
     }
-    $dbh->beginTransaction();
     $q = $dbh->prepare("INSERT INTO `{$tablepre}reminders`
         SET `eventid` = :id, `uid` = :user, `type` = :type, `days` = :days");
     $q->bindParam("id", $params['id']);
@@ -23,12 +22,32 @@ case 'add':
     $q->bindParam("days", $params['days']);
     $q->execute();
     echo json_encode(__('Reminder set'));
+    $dbh->commit();
     break;
 case 'delete':
-
+    $dbh->beginTransaction();
+    $q = $dbh->prepare("DELETE FROM `{$tablepre}reminders`
+        where `eventid` = :id AND `uid` = :user AND `type` = :type");
+    $q->bindParam("id", $params['id']);
+    $q->bindParam("user", $params['user']);
+    $q->bindParam("type", $params['type']);
+    $q->execute();
+    echo json_encode(__('Reminder deleted'));
+    $dbh->commit();
     break;
-case 'update':
-
+case 'list':
+    $dbh->beginTransaction();
+    $q = $dbh->prepare("SELECT r.eventid, r.type,
+        r.days, e.date, e.all_day, e.start_time, e.title,
+        e.category, e.text
+        FROM `{$tablepre}reminders` AS r JOIN `{$tablepre}eventstb` AS e
+        ON (r.eventid == e.id)
+        WHERE r.uid == :user
+        ORDER BY e.date, e.start_time");
+    $q->bindParam("user", $_SESSION[$sprefix]["authdata"]["uid"]);
+    $q->execute();
+    echo json_encode($q->fetchAll(PDO::FETCH_ASSOC));
+    $dbh->commit();
     break;
 }
 

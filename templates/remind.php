@@ -4,26 +4,37 @@ if (! is_numeric($auth)) {
     header("location:login.php");
     exit(0);
 }
-    $uid = $_SESSION[$sprefix]["authdata"]["uid"];
-    // Show the user's reminder list.
-    // TODO: Query all the user's reminders, sorted by event date.
-    $dbh->beginTransaction();
-    $q = $dbh->prepare("SELECT r.eventid, r.type,
-        r.days, e.date, e.all_day, e.start_time, e.title,
-        e.category, e.text
-        FROM `{$tablepre}reminders` AS r JOIN `{$tablepre}eventstb` AS e
-        ON (r.eventid == e.id)
-        WHERE r.uid == :user
-        ORDER BY e.date, e.start_time");
-    $q->bindParam("user", $_SESSION[$sprefix]["authdata"]["uid"]);
-    $q->execute();
+
+if ($_POST) { // Called via ajax
+    $params = $_POST;
+    require("./templates/require/ajax.php");
+    exit(0);
+}
+$uid = $_SESSION[$sprefix]["authdata"]["uid"];
+// Show the user's reminder list.
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title><?=$configuration['site_title']?></title>
     <meta http-equiv=Content-Type content=text/html;charset=utf-8>
+    <meta content="width=device-width, initial-scale=1" name="viewport"></meta>
     <link rel=stylesheet href=css/styles-pop.css>
+    <?php
+    jqueryCDN();
+    jqueryuiCDN();
+    ?>
+    <script type="text/javascript" language="JavaScript">
+    $(document).ready(function() {
+        $.postJSON("<?=$this_script?>?action=remind", {"action" = "list"},
+            function(rv) {
+                // TODO: Use a Javascript template here instead of building by hand
+                // See https://en.wikipedia.org/wiki/JavaScript_templating
+                $("#reminder-list").html();
+            });
+    });
+
+    </script>
 </head>
 <body>
 <header>
@@ -43,7 +54,7 @@ if (! is_numeric($auth)) {
     <td><button form=remindForm type=submit value="<?= __('Delete') ?>" onclick=deleteChecked() >
     <button form=remindForm type=submit value="<?= __('Submit') ?>"></td>
     </tr></tfoot>
-    <tbody>
+    <tbody id="reminder-list">
 <?php  while ($row = $q->fetch(PDO::FETCH_ASSOC)) { //delete, summary, type, days
 ?>
         <tr eventid="<?=$row["eventid"]?>">
