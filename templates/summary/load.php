@@ -262,7 +262,7 @@ function eventsByMonth($results) {
         $month = time_getMonth($monthlabel);
         $monthname = $monthnames[$month-1];
         $label = "{$monthname} ".time_getYear($monthlabel);
-        $rv[] = '<h3 class="monthname">'.$label.'</h3>';
+        $rv[] = '<h3 class="monthname dontend">'.$label.'</h3>';
         $multis = $mmbyrange[$monthlabel];
         $singles = $monthsingles[$monthlabel];
         $days = array_merge(array_keys($multis), array_keys($singles));
@@ -272,7 +272,7 @@ function eventsByMonth($results) {
             $rv[] = "<dl>";
             foreach ($days as $day) {
                 if ($singles[$day]) {
-                    $rv[] = "<dt>{$day}</dt>";
+                    $rv[] = "<dt class=\"dontend\">{$day}</dt>";
                     foreach ($singles[$day] as $evt) {
                         $catclass = toCSSID($evt->category);
                         $rv[] = "<dd><span class=\"{$catclass}\">{$evt->title}</span></dd>";
@@ -280,7 +280,7 @@ function eventsByMonth($results) {
                 }
                 if (isset($multis[$day])) {
                     foreach ($multis[$day] as $daylabel => $evts) {
-                        $rv[] = "<dt>{$daylabel}</dt>";
+                        $rv[] = "<dt class=\"dontend\">{$daylabel}</dt>";
                         foreach ($evts as $e) {
                             $catclass = toCSSID($e->category);
                             $rv[] = "<dd><span class=\"{$catclass}\">{$e->title}</span></dd>";

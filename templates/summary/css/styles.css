@@ -26,7 +26,7 @@ div.eventlist > div.column > * {
     padding: 0 .5em;
 }
 div.eventlist dd {
-    margin-left: 1em;
+    margin: 0;
     display: inline;
 }
 div.eventlist dd :after {
@@ -37,9 +37,8 @@ div.eventlist dd :after {
 }
 div.eventlist dt {
     display: inline-block;
-}
-div.eventlist dt:first-of-type {
-    margin-left: .25em;
+    min-width: 2em;
+    margin: .25ex 0;
 }
 div.eventlist h3 {
     margin: 1.25ex 0 .5ex 0;

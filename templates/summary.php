@@ -116,6 +116,7 @@ $currentcatstring = urlencode(implode(",", $_SESSION[$sprefix]["categories"]));
 <?php echo rightCalendars($lowtime, $hightime, $eventdays); ?>
 </div>
 <div class="eventlist">
+<p><?=__('boxed dates appear here')?></p>
 <?php echo eventsByMonth($results); ?>
 </div>
 <?php if (getPOST('tally')) { ?>
