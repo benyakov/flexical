@@ -46,7 +46,11 @@ case 'list':
         ORDER BY e.date, e.start_time");
     $q->bindParam("user", $_SESSION[$sprefix]["authdata"]["uid"]);
     $q->execute();
-    echo json_encode($q->fetchAll(PDO::FETCH_ASSOC));
+    $result = $q->fetchAll(PDO::FETCH_ASSOC);
+    foreach (array_keys($result) as $k) {
+        $result[$k]["text"] = Markdown($result[$k]["text"]);
+    }
+    echo json_encode($result);
     $dbh->commit();
     break;
 }
