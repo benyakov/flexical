@@ -24,43 +24,7 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
     jqueryCDN();
     jqueryuiCDN();
     ?>
-    <script type="text/javascript" language="JavaScript">
-    $(document).ready(function() {
-        $.postJSON("<?=$this_script?>?action=remind", {"action" = "list"},
-            function(rv) {
-                // TODO: Use a Javascript template here instead of building by hand
-                // See https://en.wikipedia.org/wiki/JavaScript_templating
-                $("#reminder-list").html();
-            });
-    });
-
-    Handlebars.registerHelper('AllDay', function(allday, otherwise) {
-        if (allday) {
-            return "<?=__('All_Day')?>";
-        } else {
-            return otherwise;
-        }
-    }
-
-    Handlebars.registerHelper('ReminderType', function(type) {
-        // Set up a select drop-down for event, related, or category reminders
-        var select = '<select id="reminder-type">';
-        var types = [ 'event', 'related', 'category' ];
-        var selected = ' ';
-        for (i in types) {
-            if (type == types[i]) {
-                selected = " selected ";
-            } else {
-                selected = " ";
-            }
-            select += '<option' + selected + 'value="' + types[i] + '">';
-            select += types[i];
-            select += '</option>'
-        }
-        select = select + '</select>';
-        return select;
-    }
-
+    <script type="text/javascript" language="JavaScript" src="<?=$installroot?>/templates/remind/javascript.js">
     </script>
 </head>
 <body>
@@ -82,23 +46,6 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
     <button form=remindForm type=submit value="<?= __('Submit') ?>"></td>
     </tr></tfoot>
     <tbody id="reminder-list">
-<?php  while ($row = $q->fetch(PDO::FETCH_ASSOC)) { //delete, summary, type, days
-?>
-        <tr eventid="<?=$row["eventid"]?>">
-            <td><input form=remindForm type=checkbox></td>
-            <td><article>
-            <header>
-            <h4><?=$row['date']?> <i><?=$row['title']?></i></h4>
-            </header>
-            <p><?=$row['all_day']?__('All_Day'):$row['start_time']?></p>
-            <div id="<?="{$row['eventid']}-text"?>"
-                style="visibility: hidden;"><?=Markdown($row['text'])?>
-            </div>
-            </article></td>
-<?php # TODO Continue Here ?>
-            <td><input type=text><!-- drop-down for type of reminder (event or related)--></td>
-            <td><!-- textbox for days before the reminder is sent --></td>
-    </tr>
     </tbody>
     </table>
 </body>
