@@ -23,17 +23,25 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
     <?php
     jqueryCDN();
     jqueryuiCDN();
+    handlebarsCDN();
     ?>
     <script type="text/javascript" language="JavaScript">
-    $(document).ready(function() {
-        $.postJSON("<?=$this_script?>?action=remind", {"action" = "list"},
-            function(rv) {
-                // TODO: Use a Javascript template here instead of building by hand
-                // See https://en.wikipedia.org/wiki/JavaScript_templating
-                $("#reminder-list").html();
+    function loadListToTemplate() {
+        // reload the reminder list with current data.
+        $.postJSON("<?=$installroot?>?action=remind", {"action" = "list"})
+            .done(function(rv) {
+                $("#reminder-list").html($.hbTemplate_list(rv));
             });
+    }
+    $(document).ready(function() {
+        // Load mustache list template and attach it to the jquery object
+        $.get("<?=$installroot?>, {"load" = remind_list.html"})
+            .done(function(rv) {
+                var template = Handlebars.compile(rv);
+                $.hbTemplate_list = template;
+            });
+        loadListToTemplate();
     });
-
     </script>
 </head>
 <body>
@@ -55,23 +63,6 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
     <button form=remindForm type=submit value="<?= __('Submit') ?>"></td>
     </tr></tfoot>
     <tbody id="reminder-list">
-<?php  while ($row = $q->fetch(PDO::FETCH_ASSOC)) { //delete, summary, type, days
-?>
-        <tr eventid="<?=$row["eventid"]?>">
-            <td><input form=remindForm type=checkbox></td>
-            <td><article>
-            <header>
-            <h4><?=$row['date']?> <i><?=$row['title']?></i></h4>
-            </header>
-            <p><?=$row['all_day']?__('All_Day'):$row['start_time']?></p>
-            <div id="<?="{$row['eventid']}-text"?>"
-                style="visibility: hidden;"><?=Markdown($row['text'])?>
-            </div>
-            </article></td>
-<?php # TODO Continue Here ?>
-            <td><input type=text><!-- drop-down for type of reminder (event or related)--></td>
-            <td><!-- textbox for days before the reminder is sent --></td>
-    </tr>
     </tbody>
     </table>
 </body>
