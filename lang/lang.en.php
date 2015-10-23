@@ -307,6 +307,7 @@ $lang['opentime'] = "Open time";
 $lang['print'] = "Print";
 $lang['show day tally'] = "Tally";
 $lang['direct link'] = "Direct link to this summary page";
+$lang['boxed dates appear here'] = "Boxed dates appear in this list.";
 
 // categories
 $lang['show'] = "Show";

@@ -1,17 +1,18 @@
-{{repeat}}
-    <tr eventid="<?=$row["eventid"]?>">
+{{#each reminders}}
+    {{#with this}}
+    <tr eventid="{{eventid}}">
         <td><input form=remindForm type=checkbox></td>
         <td><article>
         <header>
-        <h4><?=$row['date']?> <i><?=$row['title']?></i></h4>
+            <h4>{{date}} <i>{{title}}</i> ({{category}})</h4>
         </header>
-        <p><?=$row['all_day']?__('All_Day'):$row['start_time']?></p>
-        <div id="<?="{$row['eventid']}-text"?>"
-            style="visibility: hidden;"><?=Markdown($row['text'])?>
+        <p>{{AllDay all_day start_time}}</p>
+        <div id="{{eventid}}"
+             style="visibility: hidden;">{{{text}}}
         </div>
         </article></td>
-<?php # TODO Continue Here ?>
-        <td><input type=text><!-- drop-down for type of reminder (event or related)--></td>
-        <td><!-- textbox for days before the reminder is sent --></td>
-</tr>
-{{end-repeat}}
+        <td>{{ReminderType type}}</td>
+        <td><input type="number" min="1" id="days" value="{{days}}"></td>
+    </tr>
+    {{/with}}
+{{/each}}

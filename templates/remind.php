@@ -25,23 +25,7 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
     jqueryuiCDN();
     handlebarsCDN();
     ?>
-    <script type="text/javascript" language="JavaScript">
-    function loadListToTemplate() {
-        // reload the reminder list with current data.
-        $.postJSON("<?=$installroot?>?action=remind", {"action" = "list"})
-            .done(function(rv) {
-                $("#reminder-list").html($.hbTemplate_list(rv));
-            });
-    }
-    $(document).ready(function() {
-        // Load mustache list template and attach it to the jquery object
-        $.get("<?=$installroot?>, {"load" = remind_list.html"})
-            .done(function(rv) {
-                var template = Handlebars.compile(rv);
-                $.hbTemplate_list = template;
-            });
-        loadListToTemplate();
-    });
+    <script type="text/javascript" language="JavaScript" src="<?=$installroot?>/templates/remind/javascript.js">
     </script>
 </head>
 <body>
