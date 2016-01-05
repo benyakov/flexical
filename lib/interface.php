@@ -12,21 +12,21 @@ function yearBox($year, $formname="") {
     echo "<div class=\"yearbox\"><input type=\"number\" name=\"year\" class=\"yearinput\" value=\"{$year}\" min=\"1900\" max=\"2100\"></div>\n";
 }
 
-function hourBox($hour, $formname, $name, $disabled=0) {
+function hourBox($hour, $formname, $name, $disabled=0, $classes="") {
     if ($disabled) {
         $disabled = " disabled ";
     } else {
         $disabled = "";
     }
-    echo "<div class=\"hourbox\"><input type=\"number\" name=\"{$name}\" class=\"hourinput\" placeholder=\"-\" min=\"0\" max=\"23\" value=\"$hour\" $disabled></div>\n";
+    echo "<div class=\"hourbox {$classes}\"><input type=\"number\" name=\"{$name}\" class=\"hourinput\" placeholder=\"-\" min=\"0\" max=\"23\" value=\"$hour\" $disabled></div>\n";
 }
-function minuteBox($minute, $formname, $name, $disabled=0) {
+function minuteBox($minute, $formname, $name, $disabled=0, $classes="") {
     if ($disabled) {
         $disabled = " disabled ";
     } else {
         $disabled = "";
     }
-    echo "<div class=\"minutebox\"><input type=\"number\" name=\"{$name}\" class=\"minuteinput\" min=\"0\" max=\"59\" placeholder=\"-\" value=\"{$minute}\" $disabled></div>\n";
+    echo "<div class=\"minutebox {$classes}\"><input type=\"number\" name=\"{$name}\" class=\"minuteinput\" min=\"0\" max=\"59\" placeholder=\"-\" value=\"{$minute}\" $disabled></div>\n";
 }
 
 function checkBox($name, $val) {
@@ -72,7 +72,7 @@ function dayPullDown($day) {
     pullDown($day, $dayrange, "day", $dayrange);
 }
 
-function amPmPullDown($pm, $namepre, $blank=false, $disabled) {
+function amPmPullDown($pm, $namepre, $blank=false, $disabled, $classes="") {
     if ($disabled) {
         $disabled = " disabled ";
     } else {
@@ -81,7 +81,7 @@ function amPmPullDown($pm, $namepre, $blank=false, $disabled) {
     if (! $blank) {
         if ($pm) { $pm = " selected"; } else { $am = " selected"; }
     } else { $nothing = " selected"; }
-    echo "\n<select class=\"am-pm-pulldown\" name=\"" . $namepre . "_am_pm\" $disabled>\n";
+    echo "\n<select class=\"am-pm-pulldown {$classes}\" name=\"" . $namepre . "_am_pm\" $disabled>\n";
     echo "  <option value=\"-\"$nothing>-</option>\n";
     echo "  <option value=\"0\"$am>am</option>\n";
     echo "  <option value=\"1\"$pm>pm</option>\n";

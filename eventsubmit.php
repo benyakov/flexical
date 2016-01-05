@@ -168,23 +168,29 @@ function submitEventData ($id="") {
             if (getIndexOr($_POST, 'future_only', false)) {
                 $future_only = " AND date >= :thisdate";
             } else $future_only = "";
-            $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
-                `date` = DATE_SUB(date, INTERVAL :diff DAY),
-                `uid`=:uid,
-                `start_time`=:starttime, `end_time`=:endtime,
-                `title`=:title, `category`=:categoryid, `text`=:text,
-                `all_day`=:all_day, `timezone`=:timezone
-                WHERE `related`=:related {$future_only}");
-            $q->bindParam(':diff', $datediff);
-            $q->bindParam(':uid', $_POST['uid']);
-            $q->bindParam(':starttime', $starttime);
-            $q->bindParam(':endtime', $endtime);
-            $q->bindParam(':title', $_POST['title']);
-            $q->bindParam(':categoryid', $categoryid);
-            $q->bindParam(':text', $_POST['text']);
-            $q->bindParam(':all_day', $all_day);
-            $q->bindParam(':timezone', $timezone);
+            if (0 != $datediff) {
+                $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
+                    `date` = DATE_SUB(date, INTERVAL :diff DAY),
+                    `uid`=:uid
+                    WHERE `related`=:related {$future_only}");
+                $q->bindParam(':diff', $datediff);
+            } else {
+                $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
+                    `uid`=:uid,
+                    `start_time`=:starttime, `end_time`=:endtime,
+                    `title`=:title, `category`=:categoryid, `text`=:text,
+                    `all_day`=:all_day, `timezone`=:timezone
+                    WHERE `related`=:related {$future_only}");
+                $q->bindParam(':starttime', $starttime);
+                $q->bindParam(':endtime', $endtime);
+                $q->bindParam(':title', $_POST['title']);
+                $q->bindParam(':categoryid', $categoryid);
+                $q->bindParam(':text', $_POST['text']);
+                $q->bindParam(':all_day', $all_day);
+                $q->bindParam(':timezone', $timezone);
+            }
             $q->bindparam(':related', $_POST['related']);
+            $q->bindParam(':uid', $_POST['uid']);
             if ($future_only) $q->bindParam(":thisdate", $thisdate);
         } else {
             $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET

@@ -120,6 +120,23 @@ if (empty($id)) {
     <?php
     js_zeroTime();
     ?>
+    function hideSpecifics() {
+        $(".specifics").prop('disabled', true);
+    }
+    function showSpecifics() {
+        $(".specifics").prop('disabled', false);
+    }
+    function checkOrigDate() {
+        var day = $("#day").val();
+        var month = $("#month").val();
+        var year = $("#year").val();
+        if (year+"-"+month+"-"+day == $("#DatePicker").data('orig')) {
+            showSpecifics();
+        } else {
+            hideSpecifics();
+        }
+    }
+
     $(function(){
         $(".jsonly").css("visibility", "visible");
         $("#DatePicker").datepicker({
@@ -135,6 +152,9 @@ if (empty($id)) {
                 $("#day").val(dateitems[1].replace(/^0+/g,""));
                 $("#year").val(dateitems[2]);
             } }).css("visibility", "visible");
+            $("#year").change(checkOrigDate());
+            $("#month").change(checkOrigDate());
+            $("#day").change(checkOrigDate());
     });
     </script>
 
@@ -149,7 +169,8 @@ if (empty($id)) {
             <td valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('datetext')?></span></td>
             <td>
-            <input type="hidden" id="DatePicker" value="<?="{$y}-{$m}-{$d}"?>">
+            <input type="hidden" id="DatePicker" data-orig="<?={$y}-{$m}-{$d}?>"
+                value="<?="{$y}-{$m}-{$d}"?>">
             <?php monthPullDown($m, __('months')); dayPullDown($d); yearPullDown($y); ?></td>
             <?php if ($related) { ?>
             <td rowspan="2" class="related-options">
@@ -164,17 +185,18 @@ if (empty($id)) {
             <td valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('title')?></span></td>
             <td colspan=2>
-            <input required type="text" name="title" size="25" value="<?= $title ?>" maxlength="50"></td>
+            <input required class="specifics" type="text" name="title" size="25"
+                    value="<?= $title ?>" maxlength="50"></td>
         </tr>
         <tr>
             <td valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('text')?></span></td>
             <td colspan=2>
-            <textarea cols=44 rows=6 name="text"><?= $text ?></textarea></td>
+            <textarea class="specifics" cols=44 rows=6 name="text"><?= $text ?></textarea></td>
         </tr>
         <tr>
             <td nowrap valign="top" align="right"><span class="form_labels"><?=__('All Day')?></span></td>
-            <td><input type="checkbox" name="all_day" value="1" <?=$alldaystr?>
+            <td><input type="checkbox" class="specifics" name="all_day" value="1" <?=$alldaystr?>
             onClick="zeroTime('batchform')"></td>
         </tr>
         <tr>
@@ -184,16 +206,17 @@ if (empty($id)) {
         <tr>
             <td nowrap valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('starttime')?></span></td>
-            <td><?php hourBox($shour, "eventForm", "start_hour", $time_disabled); ?><b>:</b><?php
-                   minuteBox($sminute, "eventForm", "start_minute", $time_disabled);
-                   amPmPullDown($spm, "start", $ampmnone, $time_disabled); ?></td>
+            <td><?php hourBox($shour, "eventForm", "start_hour", $time_disabled, "specifics");
+                    ?><b>:</b><?php
+                   minuteBox($sminute, "eventForm", "start_minute", $time_disabled, "specifics");
+                   amPmPullDown($spm, "start", $ampmnone, $time_disabled, "specifics"); ?></td>
         </tr>
         <tr>
             <td nowrap valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('endtime')?></span></td>
-            <td><?php hourBox($ehour, "eventForm", "end_hour", $time_disabled); ?><b>:</b><?php
-                   minuteBox($eminute, "eventForm", "end_minute", $time_disabled);
-                   amPmPullDown($epm, "end", $ampmnone, $time_disabled); ?></td>
+            <td><?php hourBox($ehour, "eventForm", "end_hour", $time_disabled, "specifics"); ?><b>:</b><?php
+                   minuteBox($eminute, "eventForm", "end_minute", $time_disabled, "specifics");
+                   amPmPullDown($epm, "end", $ampmnone, $time_disabled, "specifics"); ?></td>
         </tr>
         <tr>
             <td nowrap valign="top" align="right">
