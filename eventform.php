@@ -130,10 +130,14 @@ if (empty($id)) {
         var day = $("#day").val();
         var month = $("#month").val();
         var year = $("#year").val();
-        if (year+"-"+month+"-"+day == $("#DatePicker").data('orig')) {
-            showSpecifics();
+        if (Boolean($("#include_related:checked").length)) {
+            if (year+"-"+month+"-"+day == $("#DatePicker").data('orig')) {
+                showSpecifics();
+            } else {
+                hideSpecifics();
+            }
         } else {
-            hideSpecifics();
+            showSpecifics();
         }
     }
 
@@ -151,10 +155,13 @@ if (empty($id)) {
                 $("#month").val(dateitems[0].replace(/^0+/g,""));
                 $("#day").val(dateitems[1].replace(/^0+/g,""));
                 $("#year").val(dateitems[2]);
+                checkOrigDate();
             } }).css("visibility", "visible");
-            $("#year").change(checkOrigDate());
-            $("#month").change(checkOrigDate());
-            $("#day").change(checkOrigDate());
+        $("#year").change(checkOrigDate);
+        $("#month").change(checkOrigDate);
+        $("#day").change(checkOrigDate);
+        $("#include_related").change(checkOrigDate);
+        $("#resetbutton").click(showSpecifics);
     });
     </script>
 
@@ -169,15 +176,15 @@ if (empty($id)) {
             <td valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('datetext')?></span></td>
             <td>
-            <input type="hidden" id="DatePicker" data-orig="<?={$y}-{$m}-{$d}?>"
+            <input type="hidden" id="DatePicker" data-orig="<?="{$y}-{$m}-{$d}"?>"
                 value="<?="{$y}-{$m}-{$d}"?>">
             <?php monthPullDown($m, __('months')); dayPullDown($d); yearPullDown($y); ?></td>
             <?php if ($related) { ?>
             <td rowspan="2" class="related-options">
                 <span class="form_labels"><?=__('Include Related')?></span>&nbsp;
-                <input type="checkbox" name="include_related" value="1"><br>
+                <input type="checkbox" name="include_related" id="include_related" value="1"><br>
                 <span class="form_labels"><?=__('future only')?></span>&nbsp;
-                <input type="checkbox" name="future_only" value="1"><br>
+                <input type="checkbox" name="future_only" id="future_only" value="1"><br>
             </td>
             <?php } ?>
         </tr>
@@ -201,7 +208,7 @@ if (empty($id)) {
         </tr>
         <tr>
             <td nowrap valign="top" align="right"><span class="form_labels"><?=_('Time Zone')?></span></td>
-            <td><?=timezoneDropDown("timezone", $timezone)?></td>
+            <td><?=timezoneDropDown("timezone", $timezone, "specifics")?></td>
         </tr>
         <tr>
             <td nowrap valign="top" align="right" nowrap>
@@ -221,12 +228,13 @@ if (empty($id)) {
         <tr>
             <td nowrap valign="top" align="right">
             <span class="form_labels"><?=__('category')?></span></td>
-            <td colspan="2"><?php categoryPullDown($cat, false); ?>
-            <input type="text" name="newcategory" size="14" value="" maxlength="50"> </td>
+            <td colspan="2"><?php categoryPullDown($cat, false, "specifics"); ?>
+            <input type="text" name="newcategory" size="14" value="" maxlength="50" class="specifics"> </td>
         </tr>
         <tr><td></td><td><br>
-    <input type="submit" name="submit" value="<?= $buttonstr ?>">&nbsp;
-    <a class="tinybutton" href="eventsubmit.php?cancel=1" title="Cancel"><?= __('cancel') ?></a>
+        <input type="submit" name="submit" value="<?= $buttonstr ?>">&nbsp;
+        <input type="reset" name="reset" id="resetbutton" value="<?=__("resetbutton")?>">
+        <a class="tinybutton" href="eventsubmit.php?cancel=1" title="Cancel"><?= __('cancel') ?></a>
     </td></tr>
     </form>
     </table>

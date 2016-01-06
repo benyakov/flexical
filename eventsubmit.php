@@ -95,8 +95,24 @@ function submitEventData ($id="") {
     $all_day = $_POST['all_day'];
     $timezone = $_POST['timezone'];
 
+
+    if ($include_related) {
+        /* Determine how much the date has changed */
+        $q = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
+            AS `date`, DATEDIFF(date, :selecteddate) AS `diff`
+            FROM `{$tablepre}eventstb`
+            WHERE id=:id");
+        $q->bindValue(":selecteddate",
+            "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
+        $q->bindParam(":id", $id);
+        $q->execute() or die("Problem getting datediff");
+        $row = $q->fetch(PDO::FETCH_ASSOC);
+        $thisdate = $row['date'];
+        $datediff = $row['diff'];
+    }
+
     // Check that Title is filled.
-    if (!$_POST['title']) {
+    if (!$_POST['title'] && !$_POST['related']) {
         setMessage(__('blanktitle'));
         header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php?month={$_POST['month']}&year={$_POST['year']}&day={$_POST['day']}");
         exit(0);
@@ -131,40 +147,31 @@ function submitEventData ($id="") {
     }
 
     $dbh->beginTransaction();
-    /* Make sure the category exists */
-    $qc = $dbh->prepare("SELECT `category` FROM `{$tablepre}categories`
-        WHERE `name`=:category");
-    $qc->bindParam(':category', $category);
-    $qc->execute() or die(array_pop($q->errorInfo()));
-    if (!$qc->rowCount()) {
-        $rv.="Inserting category";
-        $qc = $dbh->prepare("INSERT INTO `{$tablepre}categories`
-            SET `name` = :category");
-        $qc->bindParam(":category", $category);
-        $qc->execute() or die(array_pop($qc->errorInfo()));
-        array_push($_SESSION[$sprefix]['categories'], $category);
+    /* If we are NOT shifting related events across dates... */
+    if (! ($include_related && $datediff)) {
+        /* Make sure the specified category exists */
         $qc = $dbh->prepare("SELECT `category` FROM `{$tablepre}categories`
             WHERE `name`=:category");
-        $qc->bindParam(":category", $category);
-        $qc->execute() or die(array_pop($qc->errorInfo()));
+        $qc->bindParam(':category', $category);
+        $qc->execute() or die(array_pop($q->errorInfo()));
+        if (!$qc->rowCount()) {
+            $rv.="Inserting category";
+            $qc = $dbh->prepare("INSERT INTO `{$tablepre}categories`
+                SET `name` = :category");
+            $qc->bindParam(":category", $category);
+            $qc->execute() or die(array_pop($qc->errorInfo()));
+            array_push($_SESSION[$sprefix]['categories'], $category);
+            $qc = $dbh->prepare("SELECT `category` FROM `{$tablepre}categories`
+                WHERE `name`=:category");
+            $qc->bindParam(":category", $category);
+            $qc->execute() or die(array_pop($qc->errorInfo()));
+        }
+        $row = $qc->fetch(PDO::FETCH_ASSOC);
+        $categoryid = $row["category"];
     }
-    $row = $qc->fetch(PDO::FETCH_ASSOC);
-    $categoryid = $row["category"];
 
 	if ($id) {
         if ($include_related) {
-            /* Determine how much the date has changed */
-            $q = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
-                AS `date`, DATEDIFF(date, :selecteddate) AS `diff`
-                FROM `{$tablepre}eventstb`
-                WHERE id=:id");
-            $q->bindValue(":selecteddate",
-                "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
-            $q->bindParam(":id", $id);
-            $q->execute() or die("Problem getting datediff");
-            $row = $q->fetch(PDO::FETCH_ASSOC);
-            $thisdate = $row['date'];
-            $datediff = $row['diff'];
             if (getIndexOr($_POST, 'future_only', false)) {
                 $future_only = " AND date >= :thisdate";
             } else $future_only = "";
@@ -210,8 +217,8 @@ function submitEventData ($id="") {
             $q->bindParam(':all_day', $all_day);
             $q->bindParam(':timezone', $timezone);
             $q->bindParam(':id', $id);
-            $result = __('updated');
         }
+        $result = __('updated');
 	} else {
 		$q = $dbh->prepare("INSERT INTO `{$tablepre}eventstb` SET
             `uid`=:uid, `date`=:date,

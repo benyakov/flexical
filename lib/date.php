@@ -2,10 +2,10 @@
 
 // Date functions
 
-function timezoneDropDown($name="timezone", $default="") {
+function timezoneDropDown($name="timezone", $default="", $classes="") {
     require("./utility/timezones.php");
     // Make a select dropdown with all available timezones.
-    $rv[] = "<select name=\"{$name}\" id=\"timezonedropdown\">";
+    $rv[] = "<select name=\"{$name}\" id=\"timezonedropdown\" class=\"{$classes}\">";
     foreach ($TimeZones as $tzname) {
         if ($tzname == $default) $selected = "selected";
         else $selected = "";

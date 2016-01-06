@@ -10,6 +10,7 @@ $lang['subscribers must log in'] = "Please log in as a subscriber to set up remi
 $lang['editeventtitle'] = "Event Edit Screen";
 $lang['editheader'] = "Edit Event";
 $lang['editbutton'] = "Update";
+$lang['resetbutton'] = "Reset Form Values";
 $lang['updated'] = "Updated";
 $lang['addeventtitle'] = "Event Add Screen";
 $lang['addheader'] = "Add New Event";

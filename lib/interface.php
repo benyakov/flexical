@@ -18,7 +18,7 @@ function hourBox($hour, $formname, $name, $disabled=0, $classes="") {
     } else {
         $disabled = "";
     }
-    echo "<div class=\"hourbox {$classes}\"><input type=\"number\" name=\"{$name}\" class=\"hourinput\" placeholder=\"-\" min=\"0\" max=\"23\" value=\"$hour\" $disabled></div>\n";
+    echo "<div class=\"hourbox\"><input type=\"number\" name=\"{$name}\" class=\"hourinput {$classes}\" placeholder=\"-\" min=\"0\" max=\"23\" value=\"$hour\" $disabled></div>\n";
 }
 function minuteBox($minute, $formname, $name, $disabled=0, $classes="") {
     if ($disabled) {
@@ -26,7 +26,7 @@ function minuteBox($minute, $formname, $name, $disabled=0, $classes="") {
     } else {
         $disabled = "";
     }
-    echo "<div class=\"minutebox {$classes}\"><input type=\"number\" name=\"{$name}\" class=\"minuteinput\" min=\"0\" max=\"59\" placeholder=\"-\" value=\"{$minute}\" $disabled></div>\n";
+    echo "<div class=\"minutebox\"><input type=\"text\" pattern=\"[0-9]*\" name=\"{$name}\" class=\"minuteinput {$classes}\" min=\"0\" max=\"59\" placeholder=\"-\" value=\"{$minute}\" $disabled></div>\n";
 }
 
 function checkBox($name, $val) {
@@ -172,7 +172,7 @@ function categoryCheckBoxes($columnTitles, $checkCurrent=0,
     return $rv;
 }
 
-function categoryPullDown($cat="", $multiple=false) {
+function categoryPullDown($cat="", $multiple=false, $classes="") {
     global $tablepre, $dbh;
     $q = $dbh->query("SELECT `name` FROM `{$tablepre}categories`
         ORDER BY `name`");
@@ -181,7 +181,7 @@ function categoryPullDown($cat="", $multiple=false) {
     } else {
         $multi = "";
     };
-    echo "\n<select name=\"category\" required$multi>\n";
+    echo "\n<select name=\"category\" class=\"{$classes}\" required$multi>\n";
     if ("" == $cat)
         echo "  <option value=\"-\" disabled selected>-</option>\n";
     $_ = "__";
