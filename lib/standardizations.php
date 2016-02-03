@@ -21,3 +21,18 @@ function handlebarsCDN() {
     <script type="text/javascript" src="https://cdnjs.com/libraries/handlebars.js"></script>
 <?
 }
+
+function SProtocol() {
+    /* Return the server protocol string for this request, without colon. */
+    if (empty($_SERVER['HTTPS']) || 'off' == $_SERVER['HTTPS']) {
+        return "http";
+    } else {
+        return "https";
+    }
+}
+
+function SDir() {
+    /* Return the server hostname and the directory of the currently executing script. */
+    return $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+}
+$SDir = "SDir";

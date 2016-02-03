@@ -5,7 +5,6 @@ require('./utility/initialize-entrypoint.php');
 
 $flag = $_GET['flag'];
 $authdata = getIndexOr($_SESSION[$sprefix],'authdata', array());
-$serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 $auth = auth();
 $authtype = getIndexOr($authdata, "authtype");
 $_ = '__';
@@ -107,7 +106,7 @@ if ( $auth == 3 && $authtype!="cookie") {
         $q->execute();
         $_SESSION[$sprefix]['authdata']['password'] = $pw;
         setMessage(__('pwchanged').$authdata['login']);
-        header("Location: http://{$serverdir}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
+        header("Location: {$SDir()}index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
         exit(0);
     } else {
         header("location:index.php");
@@ -131,7 +130,7 @@ if ( $auth == 3 && $authtype!="cookie") {
         if (! auth($_POST['username'], $_POST['pw']))
             die("Saved credentials, but could not authenticate.");
         saveConfig(array("hasuser"=>1));
-        header("Location: http://{$serverdir}/index.php");
+        header("Location: {$SDir()}/index.php");
     } elseif ($flag=="reset" && array_key_exists('auth', $_GET)) {
         changePW($dbh, $_GET['auth']);
     } elseif ($flag=="updatepw" && array_key_exists('auth', $_POST)) {
@@ -145,7 +144,7 @@ if ( $auth == 3 && $authtype!="cookie") {
         } else {
             setMessage(__('problem changing password'));
         }
-        header("Location: http://{$serverdir}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
+        header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
         exit(0);
 
     } else {
@@ -153,10 +152,10 @@ if ( $auth == 3 && $authtype!="cookie") {
             setMessage(__('accessdenied-cookie'));
             $_SESSION[$sprefix]["destination"] = $_SERVER["REQUEST_URI"].
                 $_SERVER["PATH_INFO"].$_SERVER["REQUEST_METHOD"];
-            header("Location: http://{$serverdir}/login.php?action=loginform");
+            header("Location: {$SDir()}/login.php?action=loginform");
         } else {
             setMessage(__('accessdenied'));
-            header("Location: http://{$serverdir}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
+            header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
         }
     }
 }
@@ -166,8 +165,7 @@ if ( $auth == 3 && $authtype!="cookie") {
 ***************************************/
 
 function changePW($dbh, $authcode="") {
-    $serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-
+    global $SDir;
     if ($authcode) { // password reset request
         $q = $dbh->prepare("SELECT `uid`, `username` FROM `{$dbh->getPrefix()}users`
             WHERE `resetkey` = :resetkey
@@ -179,7 +177,7 @@ function changePW($dbh, $authcode="") {
             $id = $row['uid'];
         } else {
             setMessage(__("invalid or expired reset auth"));
-            header("Location: http://{$serverdir}/index.php");
+            header("Location: {$SDir()}/index.php");
         }
     } else {
         $username = $_SESSION[$sprefix]['authdata']['login'];
