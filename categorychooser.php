@@ -37,7 +37,7 @@ if (!(array_key_exists("step", $_POST) && $_POST['step'] == '2')) {
     unset($_POST['step']);
     $showstr = __('show');
     if (array_key_exists('cancel', $_POST)) {
-        header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+        header("Location: {$SDir()}/index.php");
         exit(0);
     }
 
@@ -51,6 +51,6 @@ if (!(array_key_exists("step", $_POST) && $_POST['step'] == '2')) {
     }
     $_SESSION[$sprefix]['categories'] = $categories;
 
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
 }
 // vim: set tags+=../../**/tags :

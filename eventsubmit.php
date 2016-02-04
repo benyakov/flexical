@@ -13,13 +13,13 @@ $action = $_SESSION[$sprefix]['action'];
 
 if (array_key_exists('cancel', $_GET)) {
     setMessage(__('operationcancelled'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 }
 
 if (!auth()) {
     setMessage(__('accessdenied'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 
 } else {
@@ -68,7 +68,7 @@ if (!auth()) {
         $dbh->commit() or die(array_pop($q->errorInfo()));
         $affected = $q->rowCount();
         setMessage("{$_('event deleted')} ({$affected})");
-		header("Location: http://{$_SERVER['HTTP_HOST']}".dirname($_SERVER['PHP_SELF'])."/index.php?action={$action}&day={$d}&month={$m}&year={$y}&length={$l}&unit={$u}");
+		header("Location: {$SDir()}/index.php?action={$action}&day={$d}&month={$m}&year={$y}&length={$l}&unit={$u}");
         exit(0);
 
 	} else {
@@ -114,7 +114,7 @@ function submitEventData ($id="") {
     // Check that Title is filled.
     if (!$_POST['title'] && !$_POST['related']) {
         setMessage(__('blanktitle'));
-        header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php?month={$_POST['month']}&year={$_POST['year']}&day={$_POST['day']}");
+        header("Location: {$SDir()}/index.php?month={$_POST['month']}&year={$_POST['year']}&day={$_POST['day']}");
         exit(0);
     }
     // If hour is less than 12, apply "pm" by adding 12
@@ -250,7 +250,7 @@ function copyEvent($id)
         $repeatskip = intval($_POST['repeatskip']);
     } elseif (array_key_exists('repeatskip', $_POST)) {
         setMessage(__('repeatskipnan')." : {$_POST['repeatskip']} numeric? ".is_numeric($_POST['repeatskip']));
-        header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+        header("Location: {$SDir()}/index.php");
         exit(0);
     }
     $repeattype = $_POST['repeattype'];
@@ -433,5 +433,5 @@ function copyEvent($id)
 
 touch("timestamp.txt");
 if ($action=="eventdisplay") $action="eventdisplay&id={$id}";
-header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php?month={$month}&year={$year}&day={$day}&length={$length}&unit={$unit}&action={$action}");
+header("Location: {$SDir()}/index.php?month={$month}&year={$year}&day={$day}&length={$length}&unit={$unit}&action={$action}");
 // vim: set tags+=../**/tags :

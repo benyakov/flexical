@@ -10,7 +10,7 @@ $auth = auth();
 
 if ( $auth < 2 ) {
     setMessage(__('accessdenied'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 }
 
@@ -18,7 +18,7 @@ if (array_key_exists("cancel", $_POST)) {
     if (array_key_exists('categorystyles', $_SESSION[$sprefix])) {
         unset($_SESSION[$sprefix]['categorystyles']);
     }
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 } elseif (! (array_key_exists("submit", $_POST) || array_key_exists("save", $_POST))) {
 ?>
@@ -72,9 +72,9 @@ if (array_key_exists("cancel", $_POST)) {
     $hidestr = toCSSID(__('hide'));
     $suppressstr = toCSSID(__('suppress key listing'));
     if (array_key_exists('save', $_POST)) {
-        $destination = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['PHP_SELF']}";
+        $destination = $_SERVER['PHP_SELF'];
     } elseif (array_key_exists('submit', $_POST)) {
-        $destination = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php";
+        $destination = "{$SDir()}/index.php";
     }
     // Get lists for each checkbox type and for new category names.
     // Also, make strings to report what happened later and convert

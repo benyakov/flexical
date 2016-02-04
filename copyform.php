@@ -5,7 +5,7 @@ require("./utility/initialize-entrypoint.php");
 
 if (!auth()) {
     setMessage(__('accessdenied'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 } else {
 

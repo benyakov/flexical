@@ -5,7 +5,7 @@ require("./utility/initialize-entrypoint.php");
 
 if (!auth()) {
     setMessage(__('accessdenied'));
-    header("Location: http://{$_SESSION[$sprefix]['serverdir']}/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 }
 $id = getGET('id');

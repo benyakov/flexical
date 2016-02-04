@@ -10,7 +10,7 @@ $auth = auth();
 
 if (array_key_exists('cancel', $_POST)) {
     setMessage(__('operationcancelled'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 }
 
@@ -18,7 +18,7 @@ if (($auth < 3) || (! array_key_exists('flag', $_GET))
     || (! array_key_exists('filters', $_SESSION[$sprefix])) || (! $_SESSION[$sprefix]['filters']))
 {
     setMessage(__('accessdenied'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 } else {
 	$authdata = $_SESSION[$sprefix]['authdata'];
@@ -53,7 +53,7 @@ if ("delete" == $_GET['flag']) {
 } elseif ("relate" == $_GET['flag']) {
     if ($_SESSION[$sprefix]['filters']['related']) {
         setMessage(__('already related'));
-        header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+        header("Location: {$SDir()}/index.php");
         exit(0);
     }
     list($lowdate, $highdate) = getDateRange();
@@ -287,7 +287,7 @@ if ("delete" == $_GET['flag']) {
     // Submit changes in title
     if (array_key_exists('cancel', $_POST)) {
         setMessage(__('operationcancelled'));
-        header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+        header("Location: {$SDir()}/index.php");
         exit(0);
     }
     if ($_SESSION[$sprefix]['filters']['related']) {
@@ -327,7 +327,7 @@ if ("delete" == $_GET['flag']) {
     // Submit changes in text
     if (array_key_exists('cancel', $_POST)) {
         setMessage(__('operationcancelled'));
-        header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+        header("Location: {$SDir()}/index.php");
         exit(0);
     }
     if ($_SESSION[$sprefix]['filters']['related']) {
@@ -366,7 +366,7 @@ if ("delete" == $_GET['flag']) {
     // Submit changes in text
     if (array_key_exists('cancel', $_POST)) {
         setMessage(__('operationcancelled'));
-        header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+        header("Location: {$SDir()}/index.php");
         exit(0);
     }
 	$shour = intval($_POST['start_hour']);
@@ -495,7 +495,7 @@ if ("delete" == $_GET['flag']) {
 }
 
 touch("timestamp.txt");
-header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php?action=eventlist");
+header("Location: {$SDir()}/index.php?action=eventlist");
 
 function getDateRange() {
     global $sprefix;

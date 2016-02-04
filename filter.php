@@ -14,7 +14,7 @@ if (array_key_exists('cancel', $_POST)) {
     } else {
         setMessage(__('filterremoved'));
     }
-    $_SESSION[$sprefix]['filters'] = false;
+    $_SESSION[$sprefix]['filters'] = array();
     header("Location: {$SDir()}/index.php");
     exit(0);
 } elseif (array_key_exists('filterrelated', $_GET)) {
