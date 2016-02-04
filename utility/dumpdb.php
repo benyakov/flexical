@@ -1,7 +1,7 @@
 <?php
 $dbconfig = new Configfile("./dbconnection.ini", false, true, false);
 if (auth() < 3) {
-    header("Location: http://{$serverdir}/index.php?message=".urlencode(__('accessdenied')));
+    header("Location: {$SDir()}/index.php?message=".urlencode(__('accessdenied')));
     exit(0);
 }
 $tabledescfile = "tabledesc.sql";

@@ -1,24 +1,33 @@
 <?php
-// Select a dump file to upload, then execute it.
+/*
+ * Select a dump file to upload, then execute it.
+ */
 if (function_exists("auth")) { // Running from the index.php entry point
     $authlevel = auth();
+    $serverdir = SDir();
 } else {
     chdir("..");
     $installroot = dirname($_SERVER['SCRIPT_NAME']);
     $includeroot = dirname(__FILE__);
     require("./setup-session.php");
     require("./utility/configfile.php");
-    if (isset($_SESSION[$sprefix]["authdata"]["userlevel"])) { // Called directly with established session
+    if (isset($_SESSION[$sprefix]["authdata"]["userlevel"])) {
+        // Called directly with established session
         $authlevel = $_SESSION[$sprefix]["authdata"]["userlevel"];
         require("../lang/Translate.php");
     } else { // Called directly, no established session
         $authlevel = 0;
         require("../lang/Translate.php");
     }
+    if (isset($_SESSION[$sprefix]["serverdir"])) {
+        $serverdir = $_SESSION[$sprefix]["serverdir"];
+    } else {
+        $serverdir = upfromhere();
+    }
 }
 if ($authlevel < 3) {
     setMessage(__('accessdenied'));
-    header("Location: http://{$installroot}/index.php");
+    header("Location: {$serverdir}/index.php");
     exit(0);
 }
 $this_script = $_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'] ;
@@ -29,7 +38,7 @@ if (! array_key_exists("stage", $_GET)) {
     <body>
     <h1><?=__('restoretitle')?></h1>
     <p><?=__('selectfile')?></p>
-    <form action="http://<?=$serverdir?>/utility/restoredb.php?stage=2" enctype="multipart/form-data"
+    <form action="<?=$serverdir?>/utility/restoredb.php?stage=2" enctype="multipart/form-data"
         method="POST">
     <input type="file" name="backup_file" size="50">
     <input type="submit" value="<?=__('send')?>"><input type="reset">

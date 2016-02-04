@@ -36,3 +36,12 @@ function SDir() {
     return dirname($_SERVER['PHP_SELF']);
 }
 $SDir = "SDir";
+
+function upfromhere() {
+    // Redirect one level up from the currently-called script
+    $dir = dirname($_SERVER['PHP_SELF']);
+    $exploded = explode("/", $dir);
+    $imploded = implode("/", array_slice($exploded, 0, count($exploded)-1));
+    return($imploded);
+}
+

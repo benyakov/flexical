@@ -1,31 +1,41 @@
 <?php
-// Set up configuration and save to the db.
+/* Set up configuration and save to the db, may be run directly at installation
+ * or as needed via require().
+ */
+
 // Determine authorization to configure the calendar
 if (function_exists("auth")) { // Running from the index.php entry point
     $authlevel = auth();
-} else {
+    $serverdir = SDir();
+} else { // Run directly
     chdir("..");
     require("./functions.php");
     $installroot = dirname(dirname($_SERVER["SCRIPT_NAME"]));
     $includeroot = dirname(dirname(__FILE__));
-    $serverdir = upfromhere();
     require("./utility/setup-session.php");
-    if (isset($_SESSION[$sprefix]["authdata"]["userlevel"])) { // Called directly with established session
+    if (isset($_SESSION[$sprefix]["authdata"]["userlevel"])) {
+        // Called directly with established session
         $authlevel = $_SESSION[$sprefix]["authdata"]["userlevel"];
         require("./lang/Translate.php");
-    } else { // Called directly, no established session
+    } else {
+        // Called directly, no established session
         $authlevel = 0;
         require("./lang/Translate.php");
+    }
+    if (isset($_SESSION[$sprefix]["serverdir"])) {
+        $serverdir = $_SESSION[$sprefix]["serverdir"];
+    } else {
+        $serverdir = upfromhere();
     }
 }
 if (3 > $authlevel) {
     setMessage(__('Unauthorized'));
-    header("Location: http://{$serverdir}/login.php?action=loginform");
+    header("Location: {$serverdir}/login.php?action=loginform");
     exit(0);
 }
 if (array_key_exists('cancel', $_POST)) {
     setMessage(__('operationcancelled'));
-    header("Location: http://{$serverdir}/index.php");
+    header("Location: {$serverdir}/index.php");
     exit(0);
 }
 if (array_key_exists("step", $_POST) && 2 == $_POST['step']) {
@@ -55,7 +65,7 @@ if (array_key_exists("step", $_POST) && 2 == $_POST['step']) {
     $Config->newconfig($_POST);
     // Put new config into session?
     setMessage(__('New Flexical configuration saved.'));
-    header("Location: http://{$serverdir}/index.php");
+    header("Location: {$serverdir}/index.php");
 
 } else { // Generate form
 

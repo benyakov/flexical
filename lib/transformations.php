@@ -13,14 +13,6 @@ function userTimeZone() {
     }
 }
 
-function upfromhere() {
-    // Redirect one level up from the currently-called script
-    $dir = dirname($_SERVER['PHP_SELF']);
-    $exploded = explode("/", $dir);
-    $imploded = implode("/", array_slice($exploded, 0, count($exploded)-1));
-    return($_SERVER['HTTP_HOST'] .  $imploded);
-}
-
 function toCSSID($cat) {
     // Transform the given category name to a valid CSS class name
     $cat = preg_replace("/-/", "--", $cat);

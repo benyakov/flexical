@@ -1,19 +1,29 @@
 <?php
-// Review or alter the configuration history.
+/*
+ * Review or alter the configuration history.
+ */
+
 // Determine authorization to configure the calendar
 if (function_exists("auth")) { // Running from the index.php entry point
     $authlevel = auth();
+    $serverdir = SDir();
 } else {
     $installroot = dirname(dirname($_SESSION['SCRIPT_NAME']));
     $includeroot = dirname(dirname(__FILE__));
     require("./setup-session.php");
     chdir("..");
-    if (isset($_SESSION[$sprefix]["authdata"]["userlevel"])) { // Called directly with established session
+    if (isset($_SESSION[$sprefix]["authdata"]["userlevel"])) {
+        // Called directly with established session
         $authlevel = $_SESSION[$sprefix]["authdata"]["userlevel"];
         require("./utility/initialize-entrypoint.php");
     } else { // Called directly, no established session
         $authlevel = 0;
         require("./lang/Translate.php");
+    }
+    if (isset($_SESSION[$sprefix]["serverdir"])) {
+        $serverdir = $_SESSION[$sprefix]["serverdir"];
+    } else {
+        $serverdir = upfromhere();
     }
 }
 if (3 > $authlevel) { ?>
@@ -36,7 +46,7 @@ if (array_key_exists('delete', $_POST)) {
     $sql = "DELETE FROM `{$dbh->getPrefix()}config` WHERE ({$whereclause})";
     $dbh->exec($sql);
     setMessage(__('config history deleted'));
-    header("Location: http://{$serverdir}/index.php");
+    header("Location: {$serverdir}/index.php");
     exit(0);
 } elseif (array_key_exists('restore', $_GET)) {
     $serverdir = $_SESSION[$sprefix]['serverdir'];

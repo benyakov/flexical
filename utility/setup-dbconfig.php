@@ -15,7 +15,7 @@ if (array_key_exists("step", $_POST) && $_POST['step'] == '2') {
     unset($dbconfig);
     chmod("../dbconnection.ini", 0600);
 
-    header ("Location: http://{$serverdir}/index.php?initialize=Flexical");
+    header ("Location: {$SDir()}/index.php?initialize=Flexical");
     exit(0);
 } else {
     // Display the form (first time around)
