@@ -51,7 +51,7 @@ function writeHTML_thisweek($day, $month, $year) {
             "{$tr}\n<td class=\"eventdate\"></td>":
             "{$tr}\n<td class=\"eventdate hbar\">$thisday</td>";
         $str .= "<td class=\"eventtime hbar\">{$stime}</td>
-                 <td class=\"eventtitle\"><a href=\"http://{$serverdir}/index.php?action=eventdisplay&id={$row['id']}\">{$title}</a></td>
+                 <td class=\"eventtitle\"><a href=\"{$serverdir}/index.php?action=eventdisplay&id={$row['id']}\">{$title}</a></td>
                  <td class=\"eventcategory\">
                  <span class=\"".toCSSID($row['category'])."\">
                  {$row['category']}</span></td></tr>\n";

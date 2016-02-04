@@ -92,7 +92,7 @@ $currentcatstring = urlencode(implode(",", $_SESSION[$sprefix]["categories"]));
 <a href="javascript:void(0);" id="minimizesetup">[-]</a>
 <?php  if (getPOST('tally')) $summarytallypart = "&tally={$_POST['tally']}";
     else $summarytallypart = ""; ?>
-<div id="shortcuturl"><a href="http://<?=$serverdir?>?categories=<?=$currentcatstring?>&start=<?=$_POST['start']?>&end=<?=$_POST['end']?>&action=summary<?=$summarytallypart?>"
+<div id="shortcuturl"><a href="<?=$serverdir?>?categories=<?=$currentcatstring?>&start=<?=$_POST['start']?>&end=<?=$_POST['end']?>&action=summary<?=$summarytallypart?>"
     title="<?=__('direct link')?>"><?=__('direct link')?></a></div>
 
 <div id="rangesetup">
