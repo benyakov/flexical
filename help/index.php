@@ -14,8 +14,7 @@ if (is_dir($name)) {
     showfile($name, $message);
 } else {
     $info = "Redirecting from '{$name}' to Contents";
-    $serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-    header ("Location: http://".$serverdir."/index.php?n=Contents.{$configuration['language']}.txt&info=".urlencode($info));
+    header ("Location: {$SDir()}/index.php?n=Contents.{$configuration['language']}.txt&info=".urlencode($info));
     exit(0);
 }
 
