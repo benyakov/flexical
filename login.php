@@ -12,7 +12,6 @@ $y = $_GET['year']? $_GET['year'] : $_SESSION[$sprefix]['year'];
 $l = $_GET['length']? $_GET['length'] : $_SESSION[$sprefix]['length'];
 $u = $_GET['unit']? $_GET['unit'] : $_SESSION[$sprefix]['unit'];
 $id = $_GET['id'];
-$serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 
 if ( $action == "login" ) {
     if (false !== ($auth = auth($_POST['username'], $_POST['password']))) {
@@ -21,11 +20,11 @@ if ( $action == "login" ) {
             header("Location: {$_SESSION[$sprefix]["destination"]}");
             unset($_SESSION[$sprefix]["destination"]);
         } else {
-            header("Location: http://".$serverdir."/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u&id=$id");
+            header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u&id=$id");
         }
     } else {
         setMessage(__("wronglogin"));
-        header ("Location: http://".$serverdir."/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u&id=$id");
+        header ("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u&id=$id");
     }
 } elseif ($action == "logout") {
     $ak = new AuthKeeper();
@@ -33,7 +32,7 @@ if ( $action == "login" ) {
     session_destroy();
     require('./utility/setup-session.php');
     setMessage(__('logged out'));
-	header("Location: http://".$serverdir."/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u&id=$id");
+	header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u&id=$id");
 
 } elseif ($action == "loginform") {
 ?>

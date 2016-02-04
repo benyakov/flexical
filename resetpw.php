@@ -11,11 +11,10 @@ $m = getGET('month')? getGET('month') : $_SESSION[$sprefix]['month'];
 $y = getGET('year')? getGET('year') : $_SESSION[$sprefix]['year'];
 $l = getGET('length')? getGET('length') : $_SESSION[$sprefix]['length'];
 $u = getGET('unit')? getGET('unit') : $_SESSION[$sprefix]['unit'];
-$serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 
 if ( $_POST ) {
     if ( array_key_exists('cancel', $_POST) ) {
-        header("Location: http://{$serverdir}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
+        header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
         exit(0);
     }
     $where = "";
@@ -33,7 +32,7 @@ if ( $_POST ) {
     $q->execute();
     if (0 == $q->rowCount()) {
         setMessage(__("no users found"));
-        header("Location: http://{$serverdir}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
+        header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
         exit(0);
     }
     while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
@@ -45,15 +44,18 @@ if ( $_POST ) {
         $q1->bindParam(':value', $svalue);
         $q1->execute() or die(array_pop($q->errorInfo()));
         $resetkey = urlencode($resetkey);
-        $mailresult = mail($to=$row['email'], $subject=$__('pwresetsubject'),
-            $additional_headers="From: {$configuration['email_from_address']}",
-            $message=$__('pwresetmessage').
+        $mailresult = mail($row['email'],                           # To
+            $__('pwresetsubject'),                                  # Subject
+            $__('pwresetmessage').                                  # msg
             "\n\nTo reset the password for {$row['username']}, use this link:\n".
-            "http://{$serverdir}/useradmin.php?flag=reset&auth={$resetkey}");
+            $_SERVER['HTTP_HOST'].
+            "{$SDir()}/useradmin.php?flag=reset&auth={$resetkey}",
+            "From: ".trim($configuration['email_from_address'])     # additional_header
+            );
         if (! $mailresult)
             die("Problem sending password reset email to {$row['email']}");
         setMessage(__("password reset sent"));
-        header("Location: http://{$serverdir}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
+        header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
     }
 } else {
 ?>

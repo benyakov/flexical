@@ -6,7 +6,7 @@ require("./utility/initialize-entrypoint.php");
 $action = $_SESSION[$sprefix]['action'];
 if (array_key_exists('cancel', $_POST)) {
     setMessage(__('operationcancelled'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 } elseif (array_key_exists('unfilter', $_POST) || array_key_exists('unfilter', $_GET)) {
     if (! $_SESSION[$sprefix]['filters']) {
@@ -15,12 +15,12 @@ if (array_key_exists('cancel', $_POST)) {
         setMessage(__('filterremoved'));
     }
     $_SESSION[$sprefix]['filters'] = false;
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 } elseif (array_key_exists('filterrelated', $_GET)) {
     $_SESSION[$sprefix]['filters'] = array("related" => $_GET['filterrelated']);
     setMessage(__('showing related events'));
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php?action=eventlist");
+    header("Location: {$SDir()}/index.php?action=eventlist");
     exit(0);
 } elseif (getPOST('step') == 2) {
     $filters = array();
@@ -60,7 +60,7 @@ if (array_key_exists('cancel', $_POST)) {
     } else {
         setMessage(__('emptyfilter'));
     }
-    header("Location: http://{$_SESSION[$sprefix]['serverdir']}/index.php");
+    header("Location: {$SDir()}/index.php");
     exit(0);
 } else {
     if (isset($_SESSION[$sprefix]['filters'])) {
@@ -75,7 +75,7 @@ if (array_key_exists('cancel', $_POST)) {
                 $spm = 1;
                 $shour = $shour - 12;
             } else {
-                $shour = $sminute = $spm = "-";
+                $shour = $sminute = $spm = "";
             }
         }
         if (array_key_exists('end_time', $_SESSION[$sprefix]['filters'])
@@ -87,7 +87,7 @@ if (array_key_exists('cancel', $_POST)) {
                 $epm = 1;
                 $ehour = $ehour - 12;
             } else {
-                $ehour = $eminute = $epm = "-";
+                $ehour = $eminute = $epm = "";
             }
         }
         $title = $_SESSION[$sprefix]['filters']['title']?$_SESSION[$sprefix]['filters']['title']:"";
@@ -96,8 +96,8 @@ if (array_key_exists('cancel', $_POST)) {
     } else {
         $title = "";
         $text = "";
-        $shour = $sminute = $spm = "-";
-        $ehour = $eminute = $epm = "-";
+        $shour = $sminute = $spm = "";
+        $ehour = $eminute = $epm = "";
         $all_day = false;
     }
     $headerstr = __('filtertitle');

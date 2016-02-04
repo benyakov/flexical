@@ -9,8 +9,7 @@ require('./utility/configfile.php');
 $configfile = new Configfile('config.ini');
 require("./functions.php");
 require("./lang/Translate.php");
-$serverdir = $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-$_SESSION[$sprefix]['serverdir'] = $serverdir;
+$_SESSION[$sprefix]['serverdir'] = SDir(); // For lower entry points in this session.
 
 /******  Check that this installation is initialized  ******/
 $dbconfig = new Configfile("./dbconnection.ini", false, true, false);
@@ -109,17 +108,17 @@ if (getGET('listsubmit') && ! array_key_exists('opentime', $_GET)) {
 if (! is_numeric($day)) {
     $_SESSION[$sprefix]['day'] = $now['mday'];
     setMessage(__('daynumeric')." ({$day})");
-    header ("Location: http://".$serverdir."/index.php?action=$action&day={$now['mday']}&month=$month&year=$year&id=$id&length=$length&unit=$unit&opentime=$opentime");
+    header ("Location: {$SDir()}/index.php?action=$action&day={$now['mday']}&month=$month&year=$year&id=$id&length=$length&unit=$unit&opentime=$opentime");
 }
 if (! is_numeric($month)) {
     $_SESSION[$sprefix]['month'] = $now['month'];
     setMessage(__('monnumeric')." ({$month})");
-    header ("Location: http://".$serverdir."/index.php?action=$action&day=$day&month={$now['mon']}&year=$year&id=$id&length=$length&unit=$unit&opentime=$opentime");
+    header ("Location: {$SDir()}/index.php?action=$action&day=$day&month={$now['mon']}&year=$year&id=$id&length=$length&unit=$unit&opentime=$opentime");
 }
 if (! is_numeric($year)) {
     $_SESSION[$sprefix]['year'] = $now['year'];
     setMessage(__('yearnumeric')." ({$year}-{$_GET['year']})");
-    header ("Location: http://".$serverdir."/index.php?action=$action&day=$day&month=$month&year={$now['year']}&id=$id&length=$length&unit=$unit&opentime=$opentime");
+    header ("Location: {$SDir()}/index.php?action=$action&day=$day&month=$month&year={$now['year']}&id=$id&length=$length&unit=$unit&opentime=$opentime");
 }
 
 // Set up categories for display
@@ -169,7 +168,7 @@ if ($toggle=="time") {
     } elseif ($_SESSION[$sprefix]['timeformat'] == 12) {
         $_SESSION[$sprefix]['timeformat'] = 24;
     }
-    header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: {$SDir()}/index.php");
 }
 /****  Set up default tz for display and respond to toggle command ****/
 if (!isset($_SESSION[$sprefix]['usertz'])) {

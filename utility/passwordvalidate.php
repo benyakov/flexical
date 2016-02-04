@@ -10,7 +10,7 @@
 
         if (str == "") {
             f.method = "post";
-            f.action = "http://<?=$serverdir?>/useradmin.php?flag="+next;
+            f.action = "<?=$Sdir()?>/useradmin.php?flag="+next;
             f.submit();
         } else {
             alert(str);
