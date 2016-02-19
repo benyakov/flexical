@@ -31,3 +31,15 @@ table.monthheading { border: none; width: 100%; }
 .attribution,
 #displayspan    { visibility: hidden; }
 
+/* Hide placeholder text by making it transparent */
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: transparent;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: transparent;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: transparent;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: transparent;

@@ -21,7 +21,9 @@ class CalendarMonthbox extends CalendarItem
         $contents = array_shift($special);
         if (! $contents) {
             $this->classes = array_merge(array("empty-day-cell"), $this->classes);
-            $contents = "<div class=\"extramessage\"><form><textarea></textarea></form></div>";
+            $contents = "<div class=\"extramessage\"><form><textarea placeholder=\""
+                .__('extra-message-placeholder')
+                ."\"></textarea></form></div>";
         }
         $this->classes = array_merge($this->classes, $special);
         if ($span > 1) {
