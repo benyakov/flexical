@@ -100,16 +100,16 @@ if ( $auth == 3 && $authtype!="cookie") {
         $un = $_POST['un'];
         $pw = hashPassword($_POST['pw']);
         $id = $_POST['id'];
-        $q = $dbh->prepare("UPDATE `{$dbh->getPrefix()}users` SET `password`='$pw'
+        $q = $dbh->prepare("UPDATE `{$dbh->getPrefix()}users` SET `password`='{$pw}'
             WHERE `uid`=:id");
         $q->bindParam(':id', $id);
-        $q->execute();
+        $q->execute() or die(array_pop($q->errorInfo()));
         $_SESSION[$sprefix]['authdata']['password'] = $pw;
         setMessage(__('pwchanged').$authdata['login']);
-        header("Location: {$SDir()}index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
+        header("Location: {$SDir()}/index.php?action=$view&day=$d&month=$m&year=$y&length=$l&unit=$u");
         exit(0);
     } else {
-        header("location:index.php");
+        header("location: index.php");
     }
 } else {
     if ( $flag=="inituser") {
@@ -165,7 +165,7 @@ if ( $auth == 3 && $authtype!="cookie") {
 ***************************************/
 
 function changePW($dbh, $authcode="") {
-    global $SDir;
+    global $SDir, $sprefix;
     if ($authcode) { // password reset request
         $q = $dbh->prepare("SELECT `uid`, `username` FROM `{$dbh->getPrefix()}users`
             WHERE `resetkey` = :resetkey
