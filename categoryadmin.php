@@ -91,6 +91,7 @@ if (array_key_exists("cancel", $_POST)) {
     $hideboxes = preg_grep("/{$hidestr}/", array_keys($_POST, 'on'));
     foreach ($hideboxes as $rmbox) { unset($_POST[$rmbox]); }
     $hideboxes = preg_replace("/-".$hidestr."/", "", $hideboxes);
+    $hideboxes = preg_replace("/-{1}/", " ", $hideboxes);
     $hideboxes = array_map($dbh->quote, $hideboxes);
     $hidereportlist = implode(", ", $hideboxes);
     $suppressboxes = preg_grep("/{$suppressstr}/", array_keys($_POST, 'on'));

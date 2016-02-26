@@ -1,2 +1,2 @@
 <?php
-$version = array('major' => 3, 'minor' => 1, 'tick' => 45);
+$version = array('major' => 3, 'minor' => 1, 'tick' => 46);
