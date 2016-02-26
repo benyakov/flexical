@@ -188,7 +188,7 @@ function changePW($dbh, $authcode="") {
 <html lang="en"><head>
     <title><?=__('changepw')?></title>
     <link rel="stylesheet" type="text/css" href="css/adminpgs.css">
-<?php require("./utility/passwordvalidate.php")?>
+<?php require("./utility/passwordvalidate.php");?>
     </head></body>
     <form onSubmit="return validate(this, 'updatepw');">
     <input type="hidden" name="id" value="<?= $id ?>">
