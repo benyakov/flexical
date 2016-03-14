@@ -6,6 +6,7 @@
 @import url("screen.css") screen;
 @import url("print.css") print;
 
+body { font-family: Lato; }
 
 p  {
     margin: 0 auto;
@@ -22,11 +23,9 @@ p.warning {
 
 .filternotice {
     color: blue;
-    font-family: sans-serif;
     background-color: transparent;
 }
 div#crosslinks {
-    font-family: sans-serif;
     font-size: 80%;
     font-weight: bold;
     margin: 0 0 1ex 1em;
@@ -44,7 +43,6 @@ div#crosslinks a:visited { color: white; }
 
 div#login {
     font-size: 80%;
-    font-family: arial, helvetica;
     margin-right: 0pt;
     float: right;
     background-color: black;
@@ -64,18 +62,18 @@ label.login_label { background-color: black;
 
 /**** month and year header at top of calendar ****/
 .date_header            { font-size: 170%;
-                          font-family: "Zapf Chancery","zapf chancery","ITC Zapf Chancery","URW Chancery","TeX Gyre Chorus",Chancery,chancery,caslon,serif;
+                          font-family: Chorus;
                           font-weight:bold; }
 .generationdate         { height: 0.15in;
                           margin: 0; padding: 2px; text-align: center;
-                          font-size: 50%; font-family: sans-serif;
+                          font-size: 50%;
                           font-weight: normal; color: #999; }
 .gotoday                { margin: 5pt auto; padding: 5pt; }
-.gotoday a             { font-size: 70%; font-family: sans-serif;
+.gotoday a             { font-size: 70%;
                           color: black; border: thin solid black;
                           background-color: #DDD; padding: 3pt;
                           text-decoration: none; }
-.monthcount             { font-size: 70%; font-family: sans-serif; }
+.monthcount             { font-size: 70%;  }
 
 /**** calendar grid ****/
 .calendarbox            { border-collapse: collapse;
@@ -105,7 +103,6 @@ table.monthheading       { width: 99%; background-color: #fff;
 .calendarweek#heading {   border: 1px solid black;
                           color:white; background-color: #b82619;
                           font-size: 100%;
-                          font-family:sans-serif;
                           font-weight:bold; }
 
 .calendarweek#heading .columnheader
@@ -134,7 +131,7 @@ div.extramessage textarea { height: 100%; width: 100%; padding: 0;
 .minimonth-cell         { vertical-align: top;
                           color: #333; background-color: #FFE;
                           height: auto; width: 14.29%; margin: 0; padding: 0;
-                          font-family: sans-serif; font-size: 55%;
+                          font-size: 55%;
                           text-align: center; }
 div.catkey_name,
 div.minimonth_name      { display: block;
@@ -172,7 +169,7 @@ ul.categorykey          { list-style: none inside;
                         }
 
 H1.day-number          {  font-size: 110%;
-                          font-family: "Zapf Chancery","zapf chancery","ITC Zapf Chancery","URW Chancery","TeX Gyre Chorus",Chancery,Caslon,serif;
+                          font-family: Chorus;
                           color: black; font-weight: bold;
                           background-color: white;
                           width:1.8em;
@@ -187,7 +184,7 @@ p.title-txt a:active,
 p.title-txt a:visited    { text-decoration:none; color: inherit; }
 p.title-txt a:hover      { text-decoration:none; color: black;
 			   background: #EEE; }
-p.title-txt              { font-size:55%; font-family:sans-serif;
+p.title-txt              { font-size:55%;
                            line-height: 105%; }
 /**** When there are more than $compacttitlelimit titles... ****/
 .compact                { font-size:50% !important;
@@ -209,40 +206,33 @@ div.end-time-str a:hover   { text-decoration: none; color: black;
 div.column_header       { }
 
 /**** events displayed in listview ****/
-td.eventdate              { background-color: #EEF; font-size: small;
-                          font-family: sans-serif; color: black;
+td.eventdate              { background-color: #EEF; font-size: small; color: black;
                           font-weight: bold; text-align: left;
                           padding-right: 3px; padding-left: 3px; }
 td.hbar                   { border-top: thin solid #99B; }
-td.eventstarttime         { background-color: #EEE; font-size: x-small;
-                          font-family: sans-serif; color: #000;
+td.eventstarttime         { background-color: #EEE; font-size: x-small; color: #000;
                           text-align: right;
                           padding-right: 3px; padding-left: 3px; }
-td.eventendtime           { background-color: #EEE; font-size: x-small;
-                          font-family: sans-serif; color: #000;
+td.eventendtime           { background-color: #EEE; font-size: x-small; color: #000;
                           text-align: right;
                           padding-right: 3px; padding-left: 3px; }
 td.coincident             { background-color: #FDD; }
 tr.allday .eventstarttime,
 tr.allday .eventendtime { background-color: transparent; }
-td.eventtitle             { background-color: transparent; font-size: small;
-                          font-family: sans-serif; color: #000;
+td.eventtitle             { background-color: transparent; font-size: small; color: #000;
                           padding-right: 3px; padding-left: 3px; }
-td.eventdescription       { background-color: transparent; font-size: small;
-                          font-family: sans-serif; color: #320;
+td.eventdescription       { background-color: transparent; font-size: small; color: #320;
                           padding-right: 3px; padding-left: 3px; }
-td.eventcategory          { background-color: #EEF; font-size: small;
-                          font-family: sans-serif; color: #000;
+td.eventcategory          { background-color: #EEF; font-size: small; color: #000;
                           text-align: left;
                           padding-right: 3px; padding-left: 3px;
                           border-top: thin solid #9BBB9B;
                           border-bottom: thin solid #9BBB9B; }
 tr.columnheader           { background-color: #EEF; color: black;
-                          text-align: center; font-family: sans-serif;
+                          text-align: center;
                           font-weight: bold; border-bottom: thin solid #99b;}
 tr.columnheader>td        { padding: 1ex 0; }
-td.eventdescription dt    { display: block; font-weight: bold;
-                          font-family: serif; text-align: left;
+td.eventdescription dt    { display: block; font-weight: bold; text-align: left;
                           margin-right: 1em; }
 td.open-time              { font-size: x-small;
                           background-color: #eee; color: #555; }
@@ -265,7 +255,7 @@ div#MonthMenu img { border: none; }
 
 #event-header { width: 100%; }
 
-#displayspan { font-family: sans-serif; font-weight: bold;
+#displayspan { font-weight: bold;
                font-size: 10pt;
                white-space: nowrap;
                color: #066; background-color: #fff;
@@ -304,7 +294,6 @@ div.cancelbox {
     padding: 1px;
     position: relative;
     bottom: 2ex;
-    font-family: sans-serif;
     font-size: 5pt;
 }
 div.cancelbox a:link,
@@ -330,14 +319,12 @@ div.title_bar {
     background-color: blue;
 }
 div.display_title      {
-    font-family:sans-serif;
     font-weight:bold;
     float: left;
     clear: none;
     padding-left: .25em
 }
 div.display_time {
-    font-family: sans-serif;
     color:#DD0;
     font-weight: bold;
     float: right;
@@ -347,7 +334,6 @@ div.display_time {
 
 div.display_area     {
     background-color:#EDECD8;
-    font-family:sans-serif;
     color: black;
     clear: both;
     padding: 2px;
@@ -366,7 +352,6 @@ div.display_user {
 div.display_edit,
 div.display_related    {
     font-size:xx-small;
-    font-family:sans-serif;
     text-align: right;
 }
 
@@ -379,7 +364,6 @@ div.other-event {
 }
 span.hournumber {
     font-weight: bold;
-    font-family: sans-serif;
     color: #555;
     background-color: transparent;
 }
@@ -387,7 +371,6 @@ span.hourlabel {
     color: black;
     background-color: transparent;
     font-weight: bold;
-    font-family: sans-serif;
 }
 td.hourcolumn {
     width: 3em;

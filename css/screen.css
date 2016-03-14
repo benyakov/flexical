@@ -16,7 +16,7 @@ body { background-color: black; width: auto; font-size: 0.16in; }
    }
 
 /**** footprint text, filter menu ****/
-ul.hbuttons              { font-size:95%; font-family:sans-serif;
+ul.hbuttons              { font-size:95%;
                             display: block;
                             margin: 1ex;
                             line-height: 150%;
@@ -66,10 +66,10 @@ ul.hbuttons.footprint * a.half:active { background-color: #CCA;
 
 
 /**** attribution text ****/
-.attribution            {font-size: 80%; font-family:sans-serif;
+.attribution            {font-size: 80%;
                          color: gray; background-color: transparent;
                          margin: 1em; padding: 2px;}
-.attribution A          {font-size: 80%; font-family:sans-serif;
+.attribution A          {font-size: 80%;
                          color: gray; background-color: transparent;
                          border: none;}
 
@@ -84,7 +84,7 @@ div#sitetabs_background {
     z-index: 2;
 }
 
-ul#sitetabs                  { font-size: 120%; font-family: sans-serif;
+ul#sitetabs                  { font-size: 120%;
                                font-weight: bold;
                                display: table;
                                margin: 0pt; padding: 0pt;

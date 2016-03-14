@@ -1,26 +1,24 @@
 @import url("popwin.css");
 
-a	     	{ font-family:arial, helvetica; color:#00F; text-decoration:none }
-a:link		{ color:#00F; text-decoration:none }
-a:active	{ color:#00F; text-decoration:none }
-a:visited	{ color:#00F; text-decoration:none }
-a:hover	   	{ color:#00F; text-decoration:underline }
+a	     	{ color:#00F; text-decoration:none; }
+a:link		{ color:#00F; text-decoration:none; }
+a:active	{ color:#00F; text-decoration:none; }
+a:visited	{ color:#00F; text-decoration:none; }
+a:hover	   	{ color:#00F; text-decoration:underline; }
 
-body	{ background-color:#AAA; font-size: small; }
-span 	{ font-family:arial, helvetica }
-td     	{ font-family:arial, helvetica }
+body	{ background-color:#AAA; font-size: small; font-family:Heros; }
 
-.edit_user_header 	{ font-size: larger; font-family:arial, helvetica; font-weight:bold; color: white; }
-.edit_user_label	{ font-family:arial, helvetica; color: black;  }
-.bad_user_name		{ font-family:arial, helvetica; color:#F99 }
+.edit_user_header 	{ font-size: larger; font-weight:bold; color: white; }
+.edit_user_label	{ color: black;  }
+.bad_user_name		{ color:#F99; }
 
-.user_table_col_label	{ font-size: smaller; font-family:verdana, helvetica, arial; color:#FFF; font-weight:bold }
-.user_table_txt			{ font-size: larger; font-family:arial, helvetica, sans-serif; color:#000; }
+.user_table_col_label	{ font-size: smaller; color:#FFF; font-weight:bold; }
+.user_table_txt			{ font-size: larger; color:#000; }
 
 td.user-edit-header { padding: 2px; background-color: #444; }
 
-.user_list_options				{ font-size: smaller; font-family:verdana; color: white; font-weight:bold }
-.user_list_options A:link		{ font-family:verdana; color:#446 }
-.user_list_options A:active		{ font-family:verdana; color:#446 }
-.user_list_options A:visited	{ font-family:verdana; color:#446 }
-.user_list_options A:hover		{ font-family:verdana; color:#446 }
+.user_list_options				{ font-size: smaller; color: white; font-weight:bold; }
+.user_list_options A:link		{ color:#446; }
+.user_list_options A:active		{ color:#446; }
+.user_list_options A:visited	{ color:#446; }
+.user_list_options A:hover		{ color:#446; }
