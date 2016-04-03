@@ -76,11 +76,11 @@ function dayCount($results) {
         $counts[$category] = count($events);
     }
     /**
-     * Collect excludes
+     * Custom DayCounts with Excludes
      */
     $beginmarks = array();
     $pmatch = array();
-    $startpreg = "/^StartCount \"([^)]+?)\"/";
+    $startpreg = "/^StartCount \"([^)]+?)\"/m";
     foreach ($results as $event) {
         if ($result = preg_match($startpreg, $event['text'], $pmatch)) {
             $beginmarks[$pmatch[1]] = array(
@@ -92,7 +92,8 @@ function dayCount($results) {
             throw new SummaryError("Error in preg_match;");
     }
     foreach ($beginmarks as $markname=>$whatwhen) {
-        $endpreg = "/^EndCount \"{$markname}\"/";
+        $endpreg = "/^EndCount \"{$markname}\"/m";
+        // Look in the same category that the StartCount event used
         foreach($data[$whatwhen["category"]] as $event) {
             if ($result = preg_match($endpreg, $event['text'])) {
                 $beginmarks[$markname]['enddate'] = strtotime($event['date']);
