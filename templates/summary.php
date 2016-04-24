@@ -43,9 +43,15 @@ if (! $q->execute())
 $results = $q->fetchAll(PDO::FETCH_ASSOC);
 $eventdays = array();
 foreach ($results as $event) {
-    $eventdays[] = $event["date"];
+    $eventdays[$event["date"]][] = $event['category'];
 }
 $currentcatstring = urlencode(implode(",", $_SESSION[$sprefix]["categories"]));
+
+$customcounts = array();
+$daycount = dayCount($results, $customcounts);
+foreach ($customcounts as $date => $category) {
+    $eventdays[date('Y-m-d', $date)][] = $category;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +127,7 @@ $currentcatstring = urlencode(implode(",", $_SESSION[$sprefix]["categories"]));
 </div>
 <?php if (getPOST('tally')) { ?>
 <div class="daycount">
-<?php echo dayCount($results); ?>
+<?php echo $daycount;  ?>
 </div>
 <?php } ?>
 </div>

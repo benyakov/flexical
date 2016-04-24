@@ -30,15 +30,16 @@ class SummaryEvent
  */
 function leftCalendars($start, $end, $eventdays) {
     // Normalize to the first of the month
+    $out = array();
     $monthcount = ceil(time_monthDiff($start, $end)/2);
     if (0 == $monthcount) $monthcount = 1;
     for ($inc=0; $inc<$monthcount; $inc++) {
         $thismonth = time_add($start, 0, 0, 0, 0, $inc, 0);
         $month = time_getMonth($thismonth);
         $year = time_getYear($thismonth);
-        showMiniMonth($month, $year, $eventdays);
-        echo "<br>\n";
+        $out[] = getMiniMonth($month, $year, $eventdays)."<br>\n";
     }
+    return implode("", $out);
 }
 
 /**
@@ -46,6 +47,7 @@ function leftCalendars($start, $end, $eventdays) {
  */
 function rightCalendars($start, $end, $eventdays) {
     // Normalize to the first of the month
+    $out = array();
     $startmonth = ceil(time_monthDiff($start, $end)/2);
     $monthcount = time_monthDiff($start, $end)+1;
     $monthmax = time_getMonth($end);
@@ -53,16 +55,52 @@ function rightCalendars($start, $end, $eventdays) {
         $thismonth = time_add($start, 0, 0, 0, 0, $inc, 0);
         $month = time_getMonth($thismonth);
         $year = time_getYear($thismonth);
-        showMiniMonth($month, $year, $eventdays);
-        echo "<br>\n";
+        $out[] = getMiniMonth($month, $year, $eventdays)."<br>\n";
     }
+    return implode("", $out);
+}
+
+function getBeginMarks($qresults) {
+    $beginmarks = array();
+    // Look for StartCount tags
+    $startpreg = "/^StartCount \"([^)]+?)\"/m";
+    foreach ($qresults as $event) {
+        if ($result = preg_match_all($startpreg, $event['text'], $out,
+            PREG_SET_ORDER))
+        {
+            foreach ($out as $pmatch) {
+                $beginmarks[$pmatch[1]] = array(
+                    'startdate' => strtotime($event['date']),
+                    'category' => $event['category'],
+                    'text' => $event['text'],
+                    'enddate' => 0);
+            }
+        } elseif ($result === false)
+            throw new SummaryError("Error in preg_match 1;");
+    }
+    return $beginmarks;
+}
+
+function addEndDates($beginmarks, $data) {
+    // Look for EndCount tags
+    foreach ($beginmarks as $markname=>$whatwhen) {
+        $endpreg = "/^EndCount \"{$markname}\"/m";
+        // Look in the same category that the StartCount event used
+        foreach($data[$whatwhen["category"]] as $event) {
+            if ($result = preg_match($endpreg, $event['text'])) {
+                $beginmarks[$markname]['enddate'] = strtotime($event['date']);
+            } elseif ($result === false)
+                throw new SummaryError("Error in preg_match 2;");
+        }
+    }
+    return $beginmarks;
 }
 
 /**
  * Show a list of days in included categories,
  * including extra "categories" configured by event description syntax.
  */
-function dayCount($results) {
+function dayCount($results, &$customcounts) {
     /**
      * collect events by category
      */
@@ -78,42 +116,59 @@ function dayCount($results) {
     /**
      * Custom DayCounts with Excludes
      */
-    $beginmarks = array();
     $pmatch = array();
-    $startpreg = "/^StartCount \"([^)]+?)\"/m";
-    foreach ($results as $event) {
-        if ($result = preg_match($startpreg, $event['text'], $pmatch)) {
-            $beginmarks[$pmatch[1]] = array(
-                'startdate' => strtotime($event['date']),
-                'category' => $event['category'],
-                'text' => $event['text'],
-                'enddate' => 0);
-        } elseif ($result === false)
-            throw new SummaryError("Error in preg_match;");
-    }
-    foreach ($beginmarks as $markname=>$whatwhen) {
-        $endpreg = "/^EndCount \"{$markname}\"/m";
-        // Look in the same category that the StartCount event used
-        foreach($data[$whatwhen["category"]] as $event) {
-            if ($result = preg_match($endpreg, $event['text'])) {
-                $beginmarks[$markname]['enddate'] = strtotime($event['date']);
-            } elseif ($result === false)
-                throw new SummaryError("Error in preg_match;");
-        }
-    }
-    $excludepreg = '/ExcludeCount "([^)]+?)"/';
+
+    $beginmarks = getBeginMarks($results);
+    $beginmarks = addEndDates($beginmarks, $data);
+
+    // Process ExcludeCount modifiers
+    $excludepreg = '/^ExcludeCount "([^)]+?)"/m';
     foreach ($beginmarks as $markname=>$whatwhen) {
         $begin = $whatwhen['startdate'];
         $end = $whatwhen['enddate'];
         if ($begin >= $end) continue;
+        $customcounts[$begin] = "{$markname}-begin";
+        $customcounts[$end] = "{$markname}-end";
         $daydiff = time_dayDiff($end, $begin);
+
         // Process excludes
         $excludes = array();
-        if ($result=preg_match_all($excludepreg,
-            $whatwhen['text'], $pmatches, PREG_PATTERN_ORDER)) {
+
+        $debug = array($markname, $whatwhen['text']);
+        // Find line matching '/^StartCount "$markname"/'. Start search here.
+        if ($result = preg_match("/^StartCount \"{$markname}\"/m",
+            $whatwhen['text'], $pmatch, PREG_OFFSET_CAPTURE))
+        {
+            $match_start = $pmatch[0][1];
+            $debug[] = $match_start;
+        } elseif ($result === false)
+            throw new SummaryError("Error in preg_match 3;");
+
+        // Find any following blank line. Excerpt before.
+        if ($result = preg_match('/^\s*$/m', $whatwhen['text'], $pmatch,
+            PREG_OFFSET_CAPTURE, $match_start))
+        {
+            $match_end = $pmatch[0][1];
+        } elseif ($result === false)
+            throw new SummaryError("Error in preg_match 4;");
+        else
+            $match_end = strlen($whatwhen['text']);
+        $debug[] = $match_end;
+
+        $text = substr($whatwhen['text'], $match_start, $match_end-$match_start);
+        $debug[] = $text;
+        // Look for $excludepreg in remaining text
+        if ($result=preg_match_all($excludepreg, $text, $pmatches,
+            PREG_PATTERN_ORDER))
+        {
             $excludes = $pmatches[1];
         } elseif ($result === false)
-            throw new SummaryError("Error in preg_match;");
+            throw new SummaryError("Error in preg_match 5;");
+
+        $fh = fopen("debug.txt", "a");
+        fwrite($fh, print_r($debug, true));
+        fclose($fh);
+
         foreach($excludes as $excategory) {
             // Reduce $daydiff by the count of events in $excategory
             // between $begin and $end
@@ -164,6 +219,7 @@ function dayCount($results) {
         // $beginmarks[$markname]["length"] = $daydiff; // Completeness
         $counts[$markname] = $daydiff;
     }
+    ob_start();
 ?>
     <table class="daycount">
         <?php foreach ($counts as $name=>$count) { ?>
@@ -171,6 +227,7 @@ function dayCount($results) {
         <?php } ?>
     </table>
 <?php
+    return ob_get_clean();
 }
 
 /**
@@ -292,13 +349,13 @@ function eventsByMonth($results) {
             $rv[] = "</dl>";
         }
     }
-    echo implode("\n", $rv);
+    return implode("\n", $rv);
 }
 
 /**
  * Mostly borrowed from calendar/load.php -> genMiniCal
  */
-function showMiniMonth($month, $year, $edays) {
+function getMiniMonth($month, $year, $edays) {
 	// get number of days in month
 	$days = 31-((($month-(($month<8)?1:0))%2)+(($month==2)?((!($year%((!($year%100))?400:4)))?1:2):0));
 
@@ -340,7 +397,7 @@ function showMiniMonth($month, $year, $edays) {
         $wday++;
     }
     $rv .= "</tr></table>";
-    echo $rv;
+    return $rv;
 }
 /**
  * Generate a single day for the above function.
@@ -360,11 +417,20 @@ function minicalday($day, $extraclass="") {
  * Return the class name "specialday" if this date is in the events
  */
 function specialDayClass($year, $month, $day, $edays) {
-    if (in_array(sprintf("%d-%02d-%02d", $year, $month, $day)
-        , $edays))
-        return "specialday";
+    $days = array_keys($edays);
+    $thisday = sprintf("%d-%02d-%02d", $year, $month, $day);
+    if (in_array($thisday, $days))
+        $classes = "specialday ";
     else
-        return "";
+        $classes = "";
+    if ($edays[$thisday]) {
+        $categories = $edays[$thisday];
+        foreach ($categories as $class) {
+            $clean_class = preg_replace('/["\'<>& \t]/', '_', $class);
+            $classes .= " summary-{$clean_class}";
+        }
+    }
+    return $classes;
 }
 
 

@@ -109,8 +109,8 @@ function time_getDay($timestamp) {
 }
 function time_dayDiff($timestamp1,$timestamp2) {
    // Return the difference in days between the two timestamps
-   $secondsdiff = abs($timestamp1-$timestamp2);
-   return $secondsdiff/(24*60*60);
+   $secondsdiff = abs(time_stripTime($timestamp1)-time_stripTime($timestamp2));
+   return round($secondsdiff/(24*60*60)) + 1;
 }
 /**
  * Return the difference in months between the two timestamps,
