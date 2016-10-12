@@ -1,4 +1,4 @@
 <?php
 require("../functions.php");
-header(upfromhere());
+header("Location: " . upfromhere());
 exit(0);

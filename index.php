@@ -37,6 +37,8 @@ if (getGET('initialize') == 'Flexical') {
     // Check for pre-existence of tables
     if (! $configfile->exists("dbversion"))
         require("./utility/createtables.php");
+        unset($configfile);
+        $configfile = new Configfile('config.ini');
     $dbversion = $configfile->get("dbversion");
     touch("timestamp.txt");
 }

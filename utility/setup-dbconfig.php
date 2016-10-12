@@ -15,7 +15,11 @@ if (array_key_exists("step", $_POST) && $_POST['step'] == '2') {
     unset($dbconfig);
     chmod("../dbconnection.ini", 0600);
 
-    header ("Location: {$SDir()}/index.php?initialize=Flexical");
+    if (basename(__FILE__) == basename($_SERVER['PHP_SELF']))
+        $goto = upfromhere() . "/index.php?initialize=Flexical";
+    else
+        $goto = "{$SDir()}/index.php?initialize=Flexical";
+    header("Location: {$goto}");
     exit(0);
 } else {
     // Display the form (first time around)

@@ -22,7 +22,7 @@
         <tr>
             <td nowrap valign="top" align="right" nowrap>
             <span class="login_label"><?=__('email')?></span></td>
-            <td><input type="text" name="email" size="29" maxlength="30"/></td>
+            <td><input type="text" name="email" size="29" maxlength="50"/></td>
         </tr>
         <tr>
             <td nowrap valign="top" align="right" nowrap>
@@ -36,12 +36,12 @@
         <tr>
             <td nowrap valign="top" align="right" nowrap>
             <span class="login_label"><?=__('password')?></span></td>
-            <td><input type="password" name="pw" size="29" maxlength="15"/></td>
+            <td><input type="password" name="pw" size="29" maxlength="30"/></td>
         </tr>
         <tr>
             <td nowrap valign="top" align="right" nowrap>
             <span class="login_label"><?=__('password')?></span></td>
-            <td><input type="password" name="pwconfirm" size="29" maxlength="15"/></td>
+            <td><input type="password" name="pwconfirm" size="29" maxlength="30"/></td>
         </tr>
         <tr><td colspan="2" align="right"><input type="submit" value="<?=__('commit')?>"><td><tr>
 </form>
