@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"></meta>
     <?php javaScript() ?>
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="templates/eventlist/css/styles.css"/>
     <link rel="stylesheet" type="text/css" href="css/categorystyles.css"/>
     <?php jqueryCDN(); ?>
     <?php jqueryuiCDN(); ?>
