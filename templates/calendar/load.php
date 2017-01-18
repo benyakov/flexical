@@ -79,6 +79,13 @@ function genCatKey($categories) {
     return $rv;
 }
 
+function cmpEvents($a, $b) {
+    if ($a['start_time'] == $b['start_time'])
+        return strcmp($a['category'], $b['category']);
+    else
+        return ($a['start_time'] < $b['start_time'])? -1 : 1;
+}
+
 function writeCalendar($month, $year) {
     global $sprefix;
     $Config = new CalendarConfig();
@@ -116,7 +123,16 @@ function writeCalendar($month, $year) {
     $events = array();
     $usedcategories = array();
     $specialcontent = array();
-	while($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+    if provideRemoteRows() {
+        provideRemoteRows($rows);
+        exit(0);
+    }
+    if ($remoterows = getRemoteRows('calendar')) {
+        $rows = array_merge($rows, $remoterows);
+        $rows = usort($rows, cmpEvents);
+    }
+    foreach ($rows as $row) {
         // Convert start and end times to PHP[5.2] DateTime objects
         $row['start_time'] = new DateTime($row['start_time'],
             new DateTimeZone($row['timezone']));
