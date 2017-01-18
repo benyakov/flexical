@@ -79,6 +79,7 @@ try {
         `local_php_library` varchar(255),
         `authcookie_max_age` int NOT NULL default 0,
         `authcookie_path` varchar(255) default 'authcookies',
+        `remotes` text,
         PRIMARY KEY (`timestamp`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
     $allsql[] = $sql;

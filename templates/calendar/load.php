@@ -124,7 +124,7 @@ function writeCalendar($month, $year) {
     $usedcategories = array();
     $specialcontent = array();
     $rows = $q->fetchAll(PDO::FETCH_ASSOC);
-    if provideRemoteRows() {
+    if needsRemoteRows() {
         provideRemoteRows($rows);
         exit(0);
     }

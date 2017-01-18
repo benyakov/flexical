@@ -214,6 +214,13 @@ extended-auth cookies will be set to "/", so that multiple installations may
 share them.</p></td>
     </tr>
     <tr>
+        <td valign="top" align="right" nowrap>
+        <span class="form_labels"><?=__('remotes')?></span></td>
+        <td><textarea name="remotes" rows="8" cols="60"><?=$c['remotes']?></textarea><br>
+        <p>A linewise list of remote urls and categories. The format for each line<br>
+           http://somedomain.com(category 1,category 2,category 3)</p></td>
+    </tr>
+    <tr>
         <td><input type="submit" name="submit" value="<?= __('submitbutton') ?>"/>
             <input type="submit" name="cancel" value="<?= __('cancel') ?>"></td>
     </tr>

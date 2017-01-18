@@ -22,5 +22,6 @@ $default = array(
    "local_php_library" => "",
    "authcookie_max_age" => 0,
    "authcookie_path" => "authcookies"
+   "remotes" => "",
 );
 // vim: set tags+=../../**/tags :
