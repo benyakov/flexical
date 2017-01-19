@@ -4,7 +4,18 @@ function getRemotes() {
     global $configuration;
     //require("./version.php");
     //$configuration = new CalendarConfig($version);
-    return $configuration['remotes'];
+    $remotes = $configuration['remotes'];
+    $rv = array();
+    foreach (explode("\n", $remotes) as $r) {
+        list $url, $categories = explode("(", $r);
+        $categories = rtrim($categories, ")");
+        $categories = explode("," $categories);
+        $rv[] = array(
+            'url'=>$url,
+            'categories'=>$categories
+        );
+    }
+    return $rv;
 }
 
 // Remote category functions
