@@ -1,5 +1,12 @@
 <?php
 
+function getRemotes() {
+    global $configuration;
+    //require("./version.php");
+    //$configuration = new CalendarConfig($version);
+    return $configuration['remotes'];
+}
+
 // Remote category functions
 function getRemoteRows($template) {
     $remoteInstallations = getRemotes();
