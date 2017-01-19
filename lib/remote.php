@@ -7,9 +7,8 @@ function getRemotes() {
     $remotes = $configuration['remotes'];
     $rv = array();
     foreach (explode("\n", $remotes) as $r) {
-        list $url, $categories = explode("(", $r);
-        $categories = rtrim($categories, ")");
-        $categories = explode("," $categories);
+        list($url, $categories) = explode("(", $r);
+        $categories = rtrim($categories, ')');
         $rv[] = array(
             'url'=>$url,
             'categories'=>$categories
@@ -27,7 +26,8 @@ function getRemoteRows($template) {
         $postdata = http_build_query(
             array(
                 'mode' => 'remote',
-                'action' => $template
+                'action' => urlencode($template),
+                'category' => urlencode($remote['categories']);
             ));
         $opts = array('http'=>
             array(
@@ -35,11 +35,15 @@ function getRemoteRows($template) {
                 'header'=>'Content-type: application/x-www-form-urlencoded',
                 'content'=>$postdata
             )
-        )
+        );
         $context = stream_context_create($opts);
-        $rows = file_get_contents(urlencode($remote['url']), false, $context);
-
-        array_push($rv, json_decode($rows));
+        $rows = file_get_contents($remote['url'], false, $context);
+        // Check data
+        $rows = json_decode($rows);
+        if (! (is_array($rows) && count($rows)))
+            continue;
+        else
+            array_push($rv, json_decode($rows));
     }
     return $rv;
 }

@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+// Allow showing remote installation categories
+require_once("./lib/remote.php");
+?>
 <html lang="<?=$language?>">
 <head>
     <title><?=$configuration['site_title']?></title>

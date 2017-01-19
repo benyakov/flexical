@@ -10,10 +10,12 @@ if (is_int($authlevel) && $authlevel <= 3) {
     echo "Access denied";
     exit(0);
 }
+
 /* The change */
-$dbh->query("ALTER TABLE `{$tablepre}config`
+$q = $dbh->prepare("ALTER TABLE `{$tablepre}config`
     ADD COLUMN `remotes` text
-    AFTER `authcookie_path`") or die(array_pop($dbh->errorInfo()));
+    AFTER `authcookie_path`");
+$q->execute() or die(array_pop($dbh->errorInfo()));
 
 /* Update version in filesystem. */
 $configfile = new Configfile("{$installroot}/config.ini", false, true, true);

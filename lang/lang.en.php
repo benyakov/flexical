@@ -190,6 +190,7 @@ $lang['default_timezone'] = "Default Timezone for New Events";
 $lang['local_php_library'] = "PHP Library for Google Export";
 $lang['authcookie_max_age'] = "Age (in days) to extend logins via cookie";
 $lang['authcookie_path'] = "Path for managing extended auth cookies";
+$lang['remotes'] = "Available remote installations and categories";
 $lang['configuration history'] = "Configuration History";
 $lang['config history deleted'] = "The selected configuration(s) have been deleted from the history.";
 $lang['configuration selected'] = "The chosen configuration has been reactivated.";
