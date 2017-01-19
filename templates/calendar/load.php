@@ -125,10 +125,12 @@ function writeCalendar($month, $year) {
     $specialcontent = array();
     $rows = $q->fetchAll(PDO::FETCH_ASSOC);
     if (needsRemoteRows()) {
+        die("here");
         provideRemoteRows($rows);
         exit(0);
     }
     if ($remoterows = getRemoteRows('calendar')) {
+        die(print_r($remoterows));
         $rows = array_merge($rows, $remoterows);
         $rows = usort($rows, cmpEvents);
     }

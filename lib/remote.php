@@ -9,10 +9,12 @@ function getRemotes() {
     foreach (explode("\n", $remotes) as $r) {
         list($url, $categories) = explode("(", $r);
         $categories = rtrim($categories, ')');
-        $rv[] = array(
-            'url'=>$url,
-            'categories'=>$categories
-        );
+        if ($url) {
+            $rv[] = array(
+                'url'=>$url,
+                'categories'=>$categories
+            );
+        }
     }
     return $rv;
 }
@@ -20,24 +22,25 @@ function getRemotes() {
 // Remote category functions
 function getRemoteRows($template) {
     $remoteInstallations = getRemotes();
-    $rv = [];
+    if (! $remoteInstallations) return array();
+    $rv = array();
     foreach ($remoteInstallations as $remote) {
         // fetch the data from each configured remote
         $postdata = http_build_query(
             array(
-                'mode' => 'remote',
-                'action' => urlencode($template),
-                'category' => urlencode($remote['categories']);
+                'mode'     => 'remote',
+                'action'   => urlencode($template),
+                'category' => urlencode($remote['categories'])
             ));
         $opts = array('http'=>
             array(
-                'method'=>'POST',
-                'header'=>'Content-type: application/x-www-form-urlencoded',
+                'method' =>'GET',
+                'header' =>'Content-type: application/x-www-form-urlencoded',
                 'content'=>$postdata
             )
         );
         $context = stream_context_create($opts);
-        $rows = file_get_contents($remote['url'], false, $context);
+        $rows = file_get_contents("http://columbialutheranschool.org/calendar/", false, $context);
         // Check data
         $rows = json_decode($rows);
         if (! (is_array($rows) && count($rows)))
@@ -49,6 +52,7 @@ function getRemoteRows($template) {
 }
 
 function needsRemoteRows() {
+    //die("mode=".print_r($_REQUEST, true));
     if ('remote' == getGET('mode'))
         return true;
     else

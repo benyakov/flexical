@@ -88,6 +88,21 @@ function amPmPullDown($pm, $namepre, $blank=false, $disabled, $classes="") {
     echo "</select>\n\n";
 }
 
+function getImportedSettings() {
+    global $sprefix;
+    if (! isset($_SESSION[$sprefix]['Imported Categories']))
+        $rv = array();
+    else {
+        $rv = array(
+            "name" => $_SESSION[$sprefix]["Imported Categories"]["name"],
+            "restricted" => $_SESSION[$sprefix]["Imported Categories"]["restricted"],
+            "suppresskey" => $_SESSION[$sprefix]["Imported Categories"]["suppresskey"],
+            "style" => $_SESSION[$sprefix]["Imported Categories"]["style"]
+        )
+    }
+    return($rv);
+}
+
 function categoryCheckBoxes($columnTitles, $checkCurrent=0,
     $checkHidden=0, $checkKeySuppressed=0, $renameBoxes=False,
     $styleBoxes=False) {
@@ -135,7 +150,9 @@ function categoryCheckBoxes($columnTitles, $checkCurrent=0,
     $rv .= "  <td colspan=\"3\">{$_('checkall')}</td></tr>\n";
 
     // Each row of checkboxes, the name, name changer, and style
-    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+    $rows[] = getImportedSettings();
+    foreach ($rows as $row) {
         $catname = $row["name"];
         $formname = toCSSID($catname);
         $restricted = $row["restricted"];
