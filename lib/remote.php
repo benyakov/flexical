@@ -40,19 +40,18 @@ function getRemoteRows($template) {
             )
         );
         $context = stream_context_create($opts);
-        $rows = file_get_contents("http://columbialutheranschool.org/calendar/", false, $context);
-        // Check data
+        $rows = file_get_contents("http://columbialutheranschool.org/calendar/index.php?mode=remote", false, $context);
         $rows = json_decode($rows);
-        if (! (is_array($rows) && count($rows)))
+        if (! (is_array($rows) && count($rows))) {
             continue;
-        else
+        } else {
             array_push($rv, json_decode($rows));
+        }
     }
     return $rv;
 }
 
 function needsRemoteRows() {
-    //die("mode=".print_r($_REQUEST, true));
     if ('remote' == getGET('mode'))
         return true;
     else

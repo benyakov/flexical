@@ -86,7 +86,7 @@ function cmpEvents($a, $b) {
         return ($a['start_time'] < $b['start_time'])? -1 : 1;
 }
 
-function writeCalendar($month, $year) {
+function writeCalendar($month, $year, $mode="normal") {
     global $sprefix;
     $Config = new CalendarConfig();
     $configuration = $Config->getConfig();
@@ -124,13 +124,11 @@ function writeCalendar($month, $year) {
     $usedcategories = array();
     $specialcontent = array();
     $rows = $q->fetchAll(PDO::FETCH_ASSOC);
-    if (needsRemoteRows()) {
-        die("here");
+    if ("remote" == $mode) {
         provideRemoteRows($rows);
         exit(0);
     }
     if ($remoterows = getRemoteRows('calendar')) {
-        die(print_r($remoterows));
         $rows = array_merge($rows, $remoterows);
         $rows = usort($rows, cmpEvents);
     }

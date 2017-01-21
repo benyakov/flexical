@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <?php
 // Allow showing remote installation categories
+ob_start();
 require_once("./lib/remote.php");
+if (needsRemoteRows()) {
+    $mode = "remote";
+} else {
+    $mode = "normal";
+}
 ?>
 <html lang="<?=$language?>">
 <head>
@@ -82,7 +88,15 @@ require_once("./lib/remote.php");
         <?php } ?>
     </table>
     <div class="calendarbox-container">
-    <?php  echo writeCalendar($thismonth, $thisyear); ?>
+    <?php
+        if ("remote" == $mode) {
+            ob_end_clean();
+            writeCalendar($thismonth, $thisyear, "remote");
+            exit(0);
+        } else {
+            echo writeCalendar($thismonth, $thisyear);
+        }
+    ?>
     </div>
 </div>
     <?php } ?>
@@ -94,5 +108,9 @@ require_once("./lib/remote.php");
 <?=monthmenu()?>
 </body>
 </html>
+
+<?php
+    echo ob_get_clean();
+?>
 
 <!-- vim: set tags+=../../**/tags : -->
