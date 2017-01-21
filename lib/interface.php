@@ -98,7 +98,7 @@ function getImportedSettings() {
             "restricted" => $_SESSION[$sprefix]["Imported Categories"]["restricted"],
             "suppresskey" => $_SESSION[$sprefix]["Imported Categories"]["suppresskey"],
             "style" => $_SESSION[$sprefix]["Imported Categories"]["style"]
-        )
+        );
     }
     return($rv);
 }
