@@ -20,32 +20,35 @@ function getRemotes() {
 }
 
 // Remote category functions
-function getRemoteRows($template) {
+function getRemoteRows($template, $rangedata) {
+    list($day, $month, $year, $length, $unit) = $rangedata;
     $remoteInstallations = getRemotes();
     if (! $remoteInstallations) return array();
     $rv = array();
     foreach ($remoteInstallations as $remote) {
         // fetch the data from each configured remote
-        $postdata = http_build_query(
+        $postdata = http_build_query( // This already urlencodes everything
             array(
                 'mode'     => 'remote',
-                'action'   => urlencode($template),
-                'category' => urlencode($remote['categories'])
+                'day'      => $day,
+                'month'    => $month,
+                'year'     => $year,
+                'length'   => $length,
+                'unit'     => $unit,
+                'action'   => $template,
+                'categories' => $remote['categories']
             ));
-        $opts = array('http'=>
-            array(
-                'method' =>'GET',
-                'header' =>'Content-type: application/x-www-form-urlencoded',
-                'content'=>$postdata
-            )
-        );
-        $context = stream_context_create($opts);
-        $rows = file_get_contents("http://columbialutheranschool.org/calendar/index.php?mode=remote", false, $context);
-        $rows = json_decode($rows);
-        if (! (is_array($rows) && count($rows))) {
+        $rows = file_get_contents($remote['url']."?".$postdata);
+        $decoded = json_decode($rows, true);
+        if (! (is_array($decoded) && count($decoded))) {
             continue;
         } else {
-            array_push($rv, json_decode($rows));
+            foreach ($decoded as $event) {
+                if (0 != $event['id']) { // No remote-remote events
+                    $event["id"] = 0;    // Don't set up event interface for these
+                    $rv[] = $event;
+                }
+            }
         }
     }
     return $rv;
@@ -60,4 +63,5 @@ function needsRemoteRows() {
 
 function provideRemoteRows($rows) {
     echo json_encode($rows);
+    die(0);
 }

@@ -128,14 +128,25 @@ function writeCalendar($month, $year, $mode="normal") {
         provideRemoteRows($rows);
         exit(0);
     }
-    if ($remoterows = getRemoteRows('calendar')) {
-        $rows = array_merge($rows, $remoterows);
-        $rows = usort($rows, cmpEvents);
+    $rangedata = array("", $month, $year, "", "");
+    if ($remoterows = getRemoteRows('calendar', $rangedata)) {
+        foreach ($remoterows as $rrow) {
+            $rows[] = $rrow;
+        }
+        usort($rows, cmpEvents);
     }
     foreach ($rows as $row) {
         // Convert start and end times to PHP[5.2] DateTime objects
-        $row['start_time'] = new DateTime($row['start_time'],
-            new DateTimeZone($row['timezone']));
+        try
+        {
+            $row['start_time'] = new DateTime($row['start_time'],
+                new DateTimeZone($row['timezone']));
+        }
+        catch (Exception $e)
+        {
+            print_r($row);
+            exit(0);
+        }
         $row['end_time'] = new DateTime($row['end_time'],
             new DateTimeZone($row['timezone']));
         // Handle user timezone conversions

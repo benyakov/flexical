@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 // Allow showing remote installation categories
 ob_start();
@@ -9,6 +8,7 @@ if (needsRemoteRows()) {
     $mode = "normal";
 }
 ?>
+<!DOCTYPE html>
 <html lang="<?=$language?>">
 <head>
     <title><?=$configuration['site_title']?></title>
