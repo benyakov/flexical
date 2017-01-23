@@ -7,12 +7,12 @@ function getRemotes() {
     $remotes = $configuration['remotes'];
     $rv = array();
     foreach (explode("\n", $remotes) as $r) {
-        list($url, $categories) = explode("(", $r);
-        $categories = rtrim($categories, ')');
+        list($url, $remote_categories, $local_category) = explode("::", $r);
         if ($url) {
             $rv[] = array(
                 'url'=>$url,
-                'categories'=>$categories
+                'categories'=>$remote_categories,
+                'local_category'=>$local_category
             );
         }
     }
@@ -46,6 +46,7 @@ function getRemoteRows($template, $rangedata) {
             foreach ($decoded as $event) {
                 if (0 != $event['id']) { // No remote-remote events
                     $event["id"] = 0;    // Don't set up event interface for these
+                    $event["category"] = $remote['local_category'];
                     $rv[] = $event;
                 }
             }

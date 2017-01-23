@@ -44,8 +44,13 @@ class CalendarEvent extends CalendarItem
         if ($compactfmt) $compact_text = " compact";
         else $compact_text = "";
         $out[] = "<p class=\"title-txt{$compact_text}\"><span class=\"".
-            $this->categoryClass()."\">";
-        if ($auth > 1) {
+            $this->categoryClass();
+        if (0 == $this->id) {
+            $out[] = " external-category\">";
+        } else {
+            $out[] = "\">";
+        }
+        if ($auth > 1 && $this->id != 0) {
             $onclick = "class=\"menuanchor\" data-event-id=\"{$this->id}\" "
                 ."data-event-related=\"{$this->related}\"";
         }
@@ -53,22 +58,38 @@ class CalendarEvent extends CalendarItem
             if ($auth > 1) {
                 if ($this->config['include_end_times']) {
                     // Format with begin and end times
-                    $time =
-                        "<div class=\"end-time-str\">"
-                        ."<a href=\"copyform.php?id={$this->id}\" "
-                        ."{$onclick} title=\"Copy\">&nbsp;</a>&#8203;"
-                        ."<a href=\"eventform.php?id={$this->id}\" "
-                        ."{$onclick} title=\"Edit\">"
-                        .$this->userTZStartTime()."-".$this->userTZEndTime()
-                        ."</a></div>";
+                    if (0 != $this->id) {
+                        $time =
+                            "<div class=\"end-time-str\">&#8203;"
+                            .$this->userTZStartTime()."-".$this->userTZEndTime()
+                            ."</div>";
+                    } else {
+                        $time =
+                            "<div class=\"end-time-str\">"
+                            ."<a href=\"copyform.php?id={$this->id}\" "
+                            ."{$onclick} title=\"Copy\">&nbsp;</a>&#8203;"
+                            ."<a href=\"eventform.php?id={$this->id}\" "
+                            ."{$onclick} title=\"Edit\">"
+                            .$this->userTZStartTime()."-".$this->userTZEndTime()
+                            ."</a></div>";
+                    }
                 } else {
                     // Format with start time only
-                    $out[] = "<span class=\"start-time-str\">"
-                        ."<a href=\"eventform.php?id={$this->id}\" "
-                        ."{$onclick} title=\"Edit\">".$this->userTZStartTime()
-                        ."</a>"
-                        ."<a href=\"copyform.php?id={$this->id}\""
-                        ."{$onclick} title=\"Copy\"> </a>&#8203;</span>";
+                    if (0 == $this->id) {
+                        $out[] = "<span class=\"start-time-str\">";
+                    } else {
+                        $out[] = "<span class=\"start-time-str\">"
+                            ."<a href=\"eventform.php?id={$this->id}\" "
+                            ."{$onclick} title=\"Edit\">";
+                    }
+                    $out[] = $this->userTZStartTime();
+                    if (0 == $this->id) {
+                        $out[] = "&#8203; </span>";
+                    } else {
+                        $out[] = "</a>"
+                            ."<a href=\"copyform.php?id={$this->id}\""
+                            ."{$onclick} title=\"Copy\"> </a>&#8203;</span>";
+                    }
                 }
             } else {
                 $onclick="";
@@ -81,9 +102,14 @@ class CalendarEvent extends CalendarItem
                 }
             }
         }
-        $out[] = " <a href=\"index.php?action=eventdisplay&id={$this->id}\" "
-            ."title=\"{$this->title}/{$this->category}\" {$onclick}>"
-            ."{$this->title}</a></span></p>";
+        if (0 != $this->id) {
+            $out[] = " <a href=\"index.php?action=eventdisplay&id={$this->id}\" "
+                ."title=\"{$this->title}/{$this->category}\" {$onclick}>";
+        }
+        $out[] = $this->title;
+        if (0 != $this->id) {
+            $out[] = "</a></span></p>";
+        }
         if ((! $this->all_day) && $this->config['include_end_times']) {
             $out[] = $time;
         }

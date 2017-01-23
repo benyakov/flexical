@@ -218,7 +218,8 @@ share them.</p></td>
         <span class="form_labels"><?=__('remotes')?></span></td>
         <td><textarea name="remotes" rows="8" cols="60"><?=$c['remotes']?></textarea><br>
         <p>A linewise list of remote urls and categories. The format for each line<br>
-           http://somedomain.com(category 1,category 2,category 3)</p></td>
+           http://somedomain.com/location::category 1,category 2,category 3::localcategory<br>
+           All remote events will be placed into localcategory for formatting purposes.</p></td>
     </tr>
     <tr>
         <td><input type="submit" name="submit" value="<?= __('submitbutton') ?>"/>

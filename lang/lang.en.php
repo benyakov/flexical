@@ -267,7 +267,6 @@ $lang['extra-message-placeholder'] = "Before printing, you may type an extra mes
 // eventdisplay view
 $lang['otheritems'] = "Also On This Day:";
 $lang['deleteconfirm'] = "Are you sure you want to delete this item?";
-$lang['relateddeleteconfirm'] = "Are you sure you want to delete this and all related items?";
 $lang['futureonlyconfirm'] = "Limit delete to this and future related events?";
 $lang['postedby'] = "Last edited by";
 $lang['allday'] = "All Day Event";
