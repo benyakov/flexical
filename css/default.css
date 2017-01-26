@@ -147,7 +147,7 @@ div.minimonth_name      { display: block;
                           padding-left: 1px; padding-right: 1px;
                           padding-top: 1px; }
 
-.external-category      { border-bottom: thin dotted #888; }
+.external-category      { letter-spacing: 1px; }
 /**** used in both minimonths and date cells on 6-row calendars ****/
 .shortcell              { font-size: 89%; }
 
