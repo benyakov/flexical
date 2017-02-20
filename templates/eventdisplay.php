@@ -2,7 +2,7 @@
 $time=formattime();
 $q = $dbh->prepare("SELECT e.`id`, e.date, YEAR(e.date) AS `y`,
         MONTH(e.date) AS `m`, DAY(e.date) AS `d`, e.`title`,
-        c.`name` AS `category`,
+        c.`name` AS `category`, c.`restricted` AS `authonly`,
         e.`text`, TIME_FORMAT(e.`start_time`, {$time}) AS `stime`,
         TIME_FORMAT(e.`start_time`, '%k') as `start_hour`,
         TIME_FORMAT(e.`end_time`, {$time}) AS `etime`,
@@ -59,7 +59,7 @@ $currentevent['current'] = true;
 
 $q = $dbh->prepare("SELECT e.`id`, e.date, YEAR(e.date) AS `y`,
         MONTH(e.date) AS `m`, DAY(e.date) AS `d`, e.`title`,
-        c.`name` AS `category`,
+        c.`name` AS `category`, c.`restricted` AS `authonly`,
         e.`text`, TIME_FORMAT(e.`start_time`, {$time}) AS `stime`,
         TIME_FORMAT(e.`start_time`, '%k') as `start_hour`,
         TIME_FORMAT(e.`end_time`, {$time}) AS `etime`,
@@ -67,8 +67,7 @@ $q = $dbh->prepare("SELECT e.`id`, e.date, YEAR(e.date) AS `y`,
         FROM `{$tablepre}eventstb` AS e
         LEFT JOIN `{$tablepre}users` AS u
         ON (e.`uid` = u.`uid`)
-        LEFT JOIN `{$tablepre}categories` AS c
-        ON (e.`category` = c.`category`)
+        LEFT JOIN `{$tablepre}categories` AS c USING (`category`)
         WHERE YEAR(e.`date`) = :year
         AND MONTH(e.`date`) = :month
         AND DAY(e.`date`) = :day
@@ -100,7 +99,9 @@ foreach ($eventcollector as $e) {
 <h1><?php echo __('days', $wday) ?>, <?php echo $dateline ?></h1>
 
 <table cellspadding="0" cellspacing="0" border="0" width="100%"> <?php
-foreach ($alldays as $a) {   ?>
+foreach ($alldays as $a) {
+    if ($a['authonly'] && ! $auth) { continue; }
+?>
     <tr>
         <td></td><td>        <?php
     writePosting($a, $auth); ?>
@@ -132,6 +133,7 @@ foreach (range(0, 23) as $hour) {
         <td>                      <?php
     if (array_key_exists($hour, $events)) {
         foreach ($events[$hour] as $event) {
+            if ($event['authonly'] && ! $auth) { continue; }
             writePosting($event, $auth);
         }
     }                             ?>
