@@ -2,7 +2,7 @@
 function writeHTML_thisweek($day, $month, $year) {
     $dbh = new DBConnection();
     $tablepre = $dbh->getPrefix();
-    global $language, $sprefix, $serverdir;
+    global $language, $sprefix;
     $time = formattime('mysql');
 
     // Set up Where clause
@@ -50,11 +50,7 @@ function writeHTML_thisweek($day, $month, $year) {
         $str .= ($thisday=="")?
             "{$tr}\n<td class=\"eventdate\"></td>":
             "{$tr}\n<td class=\"eventdate hbar\">$thisday</td>";
-        $str .= "<td class=\"eventtime hbar\">{$stime}</td>
-                 <td class=\"eventtitle\"><a href=\"{$serverdir}/index.php?action=eventdisplay&id={$row['id']}\">{$title}</a></td>
-                 <td class=\"eventcategory\">
-                 <span class=\"".toCSSID($row['category'])."\">
-                 {$row['category']}</span></td></tr>\n";
+        $str .= "<td class=\"eventtitle\"><a href=\"{$_SESSION[$sprefix]['serverdir']}/index.php?action=eventdisplay&id={$row['id']}\">{$title}</a></td>";
     }
     return $str;
 }
