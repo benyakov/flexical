@@ -178,7 +178,7 @@ function dayCount($results, &$customcounts) {
                 foreach ($data[$excategory] as $exdays)
                     if ($begin <= strtotime($exdays['date'])
                         && $end >= strtotime($exdays['date']))
-                        $excluded_dates[strtotime($exdays['date']]) = 0;
+                        $excluded_dates[strtotime($exdays['date'])] = 0;
             } elseif ("Weekends" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
                     if (in_array(time_dayOfWeek($d), array(0, 6)))
