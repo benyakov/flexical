@@ -29,7 +29,8 @@ $hightime = mktime(0,0,0,$endparts[1]+1, 1, (int) $endparts[0]);
 $hightime = time_sub($hightime,0,0,0,1,0,0); // Subtract a day
 $lowdate = time_sqlDate($lowtime);
 $highdate = time_sqlDate($hightime);
-$q = $dbh->prepare("SELECT date, title, text, c.name AS category
+$q = $dbh->prepare("SELECT date, title, text, c.name AS category,
+    c.restricted
     FROM `{$tablepre}eventstb` AS e
     JOIN `{$tablepre}categories` AS c USING (category)
     WHERE e.date >= :lowdate
@@ -41,6 +42,9 @@ $q->bindValue(":highdate", $highdate);
 if (! $q->execute())
     die(array_pop($q->errorInfo()));
 $results = $q->fetchAll(PDO::FETCH_ASSOC);
+$results = array_filter($results, function($i) use($auth) {
+    return ((!$i['restricted']) || $auth);
+});
 $eventdays = array();
 foreach ($results as $event) {
     $eventdays[$event["date"]][] = $event['category'];

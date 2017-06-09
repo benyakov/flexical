@@ -27,7 +27,7 @@ function writeLaTeXevents($day, $month, $year, $length, $unit) {
           DATE_FORMAT(`m`.`date`, '%m/%d') AS `day`,
           TIME_FORMAT(`m`.`start_time`, {$time}) AS `stime`,
           `c`.`name` AS `category`,
-          `c`.`restricted` AS `restricted`
+          `c`.`restricted`
           FROM `{$tablepre}eventstb` AS `m`
           LEFT JOIN `{$tablepre}categories` AS `c` USING (`category`)
           WHERE `date` >= :lowdate AND `date` <= :highdate

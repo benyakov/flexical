@@ -18,7 +18,7 @@ function writeHTML_thisweek($day, $month, $year) {
                DATE_FORMAT(`m`.`date`, '%Y') AS `year`,
                TIME_FORMAT(`m`.`start_time`, {$time}) AS `stime`,
                `c`.`name` AS `category`,
-               `c`.`restricted` AS `restricted`
+               `c`.`restricted`
                FROM `{$tablepre}eventstb` AS `m`
                LEFT JOIN `{$tablepre}categories` AS `c` USING (`category`)
                WHERE `date` >= :lowdate AND `date` <= :highdate

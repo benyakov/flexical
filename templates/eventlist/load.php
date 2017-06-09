@@ -84,7 +84,7 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
                `m`.timezone,
                `m`.`text`,
                `c`.`name` AS `category`,
-               `c`.`restricted` AS `restricted`
+               `c`.`restricted`
                FROM `{$tablepre}eventstb` AS `m`
                LEFT JOIN `{$tablepre}categories` AS `c` USING (`category`)
                WHERE `date` >= :lowdate
