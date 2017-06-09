@@ -169,53 +169,65 @@ function dayCount($results, &$customcounts) {
         fwrite($fh, print_r($debug, true));
         fclose($fh);
 
+        $excluded_dates = array();
+
         foreach($excludes as $excategory) {
             // Reduce $daydiff by the count of events in $excategory
             // between $begin and $end
             if ($data[$excategory]) {
                 foreach ($data[$excategory] as $exdays)
                     if ($begin <= strtotime($exdays['date'])
-                        && $end >= strtotime($exdays['date'])) $daydiff--;
+                        && $end >= strtotime($exdays['date']))
+                        $excluded_dates[strtotime($exdays['date']]) = 0;
             } elseif ("Weekends" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
                     if (in_array(time_dayOfWeek($d), array(0, 6)))
-                        $daydiff--;
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Weekdays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
                     if (in_array(time_dayOfWeek($d), array(1, 2, 3, 4, 5)))
-                        $daydiff--;
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Sundays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
-                    if (time_dayOfWeek($d)==0) $daydiff--;
+                    if (time_dayOfWeek($d)==0)
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Mondays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
-                    if (time_dayOfWeek($d)==1) $daydiff--;
+                    if (time_dayOfWeek($d)==1)
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Tuesdays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
-                    if (time_dayOfWeek($d)==2) $daydiff--;
+                    if (time_dayOfWeek($d)==2)
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Wednesdays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
-                    if (time_dayOfWeek($d)==3) $daydiff--;
+                    if (time_dayOfWeek($d)==3)
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Thursdays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
-                    if (time_dayOfWeek($d)==4) $daydiff--;
+                    if (time_dayOfWeek($d)==4)
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Fridays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
-                    if (time_dayOfWeek($d)==5) $daydiff--;
+                    if (time_dayOfWeek($d)==5)
+                        $excluded_dates[$d] = 0;
                 }
             } elseif ("Saturdays" == $excategory) {
                 for ($d=$begin; $d<=$end; $d=time_add($d,0,0,0,1,0,0)) {
-                    if (time_dayOfWeek($d)==6) $daydiff--;
+                    if (time_dayOfWeek($d)==6)
+                        $excluded_dates[$d] = 0;
                 }
             }
         }
+        // Subtract the number of $excluded_dates
+        $daydiff = $daydiff - count($excluded_dates);
         // $beginmarks[$markname]["length"] = $daydiff; // Completeness
         $counts[$markname] = $daydiff;
     }
