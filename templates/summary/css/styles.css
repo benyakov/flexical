@@ -10,25 +10,15 @@ div#page {
     padding-left: 1in;
     padding-right: 1in;
 }
-div.leftcolumn {
-    float: left;
-    padding: 0 1em 0 0.2in;
-    font-size: 75%;
-    text-align: center;
-}
-div.rightcolumn {
-    float: right;
-    padding: 0 0.2in 0 1em;
-    font-size: 75%;
-    text-align: center;
-}
 td.minicalday {
     text-align: center;
 }
 div.eventlist {
     width: 4in;
     font-size: 75%;
-    float: left;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
 }
 div.eventlist > div.column > * {
     padding: 0 .5em;
@@ -70,13 +60,24 @@ dl.monthlist dd {
 div.daycount {
     padding: .5ex;
     font-size: 60%;
-    width: 1.5in;
-    margin: 1ex auto 0;
+    margin: 1.5ex auto 0;
+}
+table.daycount {
+    border-top: thin solid black;
 }
 table.daycount th {
     text-align: right;
-    padding-right: 1em;
-    margin: .5em 1em;
+    padding: 0 .5em 0 1em;
+}
+div.leftcolumn {
+    float: left;
+    font-size: 90%;
+    margin: 0 1em 0 0;
+}
+div.rightcolumn {
+    float: right;
+    font-size: 90%;
+    margin: 0 0 0 1em;
 }
 
 @media print {

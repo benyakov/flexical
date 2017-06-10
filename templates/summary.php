@@ -66,11 +66,8 @@ foreach ($customcounts as $date => $category) {
     <?php
     jqueryCDN();
     ?>
-    <script type="text/javascript" src="templates/summary/jquery.columnizer.js">
-    </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.eventlist').columnize({columns: 2});
             $("#minimizesetup").click(function(evt) {
                 evt.preventDefault();
                 if ($(this).html() == "[-]") {

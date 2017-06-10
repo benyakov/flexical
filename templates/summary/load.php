@@ -232,11 +232,20 @@ function dayCount($results, &$customcounts) {
         $counts[$markname] = $daydiff;
     }
     ob_start();
+    $columns = 3;
 ?>
     <table class="daycount">
-        <?php foreach ($counts as $name=>$count) { ?>
-        <tr><th><span class="<?=toCSSID($name)?>"><?=$name?></span></th><td><?=$count?></td>
-        <?php } ?>
+        <?php
+        $col = 1;
+        foreach ($counts as $name=>$count) {
+            if (1 == $col) echo "<tr>"; ?>
+            <th><span class="<?=toCSSID($name)?>"><?=$name?></span></th><td><?=$count?></td>
+        <?php
+            if ($columns == $col) {
+                echo "</tr>\n";
+                $col = 1;
+            } else $col += 1;
+        } ?>
     </table>
 <?php
     return ob_get_clean();
@@ -332,7 +341,7 @@ function eventsByMonth($results) {
         $month = time_getMonth($monthlabel);
         $monthname = $monthnames[$month-1];
         $label = "{$monthname} ".time_getYear($monthlabel);
-        $rv[] = '<h3 class="monthname dontend">'.$label.'</h3>';
+        $rv[] = '<h3 class="monthname">'.$label.'</h3>';
         $multis = $mmbyrange[$monthlabel];
         $singles = $monthsingles[$monthlabel];
         $days = array_merge(array_keys($multis), array_keys($singles));
@@ -342,7 +351,7 @@ function eventsByMonth($results) {
             $rv[] = "<dl>";
             foreach ($days as $day) {
                 if ($singles[$day]) {
-                    $rv[] = "<dt class=\"dontend\">{$day}</dt>";
+                    $rv[] = "<dt>{$day}</dt>";
                     foreach ($singles[$day] as $evt) {
                         $catclass = toCSSID($evt->category);
                         $rv[] = "<dd><span class=\"{$catclass}\">{$evt->title}</span></dd>";
@@ -350,7 +359,7 @@ function eventsByMonth($results) {
                 }
                 if (isset($multis[$day])) {
                     foreach ($multis[$day] as $daylabel => $evts) {
-                        $rv[] = "<dt class=\"dontend\">{$daylabel}</dt>";
+                        $rv[] = "<dt>{$daylabel}</dt>";
                         foreach ($evts as $e) {
                             $catclass = toCSSID($e->category);
                             $rv[] = "<dd><span class=\"{$catclass}\">{$e->title}</span></dd>";
