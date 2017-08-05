@@ -340,21 +340,21 @@ function footprint($auth) {
 }
 
 function scrollArrows($d, $m, $y, $length, $unit, $action) {
-    if ($action=="calendar") {
+    if ("calendar" == $action) {
         // set variables for month scrolling
         $nextyear = ($m != 12) ? $y : $y + 1;
         $prevyear = ($m != 1) ? $y : $y - 1;
         $prevmonth = ($m == 1) ? 12 : $m - 1;
         $nextmonth = ($m == 12) ? 1 : $m + 1;
 
-        $left = "index.php?month=$prevmonth&amp;year=$prevyear&amp;action=$action";
-        $right = "index.php?month=$nextmonth&amp;year=$nextyear&amp;action=$action";
-        $s = "<a href=\"{$left}\">\n";
+        $left = "index.php?month=$prevmonth&year=$prevyear&action=$action";
+        $right = "index.php?month=$nextmonth&year=$nextyear&action=$action";
+        $s = "<a href=\"{".htmlspecialchars($left)."}\">\n";
         $s .= "<img src=\"images/leftArrow.gif\" border=\"0\" alt=\"Prev\"></a> ";
-        $s .= "<a href=\"{$right}\">";
+        $s .= "<a href=\"{".htmlspecialchars($right)."}\">";
         $s .= "<img src=\"images/rightArrow.gif\" border=\"0\" alt=\"Next\"></a>";
 
-    } elseif ($action == 'eventlist') {
+    } elseif ('eventlist' == $action) {
         $highdate = time_add(mktime(0,0,0,$m,$d,$y),0,0,0,
             $unit==1?$length:       // "days"; see __('units')
             ($unit==2?$length*7:0),   // "weeks"
@@ -368,19 +368,19 @@ function scrollArrows($d, $m, $y, $length, $unit, $action) {
         $next = getdate($highdate);
         $prev = getdate($lowdate);
 
-        $left = "index.php?month={$prev['mon']}&amp;year={$prev['year']}".
-            "&amp;day={$prev['mday']}&amp;action=$action";
-        $right = "index.php?month={$next['mon']}&amp;year={$next['year']}".
-            "&amp;day={$next['mday']}&amp;action=$action";
-        $s = "<a href=\"{$left}\">\n";
+        $left = "index.php?month={$prev['mon']}&year={$prev['year']}".
+            "&day={$prev['mday']}&action=$action";
+        $right = "index.php?month={$next['mon']}&year={$next['year']}".
+            "&day={$next['mday']}&action=$action";
+        $s = "<a href=\"{".htmlspecialchars($left)."}\">\n";
         $s .= "<img src=\"images/leftArrow.gif\" border=\"0\" alt=\"Prev\"></a> ";
-        $s .= "<a href=\"{$right}\">\n";
+        $s .= "<a href=\"{".htmlspecialchars($right)."}\">\n";
         $s .= "<img src=\"images/rightArrow.gif\" border=\"0\" alt=\"Next\"></a>";
 
     }
     $s .= <<<SWIPECATCHER
     <script type="text/javascript">
-    $("table.monthheading").on("swipeleft swiperight", function(event) {
+    function swipeSwitch (event) {
         event.preventDefault();
         if (event.type == "swiperight") {
             window.location.href="$left";
@@ -388,7 +388,9 @@ function scrollArrows($d, $m, $y, $length, $unit, $action) {
         if (event.type == "swipeleft") {
             window.location.href="$right";
         }
-    });
+    }
+    $("table.monthheading").on("swipeleft swiperight", swipeSwitch);
+    $("#event-header").on("swipeleft swiperight", swipeSwitch);
     </script>
 SWIPECATCHER;
     return $s;
