@@ -3,8 +3,10 @@
 /*** Standardizations ***/
 function jqueryCDN() {
 ?>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<?
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery-migrate-1.4.1.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.mobile.custom.min.js"></script>
+<? // <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     // <script type="text/javascript" src="jquery-1.6.3.js"></script>
 }
 
