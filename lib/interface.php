@@ -349,9 +349,9 @@ function scrollArrows($d, $m, $y, $length, $unit, $action) {
 
         $left = "index.php?month=$prevmonth&year=$prevyear&action=$action";
         $right = "index.php?month=$nextmonth&year=$nextyear&action=$action";
-        $s = "<a href=\"{".htmlspecialchars($left)."}\">\n";
+        $s = "<a href=\"".htmlspecialchars($left)."\">\n";
         $s .= "<img src=\"images/leftArrow.gif\" border=\"0\" alt=\"Prev\"></a> ";
-        $s .= "<a href=\"{".htmlspecialchars($right)."}\">";
+        $s .= "<a href=\"".htmlspecialchars($right)."\">";
         $s .= "<img src=\"images/rightArrow.gif\" border=\"0\" alt=\"Next\"></a>";
 
     } elseif ('eventlist' == $action) {
@@ -372,9 +372,9 @@ function scrollArrows($d, $m, $y, $length, $unit, $action) {
             "&day={$prev['mday']}&action=$action";
         $right = "index.php?month={$next['mon']}&year={$next['year']}".
             "&day={$next['mday']}&action=$action";
-        $s = "<a href=\"{".htmlspecialchars($left)."}\">\n";
+        $s = "<a href=\"".htmlspecialchars($left)."\">\n";
         $s .= "<img src=\"images/leftArrow.gif\" border=\"0\" alt=\"Prev\"></a> ";
-        $s .= "<a href=\"{".htmlspecialchars($right)."}\">\n";
+        $s .= "<a href=\"".htmlspecialchars($right)."\">\n";
         $s .= "<img src=\"images/rightArrow.gif\" border=\"0\" alt=\"Next\"></a>";
 
     }
