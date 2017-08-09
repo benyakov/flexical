@@ -61,7 +61,7 @@ class CalendarEvent extends CalendarItem
                     if (0 == $this->id) {
                         $time =
                             "<div class=\"end-time-str\">&#8203;"
-                            ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">"
+                            ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\" title=\"".__("Remote Event")."\">"
                             .$this->userTZStartTime()."-".$this->userTZEndTime()
                             ."</a>"
                             ."</div>";
@@ -79,7 +79,7 @@ class CalendarEvent extends CalendarItem
                     // Format with start time only
                     if (0 == $this->id) {
                         $out[] = "<span class=\"start-time-str\">"
-                            ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">";
+                            ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\" title=\"".__("Remote Event")."\">";
                     } else {
                         $out[] = "<span class=\"start-time-str\">"
                             ."<a href=\"eventform.php?id={$this->id}\" "
@@ -98,7 +98,7 @@ class CalendarEvent extends CalendarItem
                 $onclick="";
                 if ($this->config['include_end_times']) {
                     $time = "<div class=\"end-time-str\">"
-                        ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">"
+                        ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\" title=\"".__("Remote Event")."\">"
                         .$this->userTZStartTime()."-".$this->userTZEndTime()
                         ."</a>"
                         ."</div>";
@@ -111,7 +111,7 @@ class CalendarEvent extends CalendarItem
             $out[] = " <a href=\"index.php?action=eventdisplay&id={$this->id}\" "
                 ."title=\"{$this->title}/{$this->category}\" {$onclick}>";
         } else {
-            $out[] = " <a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">";
+            $out[] = " <a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\" title=\"".__("Remote Event")."\">";
         }
         $out[] = $this->title;
         $out[] = "</a></span></p>";
