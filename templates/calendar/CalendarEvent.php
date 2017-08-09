@@ -17,7 +17,7 @@ class CalendarEvent extends CalendarItem
         $this->registerVocabulary(array('title', 'all_day', 'related',
             'category', 'start_time', 'end_time', 'restricted',
             'usertz_start_time', 'usertz_end_time',
-            'suppress_key', 'id', 'timezone', 'timefmt'));
+            'suppress_key', 'id', 'timezone', 'timefmt', 'urlbase', 'remoteid'));
         parent::__construct();
         foreach ($evt_data as $k => $v) {
             if (in_array($k, $this->vocabulary)) $this->val[$k] = $v;
@@ -58,10 +58,12 @@ class CalendarEvent extends CalendarItem
             if ($auth > 1) {
                 if ($this->config['include_end_times']) {
                     // Format with begin and end times
-                    if (0 != $this->id) {
+                    if (0 == $this->id) {
                         $time =
                             "<div class=\"end-time-str\">&#8203;"
+                            ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">"
                             .$this->userTZStartTime()."-".$this->userTZEndTime()
+                            ."</a>"
                             ."</div>";
                     } else {
                         $time =
@@ -76,7 +78,8 @@ class CalendarEvent extends CalendarItem
                 } else {
                     // Format with start time only
                     if (0 == $this->id) {
-                        $out[] = "<span class=\"start-time-str\">";
+                        $out[] = "<span class=\"start-time-str\">"
+                            ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">";
                     } else {
                         $out[] = "<span class=\"start-time-str\">"
                             ."<a href=\"eventform.php?id={$this->id}\" "
@@ -84,7 +87,7 @@ class CalendarEvent extends CalendarItem
                     }
                     $out[] = $this->userTZStartTime();
                     if (0 == $this->id) {
-                        $out[] = "&#8203; </span>";
+                        $out[] = "</a>&#8203; </span>";
                     } else {
                         $out[] = "</a>"
                             ."<a href=\"copyform.php?id={$this->id}\""
@@ -95,7 +98,9 @@ class CalendarEvent extends CalendarItem
                 $onclick="";
                 if ($this->config['include_end_times']) {
                     $time = "<div class=\"end-time-str\">"
+                        ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">"
                         .$this->userTZStartTime()."-".$this->userTZEndTime()
+                        ."</a>"
                         ."</div>";
                 } else {
                     $out[] = $this->userTZStartTime()." ";
@@ -105,11 +110,11 @@ class CalendarEvent extends CalendarItem
         if (0 != $this->id) {
             $out[] = " <a href=\"index.php?action=eventdisplay&id={$this->id}\" "
                 ."title=\"{$this->title}/{$this->category}\" {$onclick}>";
+        } else {
+            $out[] = " <a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\">";
         }
         $out[] = $this->title;
-        if (0 != $this->id) {
-            $out[] = "</a></span></p>";
-        }
+        $out[] = "</a></span></p>";
         if ((! $this->all_day) && $this->config['include_end_times']) {
             $out[] = $time;
         }
