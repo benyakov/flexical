@@ -65,6 +65,10 @@ if (array_key_exists('cancel', $_POST)) {
     header("Location: {$SDir()}/index.php");
     exit(0);
 } else {
+    if ('ajax' == $_POST['use'])
+        $ajax = true;
+    else
+        $ajax = false;
     if (isset($_SESSION[$sprefix]['filters'])) {
         $all_day = array_key_exists("all_day", $_SESSION[$sprefix]['filters'])?
             $_SESSION[$sprefix]['filters']['all_day']:false;
@@ -111,7 +115,7 @@ if (array_key_exists('cancel', $_POST)) {
         $adchecked = "";
     }
 
-    ?>
+    if (! $ajax) { ?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -125,10 +129,14 @@ if (array_key_exists('cancel', $_POST)) {
     </head>
     <body onload="revealjsonly(['start_hour-spinner', 'start_minute-spinner',
                                     'end_hour-spinner', 'end_minute-spinner']);">
+<? } if ($ajax) { ob_start();
+?> <script type="text/javascript"><?=js_zeroTime()?></script>
+<? } ?>
+
     <p class="helptext"><?= __('regexphelptext') ?></p>
     <span class="add_new_header"><?= $headerstr ?></span>
+        <form name="filterForm" id="filterForm" method="POST" action="filter.php">
         <table border=0 cellspacing=7 cellpadding=0>
-        <form name="filterForm" method="POST" action="filter.php">
         <input type="hidden" name="step" value="2">
             <tr>
                 <td valign="top" align="right" nowrap>
@@ -171,13 +179,17 @@ if (array_key_exists('cancel', $_POST)) {
             <tr><td></td><td colspan="2"><br>
         <input type="submit" name="submit" value="<?= __('filtersubmitstr') ?>">&nbsp;
         <input type="submit" name="unfilter" value="<?= __('filterremovestr') ?>">&nbsp;
-        <input type="submit" name="cancel" value="<?= __('cancel') ?>">
+        <input id="cancelButton" type="submit" name="cancel" value="<?= __('cancel') ?>">
         </td></tr>
-        </form>
         </table>
+        </form>
         <p><a href='help/index.php?n=filtering'><?= __('help') ?></a></p>
+<? if ($ajax) {
+    $dialog = ob_get_clean();
+    echo json_encode(array(1, $dialog));
+    } else { ?>
     </body>
     </html>
-<?php
+<?    }
 }
 //  vim: set tags+=../**/tags :

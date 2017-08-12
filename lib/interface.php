@@ -315,15 +315,18 @@ function footprint($auth) {
 
     $action = $_SESSION[$sprefix]['action'];
     // Always show ?>
+    <script type="text/javascript" src="lib/footprint.js"></script>
+    <div id="smoke"></div>
+    <div id="dialog"></div>
     <ul class="hbuttons footprint">
     <li><a href="help/?n=Contents.<?=$configuration['language']?>.txt"><?=__('help')?></a> <?=__('manual')?></li>
-    <li><a href="categorychooser.php"><?=__('Choose')?></a>
+    <li><a id="categorychooserbutton" href="categorychooser.php"><?=__('Choose')?></a>
        <?=__('categories').": ".count($_SESSION[$sprefix]['categories']).'/'.
        count($_SESSION[$sprefix]['allcategories'])?>
     </li>
-    <li><a class="half" href="filter.php"><?=__('filter')?></a><?php
+    <li><a class="half" id="filterbutton" href="filter.php"><?=__('filter')?></a><?php
     if (array_key_exists('filters', $_SESSION[$sprefix]) && $_SESSION[$sprefix]['filters']) {
-        ?><a class="half" href="filter.php?unfilter=1"><?=__('unfilter')?></a> <?php echo __('Events Filtered');
+        ?><a class="half" id="unfilterbutton" href="filter.php?unfilter=1"><?=__('unfilter')?></a> <?php echo __('Events Filtered');
     } else {
         ?><a class="half deactivated" href="javascript:void(0);"><?=__('unfilter')?></a> <?php
             echo __('Events Unfiltered');
@@ -334,14 +337,14 @@ function footprint($auth) {
     </ul><?php
     if ( $auth >= 2 ) { // Show for event editors ?>
         <ul class="hbuttons footprint">
-        <li><a href="useradmin.php?flag=changepw"><?=$auth==3?__('useradmin'):__('changepw')?></a> </li>
-        <li><a href="eventform.php"><?=__('addanevent')?></a> </li>
+        <li><a href="useradmin.php?flag=changepw" id="useradminbutton"><?=$auth==3?__('useradmin'):__('changepw')?></a> </li>
+        <li><a href="eventform.php" id="eventbutton"><?=__('addanevent')?></a> </li>
         </ul> <?php
     }
     if ( $auth >= 3 ) { // Show for admin ?>
         <ul class="hbuttons footprint">
-        <li><a href="index.php?admin=configure"><?=__('configure')?></a></li>
-        <li><a href="categoryadmin.php"><?=__('modcategories')?></a></li>
+        <li><a href="index.php?admin=configure" id="configurebutton"><?=__('configure')?></a></li>
+        <li><a href="categoryadmin.php" id="categoryadminbutton"><?=__('modcategories')?></a></li>
         <li><a href="index.php?admin=backup"><?=__('DBDump')?></a> </li>
         <li><a href="index.php?admin=restore"><?=__('DBRestore')?></a> </li>
         <li><a href="index.php?action=customstyles"><?=__('customstyles')?></a>
