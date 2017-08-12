@@ -57,3 +57,5 @@ th.history-field { text-align: right; color: black; background-color: #CCC;
 .related-options {
     text-align: right;
 }
+
+#weekday { height: 10em; }

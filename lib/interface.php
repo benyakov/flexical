@@ -42,8 +42,17 @@ function lengthBox($length, $formname="") {
     echo "<div class=\"lengthbox\"><input type=\"number\" name=\"length\" value=\"$length\" min=\"1\" class=\"lengthinput\"></div>\n";
 }
 
-function pullDown($unit, $unitarray, $name, $values=array()) {
-    echo "\n<select name=\"{$name}\" id=\"{$name}\" style=\"padding-right: 8px;\">\n";
+function pullDown($unit, $unitarray, $name, $values=array(), $multiple=false) {
+    if ($multiple) {
+        $multiple = "multiple";
+        $id = $name;
+        $name = "{$name}[]";
+    } else {
+        $multiple = "";
+        $name = $name;
+        $id = $name;
+    }
+    echo "\n<select {$multiple} name=\"{$name}\" id=\"{$id}\" style=\"padding-right: 8px;\">\n";
     for($i=0;$i < count($unitarray); $i++) {
         $thisvalue = array_key_exists($i, $values)?$values[$i]:$i+1;
         if (($unit === $thisvalue) or
@@ -70,6 +79,10 @@ function yearPullDown($year) {
 function dayPullDown($day) {
     $dayrange = range(1, 31);
     pullDown($day, $dayrange, "day", $dayrange);
+}
+
+function weekdayPullDown($day, $weekdayarray, $values=array(), $multiple=false) {
+    pullDown($day, $weekdayarray, "weekday", $values, $multiple);
 }
 
 function amPmPullDown($pm, $namepre, $blank=false, $disabled, $classes="") {
@@ -349,9 +362,9 @@ function scrollArrows($d, $m, $y, $length, $unit, $action) {
 
         $left = "index.php?month=$prevmonth&year=$prevyear&action=$action";
         $right = "index.php?month=$nextmonth&year=$nextyear&action=$action";
-        $s = "<a href=\"{".htmlspecialchars($left)."}\">\n";
+        $s = "<a href=\"".htmlspecialchars($left)."\">\n";
         $s .= "<img src=\"images/leftArrow.gif\" border=\"0\" alt=\"Prev\"></a> ";
-        $s .= "<a href=\"{".htmlspecialchars($right)."}\">";
+        $s .= "<a href=\"".htmlspecialchars($right)."\">";
         $s .= "<img src=\"images/rightArrow.gif\" border=\"0\" alt=\"Next\"></a>";
 
     } elseif ('eventlist' == $action) {
@@ -372,9 +385,9 @@ function scrollArrows($d, $m, $y, $length, $unit, $action) {
             "&day={$prev['mday']}&action=$action";
         $right = "index.php?month={$next['mon']}&year={$next['year']}".
             "&day={$next['mday']}&action=$action";
-        $s = "<a href=\"{".htmlspecialchars($left)."}\">\n";
+        $s = "<a href=\"".htmlspecialchars($left)."\">\n";
         $s .= "<img src=\"images/leftArrow.gif\" border=\"0\" alt=\"Prev\"></a> ";
-        $s .= "<a href=\"{".htmlspecialchars($right)."}\">\n";
+        $s .= "<a href=\"".htmlspecialchars($right)."\">\n";
         $s .= "<img src=\"images/rightArrow.gif\" border=\"0\" alt=\"Next\"></a>";
 
     }

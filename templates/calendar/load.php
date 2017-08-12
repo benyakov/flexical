@@ -129,7 +129,9 @@ function writeCalendar($month, $year, $mode="normal") {
         exit(0);
     }
     $rangedata = array("", $month, $year, "", "");
-    if ($remoterows = getRemoteRows('calendar', $rangedata)) {
+    if (! filter_set()
+        && $remoterows = getRemoteRows('calendar', $rangedata))
+    {
         foreach ($remoterows as $rrow) {
             $rows[] = $rrow;
         }

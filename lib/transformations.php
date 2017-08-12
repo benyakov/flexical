@@ -23,7 +23,7 @@ function toCSSID($cat) {
 function categoryMatchString() {
     global $sprefix, $dbh;
     $rv = "";
-    if (array_key_exists('categories', $_SESSION[$sprefix]) and
+    if (isset($_SESSION[$sprefix]['categories']) and
         is_array($_SESSION[$sprefix]['categories'])) {
         foreach ($_SESSION[$sprefix]['categories'] as $sesscat) {
             $sqlsesscat = $dbh->quote($sesscat);
@@ -42,17 +42,23 @@ function categoryMatchString() {
 function getfilterclause($prefix) {
     global $sprefix, $dbh;
     // Get filter clauses, if any
-    if (array_key_exists('filters', $_SESSION[$sprefix]) && $_SESSION[$sprefix]['filters']) {
+    if (isset($_SESSION[$sprefix]['filters']) && $_SESSION[$sprefix]['filters']) {
         $filters = array();
         foreach ($_SESSION[$sprefix]['filters'] as $filter => $value) {
-           $value = $dbh->quote($value);
-           if ("title" == $filter) {
+            if (is_string($value)) {
+                $value = $dbh->quote($value);
+            } elseif (is_array($value)) {
+                $value = '('.implode(', ', array_map($dbh->quote, $value)).')';
+            }
+            if ("title" == $filter) {
                $filters[] = "`$filter` REGEXP $value";
-           } elseif ("text" == $filter) {
+            } elseif ("text" == $filter) {
                $filters[] = "`$filter` REGEXP $value";
-           } else {
+            } elseif ("weekday" == $filter) {
+               $filters[] = "WEEKDAY(`m`.`date`) IN $value";
+            } else {
                $filters[] = "`$filter` = $value";
-           }
+            }
         }
         return "{$prefix} " . implode(" AND ", $filters);
     } else {

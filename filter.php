@@ -54,6 +54,8 @@ if (array_key_exists('cancel', $_POST)) {
     }
     if ($_POST['all_day']) $filters['all_day'] = 1;
 
+    if ($_POST['weekday']) $filters['weekday'] = $_POST['weekday'];
+
     if ($filters) {
         setMessage(__('filterset'));
         $_SESSION[$sprefix]['filters'] = $filters;
@@ -158,6 +160,13 @@ if (array_key_exists('cancel', $_POST)) {
                 <td colspan=2><?php hourBox($ehour, "filterForm", "end_hour", false); ?><b>:</b><?php
                        minuteBox($eminute, "filterForm", "end_minute", false);
                        amPmPullDown($epm, "end", true, false); ?></td>
+            </tr>
+            <tr>
+                <td nowrap valign="top" align="right">
+                <span class="form_labels"><?=__('weekday')?></span></td>
+                <td colspan=2><?php
+                       weekdayPullDown("", __("days"),
+                        [6, 0, 1, 2, 3, 4, 5], "multiple"); ?></td>
             </tr>
             <tr><td></td><td colspan="2"><br>
         <input type="submit" name="submit" value="<?= __('filtersubmitstr') ?>">&nbsp;
