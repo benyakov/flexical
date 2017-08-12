@@ -133,6 +133,7 @@ function writeCalendar($month, $year, $mode="normal") {
         && $remoterows = getRemoteRows('calendar', $rangedata))
     {
         foreach ($remoterows as $rrow) {
+            $rrow['remote'] == true;
             $rows[] = $rrow;
         }
         usort($rows, cmpEvents);

@@ -263,6 +263,7 @@ $lang['tabtext-customstyles'] = "Custom Stylesheet Editor";
 $lang['catkeytitle'] = "Category Key";
 $lang['filternotice'] = "The events here are filtered.  Click here to remove the filter.";
 $lang['extra-message-placeholder'] = "Before printing, you may type an extra message in this area that will be printed but not saved.";
+$lang['Remote Event'] = "Imported Event";
 
 // eventdisplay view
 $lang['otheritems'] = "Also On This Day:";

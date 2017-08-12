@@ -45,8 +45,10 @@ function getRemoteRows($template, $rangedata) {
         } else {
             foreach ($decoded as $event) {
                 if (0 != $event['id']) { // No remote-remote events
+                    $event["remoteid"] = $event['id'];
                     $event["id"] = 0;    // Don't set up event interface for these
                     $event["category"] = $remote['local_category'];
+                    $event["urlbase"] = $remote['url'];
                     $rv[] = $event;
                 }
             }
