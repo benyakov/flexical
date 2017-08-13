@@ -70,7 +70,7 @@ class CalendarEvent extends CalendarItem
                             "<div class=\"end-time-str\">"
                             ."<a href=\"copyform.php?id={$this->id}\" "
                             ."{$onclick} title=\"Copy\">&nbsp;</a>&#8203;"
-                            ."<a href=\"eventform.php?id={$this->id}\" "
+                            ."<a class=\"eventform\" href=\"eventform.php?id={$this->id}\" "
                             ."{$onclick} title=\"Edit\">"
                             .$this->userTZStartTime()."-".$this->userTZEndTime()
                             ."</a></div>";
@@ -82,7 +82,7 @@ class CalendarEvent extends CalendarItem
                             ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\" title=\"".__("Remote Event")."\">";
                     } else {
                         $out[] = "<span class=\"start-time-str\">"
-                            ."<a href=\"eventform.php?id={$this->id}\" "
+                            ."<a class=\"eventform\" href=\"eventform.php?id={$this->id}\" "
                             ."{$onclick} title=\"Edit\">";
                     }
                     $out[] = $this->userTZStartTime();

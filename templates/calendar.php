@@ -19,6 +19,7 @@ if (needsRemoteRows()) {
     jqueryuiCDN();
     javaScript();
     ?>
+    <script type="text/javascript" src="lib/ajax.js"></script>
     <script type="text/javascript" language="JavaScript">
     $(document).ready(function() {
         $("a[data-event-id]").click(function(evt) {

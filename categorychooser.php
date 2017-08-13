@@ -4,8 +4,9 @@ $includeroot = dirname(__FILE__);
 require("./utility/initialize-entrypoint.php");
 
 if (!(array_key_exists("step", $_POST) && $_POST['step'] == '2')) {
-?>
 
+    if (! "ajax" == $_POST['use']) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,17 +20,27 @@ if (!(array_key_exists("step", $_POST) && $_POST['step'] == '2')) {
 
 </head>
 <body>
+<? }
+   if ("ajax" == $_POST['use']) ob_start();
+?>
     <span class="add_new_header"><?= __('categoryheader') ?></span>
-    <table border = 0 cellspacing=7 cellpadding=0>
     <form name="categoryForm" method="POST" action="categorychooser.php">
+    <table border = 0 cellspacing=7 cellpadding=0>
     <input type="hidden" name="step" value="2"/>
     <?= categoryCheckBoxes(array(__('show')), 1) ?>
     <tr><td colspan=2>
     <input type="submit" name="submit" value="<?= __('categorybutton') ?>">
     &nbsp;
-    <input type="submit" name="cancel" value="<?= __('cancel') ?>"></td></tr>
-    </form></table>
+    <input id="cancelButton" type="submit" name="cancel" value="<?= __('cancel') ?>"></td></tr>
+    </table></form>
     <p><a href="help/index.php?n=Categories.<?=$configuration['language']?>.txt"><?=__('help')?></a></p>
+<?
+    if ("ajax" == $_POST['use']) {
+        $dialog = ob_get_clean();
+        echo json_encode(array(1, $dialog));
+        exit(0);
+    }
+?>
 </body>
 </html>
 <?php

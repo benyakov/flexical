@@ -43,7 +43,7 @@ class CalendarDay extends CalendarMonthbox
         // Write the day number as a heading
         $rv[] = "<h1 class=\"day-number\">";
         if ($auth>1)
-            $rv[] = "<a href=\"eventform.php?d={$this->day}&amp;m={$this->month}&amp;y={$this->year}\" title=\"{$this->year}-{$this->month}-{$this->day}\">{$this->day}</a>";
+            $rv[] = "<a class=\"eventform\" href=\"eventform.php?d={$this->day}&amp;m={$this->month}&amp;y={$this->year}\" title=\"{$this->year}-{$this->month}-{$this->day}\">{$this->day}</a>";
         else $rv[] = $this->day;
         $rv[] = "</h1>";
         // Figure out which events to display

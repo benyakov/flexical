@@ -102,6 +102,8 @@ if (empty($id)) {
         echo __('missingevent');
     }
 }
+
+if (! "ajax" == $_POST['use']) {
 ?>
 
 <!DOCTYPE html>
@@ -115,6 +117,12 @@ if (empty($id)) {
 <?php
     jqueryCDN();
     jqueryuiCDN();
+?>
+
+</head>
+<body>
+<? }
+if ("ajax" == $_POST['use']) ob_start();
 ?>
     <script type="text/javascript" language="JavaScript">
     <?php
@@ -165,11 +173,9 @@ if (empty($id)) {
     });
     </script>
 
-</head>
-<body>
 <span class="add_new_header"><?= $headerstr ?></span>
-    <table border=0 cellspacing=7 cellpadding=0>
     <form name="eventForm" id="eventForm" method="POST" action="eventsubmit.php<?= $qstr ?>">
+    <table border=0 cellspacing=7 cellpadding=0>
     <input type="hidden" name="uid" value="<?=$uid?>">
     <input type="hidden" name="related" value="<?=$related?>">
         <tr>
@@ -234,11 +240,17 @@ if (empty($id)) {
         <tr><td></td><td><br>
         <input type="submit" name="submit" value="<?= $buttonstr ?>">&nbsp;
         <input type="reset" name="reset" id="resetbutton" value="<?=__("resetbutton")?>">
-        <a class="tinybutton" href="eventsubmit.php?cancel=1" title="Cancel"><?= __('cancel') ?></a>
+        <a id="cancelButton" class="tinybutton" href="eventsubmit.php?cancel=1" title="Cancel"><?= __('cancel') ?></a>
     </td></tr>
-    </form>
     </table>
+    </form>
     <p><a href="help/index.php?n=basic/Creating,+Editing+and+Copying+Events.en.txt"><?=__('help')?></a></p>
+<? if ('ajax' == $_POST['use']) {
+    $dialog = ob_get_clean();
+    echo json_encode(array(1, $dialog));
+    exit(0);
+}
+?>
 </body>
 </html>
 

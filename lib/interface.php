@@ -338,7 +338,7 @@ function footprint($auth) {
     if ( $auth >= 2 ) { // Show for event editors ?>
         <ul class="hbuttons footprint">
         <li><a href="useradmin.php?flag=changepw" id="useradminbutton"><?=$auth==3?__('useradmin'):__('changepw')?></a> </li>
-        <li><a href="eventform.php" id="eventbutton"><?=__('addanevent')?></a> </li>
+        <li><a class="eventform" href="eventform.php" id="eventbutton"><?=__('addanevent')?></a> </li>
         </ul> <?php
     }
     if ( $auth >= 3 ) { // Show for admin ?>

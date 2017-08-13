@@ -88,7 +88,8 @@ function javaScript() {
         { "position": "absolute",
           "top": loc.top + 18,
           "left": loc.left + 0,
-        }).fadeIn("slow");
+        }).fadeIn("slow")
+        .find(".eventform").click(eventFormClick);
 
         currentPopup = dbid;
     }
