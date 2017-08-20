@@ -74,7 +74,7 @@ function javaScript() {
             "<a href=\"index.php?action=eventdisplay&id="+dbid+"\" title=\"<?=__('show')?>\"><img src=\"images/show.png\" alt=\"<?=__('show')?>\"/></a> " +
             "<a href=\"index.php?action=remind&id="+dbid+"\" title=\"<?=__('remind')?>\"><img src=\"images/mail.png\" alt=\"<?=__('remind')?>\"/></a> " ;
         <?php if ($auth>=2) { ?>
-            contents += "<a href=\"copyform.php?id="+dbid+"\" title=\"<?=__('copy')?>\"><img src=\"images/copy.png\" alt=\"<?=__('copy')?>\"/></a> " +
+            contents += "<a class=\"copyform\" href=\"copyform.php?id="+dbid+"\" title=\"<?=__('copy')?>\"><img src=\"images/copy.png\" alt=\"<?=__('copy')?>\"/></a> " +
             "<a class=\"eventform\" href=\"eventform.php?id="+dbid+"\" title=\"<?=__('edit')?>\"><img src=\"images/edit.png\" alt=\"<?=__('edit')?>\"/></a> " +
             "<a href=\"javascript:void(0);\" onClick=\"deleteConfirm("+dbid+");\" title=\"<?=__('delete')?>\"><img src=\"images/trash.png\" alt=\"<?=__('delete')?>\"></a> ";
         if (related) {
@@ -84,13 +84,13 @@ function javaScript() {
         <?php } ?>
         contents += "<div class=\"cancelbox\"><a href=\"javascript:void(0);\" onClick=\"HidePopup();\">X</a></div>";
         var loc = $(theElement).offset();
-        $("#MonthMenu").empty().append(contents).css(
+        var mm = $("#MonthMenu").empty().append(contents).css(
         { "position": "absolute",
           "top": loc.top + 18,
           "left": loc.left + 0,
-        }).fadeIn("slow")
-        .find(".eventform").click(eventFormClick);
-
+        }).fadeIn("slow");
+        mm.find(".eventform").click(eventFormClick)
+        mm.find(".copyform").click(copyFormClick);
         currentPopup = dbid;
     }
     function HidePopup() {

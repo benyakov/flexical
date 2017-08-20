@@ -1,0 +1,58 @@
+a.pop       { color:#BBF; text-decoration:underline; }
+p.pop       { margin-top: .5ex; margin-bottom: .5ex; font-size: small;}
+dt.pop     { display: run-in; font-variant: small-caps; font-weight: bold;
+          text-align: left; margin-right: .5em; }
+dd.pop      { padding-left: 0; margin-left: .5em; }
+dl.pop      { margin-top: 1ex; padding-top: 0; }
+
+a.tinybutton { font-size:80%;
+               display: block;
+               color: #CCF;
+               background-color: #444;
+               padding: 1px; }
+a.tinybutton:link { text-decoration: none; }
+
+body>table.pop { background-color: #abb; color: black; }
+body>table.pop a { color: 446; }
+.add_new_header     { font-size:larger; font-weight:bold; }
+
+.styleinput         { width: 30em; }
+.categorydemo       { background-color: white; color: black;
+                      border: thin solid black;
+                      padding: 1px; }
+p.helptext { color: #8f750c;
+             background-color: #f2e2a5;
+             font-size: 12pt;
+             border: thick solid #8b6e00;
+             width: 45em;
+             margin: 1em;
+             padding: 0.5em; }
+
+div.minutebox,
+div.hourbox {
+    display: inline-block;
+    width: 4em;
+}
+.hourinput,
+.minuteinput {
+    width: 3em;
+}
+.am-pm-pulldown {
+    width: 5em;
+}
+input.pop {
+    display: inline;
+    margin-right: 0;
+}
+div.checkbox-heading  { width: 4em; font-size: .7em; }
+
+/**** Configuration ****/
+
+th.history-field { text-align: right; color: black; background-color: #CCC;
+                    padding-right: .5em; }
+
+.related-options {
+    text-align: right;
+}
+
+#weekday { height: 10em; }
