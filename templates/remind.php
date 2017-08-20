@@ -29,6 +29,8 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
     </script>
 </head>
 <body>
+<?php echo topMatter($action, $sitetabs); ?>
+
 <header>
 <span class=add_new_header><?= __('Remind Header') ?></span>
 </header>
@@ -43,8 +45,8 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
         <th><?= __('Advance') ?></th>
     </tr></thead>
     <tfoot><tr>
-    <td><button form=remindForm type=submit value="<?= __('Delete') ?>" onclick=deleteChecked() >
-    <button form=remindForm type=submit value="<?= __('Submit') ?>"></td>
+    <td colspan="4"><button form=remindForm type=submit value="delete" id="delete_checked"><?=__('Delete') ?></button>
+    <button form=remindForm type=submit value="submit"><?= __('Submit') ?></button></td>
     </tr></tfoot>
     <tbody id="reminder-list">
     </tbody>
@@ -52,4 +54,4 @@ $uid = $_SESSION[$sprefix]["authdata"]["uid"];
 </body>
 </html>
 <?php
-}
+

@@ -75,7 +75,7 @@ function javaScript() {
             "<a href=\"index.php?action=remind&id="+dbid+"\" title=\"<?=__('remind')?>\"><img src=\"images/mail.png\" alt=\"<?=__('remind')?>\"/></a> " ;
         <?php if ($auth>=2) { ?>
             contents += "<a href=\"copyform.php?id="+dbid+"\" title=\"<?=__('copy')?>\"><img src=\"images/copy.png\" alt=\"<?=__('copy')?>\"/></a> " +
-            "<a href=\"eventform.php?id="+dbid+"\" title=\"<?=__('edit')?>\"><img src=\"images/edit.png\" alt=\"<?=__('edit')?>\"/></a> " +
+            "<a class=\"eventform\" href=\"eventform.php?id="+dbid+"\" title=\"<?=__('edit')?>\"><img src=\"images/edit.png\" alt=\"<?=__('edit')?>\"/></a> " +
             "<a href=\"javascript:void(0);\" onClick=\"deleteConfirm("+dbid+");\" title=\"<?=__('delete')?>\"><img src=\"images/trash.png\" alt=\"<?=__('delete')?>\"></a> ";
         if (related) {
             contents += " <a href=\"filter.php?filterrelated="+related+"\" title=\"<?=__('show related')?>\"><img src=\"images/showall.png\" alt=\"<?php __('show related')?>\"></a> " +
