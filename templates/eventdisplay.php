@@ -32,10 +32,14 @@ $wday = date("w", mktime (0,0,0,$m,$d,$y));
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
     <meta content="width=device-width, initial-scale=1" name="viewport"></meta>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="templates/eventdisplay/css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/categorystyles.css">
-    <?php 	if ($auth) {
-    javaScript();
-    } ?>
+    <?
+    jqueryCDN();
+    jqueryuiCDN();
+    javaScript()
+    ?>
+    <script type="text/javascript" src="lib/ajax.js"></script>
 </head>
 <body>
 

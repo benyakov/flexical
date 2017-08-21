@@ -30,8 +30,8 @@ function writePosting($row, $auth)
     }
 
 	if ( $auth ) {
-        $editstr .= "[<a href=\"copyform.php?id={$row['id']}\">copy</a>]&nbsp;"
-            ."[<a href=\"eventform.php?id={$row['id']}\">edit</a>]&nbsp;"
+        $editstr .= "[<a class=\"copyform\" href=\"copyform.php?id={$row['id']}\">copy</a>]&nbsp;"
+            ."[<a class=\"eventform\" href=\"eventform.php?id={$row['id']}\">edit</a>]&nbsp;"
             ."[<a href=\"#\" onClick=\"deleteConfirm({$row['id']});\">delete</a>]";
 	}
 
