@@ -88,14 +88,14 @@ function javaScript() {
         { "position": "absolute",
           "top": loc.top + 18,
           "left": loc.left + 0,
-        }).fadeIn("slow");
-        mm.find(".eventform").click(eventFormClick)
-        mm.find(".copyform").click(copyFormClick);
+        }).fadeIn("fast");
+        mm.find(".eventform").click(ajaxFormClick)
+        mm.find(".copyform").click(ajaxFormClick);
         currentPopup = dbid;
     }
     function HidePopup() {
         currentPopup = false;
-        $("#MonthMenu").fadeOut("slow");
+        $("#MonthMenu").fadeOut("fast");
     }
     // -->
 	</script>

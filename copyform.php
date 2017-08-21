@@ -58,6 +58,7 @@ if (!auth()) {
         $all_day = $row['all_day'];
         $category = $row['category'];
 
+        if (! "ajax" == $_POST['use']) {
 	?>
 
 	<!DOCTYPE html>
@@ -69,33 +70,36 @@ if (!auth()) {
         jqueryCDN();
         jqueryuiCDN();
 ?>
-		<script type="text/javascript" language="JavaScript">
-        <?php js_checkrepeat();
-           js_zeroTime();
-        ?>
-        $(function(){
-            $(".jsonly").css("visibility", "visible");
-            $("#DatePicker").datepicker({
-                buttonImage: 'images/calendarbutton.png',
-                buttonImageOnly: true,
-                changeMonth: true,
-                changeYear: true,
-                showOn: 'both',
-                defaultDate: '<?=$m?>/<?=$d?>/<?=$y?>',
-                onSelect: function(chosenDate, picker){
-                    var dateitems = chosenDate.split('/'); // MM/DD/YYYY
-                    $("#month").val(dateitems[0].replace(/^0+/g,""));
-                    $("#day").val(dateitems[1].replace(/^0+/g,""));
-                    $("#year").val(dateitems[2]);
-                } }).css("visibility", "visible");
-        });
-		</script>
-
 	</head>
 	<body>
+    <? }
+    if ("ajax" == $_POST['use']) ob_start();
+    ?>
+    <script type="text/javascript" language="JavaScript">
+    <?php js_checkrepeat();
+       js_zeroTime();
+    ?>
+    $(function(){
+        $(".jsonly").css("visibility", "visible");
+        $("#DatePicker").datepicker({
+            buttonImage: 'images/calendarbutton.png',
+            buttonImageOnly: true,
+            changeMonth: true,
+            changeYear: true,
+            showOn: 'both',
+            defaultDate: '<?=$m?>/<?=$d?>/<?=$y?>',
+            onSelect: function(chosenDate, picker){
+                var dateitems = chosenDate.split('/'); // MM/DD/YYYY
+                $("#month").val(dateitems[0].replace(/^0+/g,""));
+                $("#day").val(dateitems[1].replace(/^0+/g,""));
+                $("#year").val(dateitems[2]);
+            } }).css("visibility", "visible");
+    });
+    </script>
+
 	<span class="add_new_header"><?= $headerstr ?></span>
-		<table border=0 cellspacing=7 cellpadding=0>
 		<form name="eventForm" method="POST" action="eventsubmit.php<?= $qstr ?>">
+		<table border=0 cellspacing=7 cellpadding=0>
 		<input type="hidden" name="uid" value="<?=$uid?>">
 			<tr>
 				<td nowrap valign="top" align="right" nowrap>
@@ -170,14 +174,21 @@ if (!auth()) {
             </tr>
 			<tr><td></td><td><br>
         <input type="submit" name="submit" value="<?= $buttonstr ?>" >&nbsp;
-        <input type="submit" name="cancel" value="cancel" ></td></tr>
-		</form>
+        <input type="reset" name="reset" id="resetbutton" value="<?=__("resetbutton")?>">
+        <a id="cancelButton" class="tinybutton" href="eventsubmit.php?cancel=1" title="Cancel"><?= __('cancel') ?></a>
 		</table>
+		</form>
         <p><a href="help/index.php?n=basic/Creating,+Editing+and+Copying+Events.en.txt"><?=__('help')?></a></p>
+    <? if ('ajax' == $_POST['use']) {
+        $dialog = ob_get_clean();
+        echo json_encode(array(1, $dialog));
+        exit(0);
+    } ?>
+
 	</body>
 	</html>
 
-
-<?php  }
+<?
+    }
 }
 // vim: set tags+=../**/tags :
