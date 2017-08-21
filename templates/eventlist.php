@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/categorystyles.css"/>
     <?php jqueryCDN(); ?>
     <?php jqueryuiCDN(); ?>
+    <script type="text/javascript" src="lib/ajax.js"></script>
 	<script type="text/javascript" language="JavaScript">
         $(function(){
             $(".jsonly").css("visibility", "visible");

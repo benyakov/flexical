@@ -159,8 +159,8 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
             $related = "";
         }
         if ($auth > 1) {
-            $aicons = "<div class=\"actionicons\"><a href=\"copyform.php?id={$row['id']}\" title=\"{$_('copy')}\"><img src=\"images/copy.png\"/ alt=\"{$_('copy')}\"/></a>
-                <a href=\"eventform.php?id={$row['id']}\" title=\"{$_('edit')}\"><img src=\"images/edit.png\" alt=\"{$_('edit')}\"/></a>
+            $aicons = "<div class=\"actionicons\"><a class=\"copyform\" href=\"copyform.php?id={$row['id']}\" title=\"{$_('copy')}\"><img src=\"images/copy.png\"/ alt=\"{$_('copy')}\"/></a>
+                <a class=\"eventform\" href=\"eventform.php?id={$row['id']}\" title=\"{$_('edit')}\"><img src=\"images/edit.png\" alt=\"{$_('edit')}\"/></a>
                 <a href=\"javascript:void(0);\" onClick=\"deleteConfirm({$row['id']});\" title=\"{$_('delete')}\"><img src=\"images/trash.png\" alt=\"{$_('delete')}\"></a>";
             if ($related) {
                 $aicons .= " <a href=\"filter.php?filterrelated={$related}\" title=\"{$_('show related')}\"><img src=\"images/showall.png\" alt=\"{$_('show related')}\"></a>
