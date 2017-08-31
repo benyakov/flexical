@@ -27,7 +27,7 @@ browsing. -->
     * How to search for matching events
     * Narrowing the focus by category and time
     * Changing the filtered events in one batch
-7. [Google Calendar export](<?n=Google Calendar.en.txt>)
+7. [FAQ](?n=FAQ.en.txt)
 8. [Translating](?n=Translating.en.txt)
 9. [Writing Documentation](?n=Documenting.en.txt)
 10. [Idea Pipeline](?n=Future.en.txt)

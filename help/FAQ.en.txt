@@ -1,0 +1,29 @@
+# FAQ
+
+## *"I need to change the time on a bunch of events. Can that be done all at
+once, without changing each one individually?"*
+
+There are two ways to do this: By filtering the events, or by dealing with them
+as a batch of related events.
+
+Doing this with filtered events: You can filter the events using the filter
+button at the bottom of the page. The filtered events will be limited to the
+ones you see on the page. If you want that to be more than one month's events,
+you should use the Event List view and set the Span to the length of time you
+want to include. If you want to limit the filtered events to certain
+categories, you can use the category chooser button at the bottom of the page.
+Once the filter is set, you will also see extra buttons on the top of the Event
+List view. The "Time" button allows you to change the time of all of the
+events.
+
+For related events: If you have related events, you can very easily adjust the
+details of all the events by ticking the "Include Related" box when you're
+editing one of the events.
+
+You may wonder how to get a bunch of related events. When you copy an event,
+you can make the copies related by ticking a box for that at the top of the
+copy form. You can also make a bunch of filtered events related to each other
+by using the "Relate" button at the top of the Event List view.
+
+
+<!- vim: set tw=72 ft=markdown :->
