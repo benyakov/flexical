@@ -1,7 +1,6 @@
 # FAQ
 
-## *"I need to change the time on a bunch of events. Can that be done all at
-once, without changing each one individually?"*
+## *"I need to change the time on a bunch of events. Can that be done all at once, without changing each one individually?"*
 
 There are two ways to do this: By filtering the events, or by dealing with them
 as a batch of related events.

@@ -3,3 +3,36 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+.actionicons {
+    width: 20px;
+    padding-bottom: 5px;
+}
+
+.actionicons * {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+    transition: display 0s, visibility 0s, opacity 0.5s linear;
+}
+
+.actionicons::before {
+    content: "\00B7";
+}
+
+.actionicons:hover::before {
+    content: none;
+}
+
+.actionicons:hover * {
+    display: initial;
+    visibility: visible;
+    opacity: 1;
+}
+
+div.actionicons:hover {
+    height: auto;
+    transition: width 1s;
+    padding-bottom: 0px;
+}
+
