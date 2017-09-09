@@ -408,12 +408,19 @@ td.bottomborder {
     position: absolute;
     display: block;
     z-index: 100;
-    background-color: #FFFFFFEE;
+    background-color: #FFFFFF;
+    opacity: 0.9
 }
 
 .centershow {
     background-color: transparent;
     z-index: 101;
-    position: absolute;
-    top: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 500px;
+    margin: 0 auto;
 }
+
+
