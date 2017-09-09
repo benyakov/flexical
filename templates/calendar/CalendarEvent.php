@@ -96,12 +96,19 @@ class CalendarEvent extends CalendarItem
                 }
             } else {
                 $onclick="";
+                // Include end time, not logged in
                 if ($this->config['include_end_times']) {
+                    if (0 == $this->id) {
                     $time = "<div class=\"end-time-str\">"
-                        ."<a href=\"{$this->urlbase}?action=eventdisplay&id={$this->remoteid}\" title=\"".__("Remote Event")."\">"
+                        ."<a href=\"{$this->urlbase}?action=eventdisplay"
+                        ."&id=\"{$this->remoteid}\" title=\"".__("Remote Event")."\">"
                         .$this->userTZStartTime()."-".$this->userTZEndTime()
                         ."</a>"
                         ."</div>";
+                    } else {
+                        $time = "<div class=\"end-time-str\">{$this->userTZStartTime()}"
+                            ."-{$this->userTZEndTime()}</div>";
+                    }
                 } else {
                     $out[] = $this->userTZStartTime()." ";
                 }
