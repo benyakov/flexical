@@ -223,7 +223,8 @@ tr.allday .eventendtime { background-color: transparent; }
 td.eventtitle             { background-color: transparent; font-size: small; color: #000;
                           padding-right: 3px; padding-left: 3px; }
 td.eventdescription       { background-color: transparent; font-size: small; color: #320;
-                          padding-right: 3px; padding-left: 3px; }
+                          padding-right: 3px; padding-left: 3px; position: relative;
+                            width: 10em;}
 td.eventcategory          { background-color: #EEF; font-size: small; color: #000;
                           text-align: left;
                           padding-right: 3px; padding-left: 3px;
@@ -244,6 +245,7 @@ td.eventdescription h2  { font-size: 109%; }
 td.eventdescription h3  { font-size: 106%; }
 td.eventdescription h4  { font-size: 103%; }
 td.eventdescription h5  { font-size: 101%; }
+td.eventdescription div.actionicons { position: absolute; top: 0; }
 
 /**** MonthMenu is the js/css context menu ****/
 div#MonthMenu { z-index: 5;
