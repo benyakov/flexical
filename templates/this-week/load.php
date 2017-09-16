@@ -51,6 +51,9 @@ function writeHTML_thisweek($day, $month, $year) {
             "{$tr}\n<td class=\"eventdate\"></td>":
             "{$tr}\n<td class=\"eventdate hbar\">$thisday</td>";
         $str .= "<td class=\"eventtitle\"><a href=\"{$_SESSION[$sprefix]['serverdir']}/index.php?action=eventdisplay&id={$row['id']}\">{$title}</a></td>";
+        if (! $_GET['suppresscategory']) {
+            $str .= "<td class=\"eventcategory\">{$row['category']}</td>";
+        }
     }
     return $str;
 }

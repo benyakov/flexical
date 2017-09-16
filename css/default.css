@@ -224,7 +224,7 @@ td.eventtitle             { background-color: transparent; font-size: small; col
                           padding-right: 3px; padding-left: 3px; }
 td.eventdescription       { background-color: transparent; font-size: small; color: #320;
                           padding-right: 3px; padding-left: 3px; position: relative;
-                            width: 10em;}
+                            min-width: 10em;}
 td.eventcategory          { background-color: #EEF; font-size: small; color: #000;
                           text-align: left;
                           padding-right: 3px; padding-left: 3px;
