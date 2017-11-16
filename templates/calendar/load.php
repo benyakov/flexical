@@ -86,19 +86,16 @@ function cmpEvents($a, $b) {
         return ($a['start_time'] < $b['start_time'])? -1 : 1;
 }
 
-function writeCalendar($month, $year, $mode="normal") {
-    global $sprefix;
-    $Config = new CalendarConfig();
-    $configuration = $Config->getConfig();
-    $dbh = new DBConnection();
-    $tablepre = $dbh->getPrefix();
+function getDayJSON($month, $day, $year, $short) {
+    // Return the json-encoded html to refresh a specific day
+    // Same query as used in writeCalendar, adding date to where clause
     $categoryMatches = categoryMatchString();
 
     // Get filter clauses, if any
     $filterclause = getfilterclause(" AND ");
     $month = intval($month); // Security vs. sql injection
     $year = intval($year);
-
+    $day = intval($day);
     $q = $dbh->prepare("SELECT `m`.`id`, DAYOFMONTH(`m`.`date`) AS `d`,
                    `m`.`title`, `m`.`all_day`, `m`.`related`,
                    `m`.`timezone`,
@@ -110,34 +107,33 @@ function writeCalendar($month, $year, $mode="normal") {
                    LEFT JOIN `{$tablepre}categories` AS `c` USING (`category`)
                    WHERE MONTH(`m`.`date`) = :month
                    AND YEAR(`m`.`date`) = :year
+                   AND DAYOFMONTH(`m`.`date`) = :day
                    $filterclause
                    $categoryMatches
                    ORDER BY `m`.`start_time`, `category`");
     $q->bindparam(':month', $month);
     $q->bindparam(':year', $year);
+    $q->bindparam(':day', $day);
     $q->execute() or die(array_pop($q->errorInfo()));
+    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+    list($events, $usedcategories) = prepareDBResults($rows, "normal");
+    global $includeroot;
+    require_once("{$includeroot}/templates/calendar/CalendarDay.php");
+    $cd = new \flexical\calendar\CalendarDay(
+            mktime(0,0,0, $month, $day, $year),
+            getIndexOr($events, $day, array(), $short));
+    $html = $cd->write($auth);
+    echo json_encode(array($html, $usedcategories));
+}
+
+function prepareDBResults($rows, $mode) {
+    /* Change data to PHP objects, add TZ data */
 	// determine user's authorization
 	$auth = auth();
 
     // Create an array of arrays, indexed by the day number.
     $events = array();
     $usedcategories = array();
-    $specialcontent = array();
-    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
-    if ("remote" == $mode) {
-        provideRemoteRows($rows);
-        exit(0);
-    }
-    $rangedata = array("", $month, $year, "", "");
-    if (! filter_set()
-        && $remoterows = getRemoteRows('calendar', $rangedata))
-    {
-        foreach ($remoterows as $rrow) {
-            $rrow['remote'] == true;
-            $rows[] = $rrow;
-        }
-        usort($rows, cmpEvents);
-    }
     foreach ($rows as $row) {
         // Convert start and end times to PHP[5.2] DateTime objects
         try
@@ -171,6 +167,60 @@ function writeCalendar($month, $year, $mode="normal") {
         array_push($events[$rowdate], $row);
     }
     $usedcategories = array_keys($usedcategories);
+    return array($events, $usedcategories);
+}
+
+function writeCalendar($month, $year, $mode="normal") {
+    global $sprefix;
+    $Config = new CalendarConfig();
+    $configuration = $Config->getConfig();
+    $dbh = new DBConnection();
+    $tablepre = $dbh->getPrefix();
+    $categoryMatches = categoryMatchString();
+
+    // Get filter clauses, if any
+    $filterclause = getfilterclause(" AND ");
+    $month = intval($month); // Security vs. sql injection
+    $year = intval($year);
+
+    $q = $dbh->prepare("SELECT `m`.`id`, DAYOFMONTH(`m`.`date`) AS `d`,
+                   `m`.`title`, `m`.`all_day`, `m`.`related`,
+                   `m`.`timezone`,
+                   `c`.`name` AS `category`, `c`.`restricted` AS `restricted`,
+                   `c`.`suppresskey` AS `suppress_key`,
+                   ADDTIME(`m`.`date`,`m`.`start_time`) AS `start_time`,
+                   ADDTIME(`m`.`date`,`m`.`end_time`) AS `end_time`
+                   FROM `{$tablepre}eventstb` AS `m`
+                   LEFT JOIN `{$tablepre}categories` AS `c` USING (`category`)
+                   WHERE MONTH(`m`.`date`) = :month
+                   AND YEAR(`m`.`date`) = :year
+                   $filterclause
+                   $categoryMatches
+                   ORDER BY `m`.`start_time`, `category`");
+    $q->bindparam(':month', $month);
+    $q->bindparam(':year', $year);
+    $q->execute() or die(array_pop($q->errorInfo()));
+
+    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+
+    if ("remote" == $mode) {
+        provideRemoteRows($rows);
+        exit(0);
+    }
+    $rangedata = array("", $month, $year, "", "");
+    if (! filter_set()
+        && $remoterows = getRemoteRows('calendar', $rangedata))
+    {
+        foreach ($remoterows as $rrow) {
+            $rrow['remote'] == true;
+            $rows[] = $rrow;
+        }
+        usort($rows, cmpEvents);
+    }
+
+    list($events, $usedcategories) = prepareDBResults($rows, $mode);
+
+    $specialcontent = array();
     while (count($usedcategories)) {
         $getcategories = array_slice($usedcategories, 0, $configuration['category_key_limit']);
         if ($configuration['category_key_limit'] < count($usedcategories)) {

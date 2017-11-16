@@ -246,6 +246,7 @@ td.eventdescription h3  { font-size: 106%; }
 td.eventdescription h4  { font-size: 103%; }
 td.eventdescription h5  { font-size: 101%; }
 td.eventdescription div.actionicons { position: absolute; top: 0; }
+td.eventdescription p   { padding-left: 1em; }
 
 /**** MonthMenu is the js/css context menu ****/
 div#MonthMenu { z-index: 5;
@@ -422,7 +423,7 @@ td.bottomborder {
     top: 0;
     left: 0;
     right: 0;
-    width: 500px;
+    width: 650px;
     height: 100%;
     margin: 0 auto;
 }
