@@ -139,7 +139,7 @@ if ("ajax" == $_POST['use']) ob_start();
         var month = $("#month").val();
         var year = $("#year").val();
         if (Boolean($("#include_related:checked").length)) {
-            if (year+"-"+month+"-"+day == $("#DatePicker").data('orig')) {
+            if (year+"-"+month+"-"+day == $("#EditDatePicker").data('orig')) {
                 showSpecifics();
             } else {
                 hideSpecifics();
@@ -151,7 +151,7 @@ if ("ajax" == $_POST['use']) ob_start();
 
     $(function(){
         $(".jsonly").css("visibility", "visible");
-        $("#DatePicker").datepicker({
+        $("#EditDatePicker").datepicker({
             buttonImage: 'images/calendarbutton.png',
             buttonImageOnly: true,
             changeMonth: true,
@@ -182,7 +182,7 @@ if ("ajax" == $_POST['use']) ob_start();
             <td valign="top" align="right" nowrap>
             <span class="form_labels"><?=__('datetext')?></span></td>
             <td>
-            <input type="hidden" id="DatePicker" data-orig="<?="{$y}-{$m}-{$d}"?>"
+            <input type="hidden" id="EditDatePicker" data-orig="<?="{$y}-{$m}-{$d}"?>"
                 value="<?="{$y}-{$m}-{$d}"?>">
             <?php monthPullDown($m, __('months')); dayPullDown($d); yearPullDown($y); ?></td>
             <?php if ($related) { ?>

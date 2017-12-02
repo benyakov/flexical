@@ -81,7 +81,7 @@ if (!auth()) {
     ?>
     $(function(){
         $(".jsonly").css("visibility", "visible");
-        $("#DatePicker").datepicker({
+        $("#CopyDatePicker").datepicker({
             buttonImage: 'images/calendarbutton.png',
             buttonImageOnly: true,
             changeMonth: true,
@@ -164,7 +164,7 @@ if (!auth()) {
                 <td nowrap valign="top" align="right">
                 <span class="form_labels"><?=__('repeatcutoff')?></span></td>
                 <td>
-            <input type="hidden" id="DatePicker" value="<?="{$m}-{$d}-{$y}"?>">
+            <input type="hidden" id="CopyDatePicker" value="<?="{$m}-{$d}-{$y}"?>">
             <?php monthPullDown($m, __('months')); dayPullDown($d); yearPullDown($y); ?></td>
             </tr>
             <tr>
