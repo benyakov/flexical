@@ -169,4 +169,5 @@ if (getGET('test') == 'flexical') {
     echo "</ol>";
     $_SESSION[$sprefix] = $sessiondata;
 }
+// vim: set tags+=../../../**/tags foldmethod=indent :
 ?>

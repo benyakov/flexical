@@ -107,4 +107,5 @@ if (getGET('test') == 'flexical') {
     echo "</li></ol>";
 }
 
+// vim: set tags+=../../../**/tags foldmethod=indent :
 ?>

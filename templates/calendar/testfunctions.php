@@ -7,4 +7,5 @@ function writeAuth($cd, $before="", $after="") {
     echo "<li>Writing with auth = 2...<br>";
     echo $before, $cd->write(2), $after;
 }
+// vim: set tags+=../../../**/tags foldmethod=indent :
 ?>

@@ -59,4 +59,5 @@ if (getGET('display')) {
         $_POST['span'], explode(',',$_POST['classes']));
     echo $mvb->writeExtra($_POST['content']);
 }
+// vim: set tags+=../../../**/tags foldmethod=indent :
 ?>

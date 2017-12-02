@@ -89,6 +89,9 @@ function cmpEvents($a, $b) {
 function getDayJSON($month, $day, $year, $short) {
     // Return the json-encoded html to refresh a specific day
     // Same query as used in writeCalendar, adding date to where clause
+
+	// determine user's authorization
+	$auth = auth();
     $categoryMatches = categoryMatchString();
 
     // Get filter clauses, if any
@@ -172,6 +175,8 @@ function prepareDBResults($rows, $mode) {
 
 function writeCalendar($month, $year, $mode="normal") {
     global $sprefix;
+	// determine user's authorization
+	$auth = auth();
     $Config = new CalendarConfig();
     $configuration = $Config->getConfig();
     $dbh = new DBConnection();
@@ -255,6 +260,6 @@ function writeCalendar($month, $year, $mode="normal") {
     return $cm->write($auth, $specialcontent);
 }
 
-// vim: set tags+=../../../**/tags :
+// vim: set tags+=../../../**/tags foldmethod=indent :
 
 ?>
