@@ -11,7 +11,7 @@ require_once("{$dir}/CalendarItem.php");
 class CalendarMonthbox extends CalendarItem
 {
     public function __construct($classes=array()) {
-        $this->registerVocabulary(array('classes'));
+        $this->registerVocabulary(array('classes', 'h5data'));
         parent::__construct();
         $this->classes = $classes;
     }
@@ -31,9 +31,16 @@ class CalendarMonthbox extends CalendarItem
         } else {
             $span = "";
         }
+        $h5data = array();
+        if ($this->h5data) {
+            foreach ($this->h5data as $k, $v) {
+                $h5data[] = "data-{$k}=\"$v\"";
+            }
+        }
         return "<td {$span} ".(count($this->classes)?
             (" class=\"".implode(" ",$this->classes).'"'):
-            ("")) .">\n".$contents."\n</td>";
+            ("")).($h5data?(" ".implode(" ",$h5data)):("")
+            .">\n".$contents."\n</td>";
     }
 }
 
