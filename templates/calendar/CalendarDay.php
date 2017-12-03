@@ -15,13 +15,14 @@ class CalendarDay extends CalendarMonthbox
     function __construct($date, $events, $short=false) {
         global $dir;
         $this->registerVocabulary(array('date', 'year', 'month', 'day',
-            'events', 'classes'));
+            'events', 'classes', 'h5data'));
         parent::__construct();
         $this->date = $date;
         $this->year = time_getYear($date);
         $this->month = time_getMonth($date);
         $this->day = time_getDay($date);
         $this->classes = array("day-cell");
+        $this->h5data = array("date"=>strftime('%F', $date));
         $eventlist = array();
         if (! count($events)) $events = array();
         foreach ($events as $event) {
