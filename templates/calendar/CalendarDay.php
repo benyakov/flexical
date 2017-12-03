@@ -64,7 +64,7 @@ class CalendarDay extends CalendarMonthbox
             $rv[] = implode("\n", $eventswritten);
         else
             $rv[] = "<p>&nbsp;</p>";
-        $rv[] = "</td>";
+        //$rv[] = "</td>";
         return parent::writeExtra(implode("", $rv));
     }
 

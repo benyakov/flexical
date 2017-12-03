@@ -94,6 +94,8 @@ function getDayJSON($month, $day, $year, $short) {
 	$auth = auth();
     $categoryMatches = categoryMatchString();
 
+    $dbh = new DBConnection();
+    $tablepre = $dbh->getPrefix();
     // Get filter clauses, if any
     $filterclause = getfilterclause(" AND ");
     $month = intval($month); // Security vs. sql injection

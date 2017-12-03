@@ -351,7 +351,7 @@ function footprint($auth) {
         </li>
         </ul> <?php
     } ?>
-    <p class="attribution"><a href="http://www.christfor.us/flexical.html">FlexiCal</a> <?="{$version['major']}.{$version['minor']}.{$version['tick']}"?></p>
+    <p class="attribution"><a href="https://github.com/benyakov/flexical">FlexiCal</a> <?="{$version['major']}.{$version['minor']}.{$version['tick']}"?></p>
     <?php
 }
 
