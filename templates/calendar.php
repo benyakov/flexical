@@ -1,8 +1,22 @@
 <?php
 // Allow showing remote installation categories
 if ("day" == $_GET["json"]) {
-    echo getDayJSON($month, $day, $year, "true"==$_GET['short']);
+    list($html, $categories) = getDayJSON($year, $month, $day, "true"==$_GET['short']);
+    echo json_encode(array($html, $categories));
     exit(0);
+} elseif ("days" == $_GET["json"]) {
+    $dates = json_decode($_POST['dates']);
+    $html = array();
+    $categories = array();
+    foreach ($dates as $date) {
+        list($y, $m, $d) = explode("-", $date);
+        list($h, $c) = getDayJSON($y, $m, $d, "true"==$_GET['short']);
+        $html[$date] = $h;
+        $categories[] = $c;
+        $rv = json_encode(array(true, $html, array_unique($categories)));
+        echo json_encode($rv);
+        exit(0);
+    }
 }
 ob_start();
 require_once("./lib/remote.php");

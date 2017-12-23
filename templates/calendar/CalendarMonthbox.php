@@ -33,13 +33,13 @@ class CalendarMonthbox extends CalendarItem
         }
         $h5data = array();
         if ($this->h5data) {
-            foreach ($this->h5data as $k, $v) {
+            foreach ($this->h5data as $k => $v) {
                 $h5data[] = "data-{$k}=\"$v\"";
             }
         }
         return "<td {$span} ".(count($this->classes)?
             (" class=\"".implode(" ",$this->classes).'"'):
-            ("")).($h5data?(" ".implode(" ",$h5data)):("")
+            ("")).($h5data?(" ".implode(" ",$h5data)):(""))
             .">\n".$contents."\n</td>";
     }
 }

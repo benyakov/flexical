@@ -86,7 +86,7 @@ function cmpEvents($a, $b) {
         return ($a['start_time'] < $b['start_time'])? -1 : 1;
 }
 
-function getDayJSON($month, $day, $year, $short) {
+function getDayJSON($year, $month, $day, $short) {
     // Return the json-encoded html to refresh a specific day
     // Same query as used in writeCalendar, adding date to where clause
 
@@ -128,7 +128,7 @@ function getDayJSON($month, $day, $year, $short) {
             mktime(0,0,0, $month, $day, $year),
             getIndexOr($events, $day, array(), $short));
     $html = $cd->write($auth);
-    echo json_encode(array($html, $usedcategories));
+    return array($html, $usedcategories);
 }
 
 function prepareDBResults($rows, $mode) {

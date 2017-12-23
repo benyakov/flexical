@@ -94,7 +94,7 @@ function submitEventData ($id="") {
 	$e_ampm = $_POST['end_am_pm'];
     $all_day = $_POST['all_day'];
     $timezone = $_POST['timezone'];
-
+    $datesAffected = array();
 
     if ($include_related) {
         /* Determine how much the date has changed */
@@ -160,7 +160,11 @@ function submitEventData ($id="") {
                 SET `name` = :category");
             $qc->bindParam(":category", $category);
             $qc->execute() or die(array_pop($qc->errorInfo()));
-            array_push($_SESSION[$sprefix]['categories'], $category);
+            if (isset($_SESSION[$sprefix]['categories'])) {
+                array_push($_SESSION[$sprefix]['categories'], $category);
+            } else {
+                $_SESSION[$sprefix]['categories'] = array($category);
+            }
             $qc = $dbh->prepare("SELECT `category` FROM `{$tablepre}categories`
                 WHERE `name`=:category");
             $qc->bindParam(":category", $category);
@@ -199,6 +203,7 @@ function submitEventData ($id="") {
             $q->bindparam(':related', $_POST['related']);
             $q->bindParam(':uid', $_POST['uid']);
             if ($future_only) $q->bindParam(":thisdate", $thisdate);
+            array_push($datesAffected, "all");
         } else {
             $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
                 `uid`=:uid, `date`=:date,
@@ -207,7 +212,10 @@ function submitEventData ($id="") {
                 `all_day`=:all_day, `timezone`=:timezone
                 WHERE `id`=:id");
 
-            $q->bindValue(':date', "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
+            $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$_POST['month'],$_POST['day'],
+                $_POST['year']));
+            $q->bindValue(':date', $thisDate);
+            array_push($datesAffected, $thisDate);
             $q->bindParam(':uid', $_POST['uid']);
             $q->bindParam(':starttime', $starttime);
             $q->bindParam(':endtime', $endtime);
@@ -225,7 +233,10 @@ function submitEventData ($id="") {
             `start_time`=:starttime, `end_time`=:endtime,
             `title`=:title, `category`=:categoryid, `text`=:text,
             `all_day`=:all_day, `timezone`=:timezone");
-        $q->bindValue(':date', "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
+        $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$_POST['month'],$_POST['day'],
+            $_POST['year']));
+        $q->bindValue(':date', $thisDate);
+        array_push($datesAffected, $thisDate);
         $q->bindParam(':uid', $_POST['uid']);
         $q->bindParam(':starttime', $starttime);
         $q->bindParam(':endtime', $endtime);
@@ -240,6 +251,10 @@ function submitEventData ($id="") {
     $dbh->commit();
     $rowcount = $q->rowCount();
     unset($_SESSION[$sprefix]['allcategories']);
+    if ("ajax" == $_POST['use']) {
+        echo json_encode(array(true, $datesAffected));
+        exit(0);
+    }
     return $_POST['title'] . " {$result} ({$rowcount})";
 }
 
