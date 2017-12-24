@@ -37,16 +37,9 @@ if (needsRemoteRows()) {
     jqueryuiCDN();
     javaScript();
     ?>
-    <script type="text/javascript" src="lib/ajax.js"></script>
     <script type="text/javascript" src="templates/calendar/js/calendar.js"></script>
+    <script type="text/javascript" src="lib/ajax.js"></script>
     <script type="text/javascript" language="JavaScript">
-    $(document).ready(function() {
-        $("a[data-event-id]").click(function(evt) {
-            evt.preventDefault();
-            ShowHidePopup(this, $(this).attr('data-event-id'),
-               $(this).attr('data-event-related'));
-        });
-    });
     </script>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="templates/calendar/css/styles.css">
