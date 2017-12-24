@@ -40,15 +40,15 @@ if (!auth()) {
         $dbh->beginTransaction();
         $related_txt = "";
         $related_id = false;
+        $qs = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
+            as `date`, `related`
+            FROM `{$tablepre}eventstb` WHERE `id` = :id");
+        $qs->bindParam(':id', $id);
+        $qs->execute() or die(array_pop($q->errorInfo()));
+        $row = $qs->fetch(PDO::FETCH_ASSOC);
+        $datesAffected[] = $origdate = $row['date'];
+        $related_id = $row['related'];
         if (getIndexOr($_GET, 'include_related', false)) {
-            $qs = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
-                as `date`, `related`
-                FROM `{$tablepre}eventstb` WHERE `id` = :id");
-            $qs->bindParam(':id', $id);
-            $qs->execute() or die(array_pop($q->errorInfo()));
-            $row = $qs->fetch(PDO::FETCH_ASSOC);
-            $origdate = $row['date'];
-            $related_id = $row['related'];
             if ($related_id) {
                 $related_txt = "`related` = :related_id";
                 if (getIndexOr($_GET, 'future_only', false)) {
@@ -56,9 +56,15 @@ if (!auth()) {
                 } else $future_only = "";
                 $related_txt = " OR ({$related_txt}{$future_only})";
             } else $related_txt = "";
+            $qr = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\") as `date`
+                FROM `{$tablepre}eventstb` WHERE {$related_txt}");
+            $qr->bindParam(':related_id', $related_id);
+            if ($future_only) $qr->bindValue(':date', $origdate);
+            $qr->execute() or die(array_pop($q->errorInfo()));
+            $datesAffected = $qr->fetch(PDO::FETCH_NUM);
         }
         $q = $dbh->prepare("DELETE FROM `{$tablepre}eventstb`
-            WHERE `id` = :id $related_txt");
+            WHERE `id` = :id {$related_txt}");
         $q->bindValue(':id', $id);
         if ($related_id) {
             $q->bindParam(':related_id', $related_id);
@@ -67,6 +73,10 @@ if (!auth()) {
 		$q->execute() or die(array_pop($q->errorInfo()));
         $dbh->commit() or die(array_pop($q->errorInfo()));
         $affected = $q->rowCount();
+        if ("ajax" == $_POST['use']) {
+            echo json_encode(array(true, $datesAffected));
+            exit(0);
+        }
         setMessage("{$_('event deleted')} ({$affected})");
 		header("Location: {$SDir()}/index.php?action={$action}&day={$d}&month={$m}&year={$y}&length={$l}&unit={$u}");
         exit(0);
