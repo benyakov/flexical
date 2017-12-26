@@ -10,10 +10,36 @@ function javaScript() {
     function deleteConfirm(eid) {
         var msg = "<?= __('deleteconfirm') ?>";
         if (confirm(msg)) {
-            window.location = "eventsubmit.php?flag=delete&id=" + eid + "&month=<?=$m?>&year=<?=$y?>";
+            //window.location = "eventsubmit.php?flag=delete&id=" + eid + "&month=<?=$m?>&year=<?=$y?>";
+            $.get("eventsubmit.php", {
+                use: "ajax",
+                flag: "delete",
+                id: eid }, function(r) {
+                    HidePopup();
+                    if (r[0]) {
+                        ajaxUpdate(r[1]);
+                    } else {
+                        showMessage("Delete unsuccessful: " + r[1]);
+                    }
+                }, 'json');
         } else {
             return;
         }
+    }
+    function executeMultiDelete(eid, futureOnly) {
+        if (futureOnly) {
+            var future = "&future_only=1";
+        } else {
+            var future = "";
+        }
+        $.get("eventsubmit.php", "flag=delete&include_related=1&use=ajax&id="+eid+future,
+            function(r) {
+                if (r[0]) {
+                    ajaxUpdate(r[1]);
+                } else {
+                    showMessage("Delete unsuccessful: " + r[1]);
+                }
+            }, 'json');
     }
     function deleteRelated(eid) {
         $('<div></div>').appendTo('body')
@@ -26,10 +52,16 @@ function javaScript() {
                 resizable: false,
                 buttons: {
                     Yes: function() {
-                        window.location = "eventsubmit.php?flag=delete&future_only=1&include_related=1&id=" + eid;
+                        //window.location = "eventsubmit.php?flag=delete&future_only=1&include_related=1&id=" + eid;
+                        HidePopup();
+                        $(this).remove();
+                        executeMultiDelete(eid, true);
                     },
                     No: function() {
-                        window.location = "eventsubmit.php?flag=delete&include_related=1&id=" + eid;
+                        //window.location = "eventsubmit.php?flag=delete&include_related=1&id=" + eid;
+                        HidePopup();
+                        $(this).remove();
+                        executeMultiDelete(eid, false);
                     }
                 },
                 close: function (event, ui) {
