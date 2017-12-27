@@ -12,11 +12,11 @@ if ("day" == $_GET["json"]) {
         list($y, $m, $d) = explode("-", $date);
         list($h, $c) = getDayJSON($y, $m, $d, "true"==$_GET['short']);
         $html[$date] = $h;
-        $categories[] = $c;
-        $rv = json_encode(array(true, $html, array_unique($categories)));
-        echo json_encode($rv);
-        exit(0);
+        $categories = array_merge($categories, $c);
     }
+    $rv = json_encode(array(true, $html, array_unique($categories)));
+    echo json_encode($rv);
+    exit(0);
 }
 ob_start();
 require_once("./lib/remote.php");

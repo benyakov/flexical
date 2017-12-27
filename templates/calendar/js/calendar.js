@@ -33,7 +33,7 @@ function ajaxUpdate(datesAffected) {
             url: 'index.php?action=calendar&json=day'+dayReq,
             dataType: 'json',
             success: function(r) {
-                if (r) {
+                if (r[0]) {
                     $('.day-cell[data-date="'+datesAffected[0]+'"]').replaceWith(r[0]);
                     var newcell = $('.day-cell[data-date="'+datesAffected[0]+'"]');
                     newcell.find('a[data-event-id]').click(popupClick);
@@ -50,11 +50,12 @@ function ajaxUpdate(datesAffected) {
             dataType: 'json',
             data: {'dates': JSON.stringify(datesAffected)},
             success: function(r) {
+                r = JSON.parse(r);
                 if (r[0]) {
-                    for (var i = r[1].length-1; i>=0; i--) {
-                        $('.day-cell[data-date="'+r[1][i]['date']+'"]')
-                            .replaceWith(r[1][i]['content']);
-                        var newcell = $('.day-cell[data-date="'+datesAffected[0]+'"]');
+                    for (var prop in r[1]) {
+                        $('.day-cell[data-date="'+prop+'"]')
+                            .replaceWith(r[1][prop]);
+                        var newcell = $('.day-cell[data-date="'+prop+'"]');
                         newcell.find('a[data-event-id]').click(popupClick);
                         newcell.find('.eventform').click(ajaxFormClick);
                     }
