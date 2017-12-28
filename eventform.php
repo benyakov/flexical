@@ -135,9 +135,9 @@ if ("ajax" == $_POST['use']) ob_start();
         $(".specifics").prop('disabled', false);
     }
     function checkOrigDate() {
-        var day = $("#day").val();
-        var month = $("#month").val();
-        var year = $("#year").val();
+        var day = $("#evday").val();
+        var month = $("#evmonth").val();
+        var year = $("#evyear").val();
         if (Boolean($("#include_related:checked").length)) {
             if (year+"-"+month+"-"+day == $("#EditDatePicker").data('orig')) {
                 showSpecifics();
@@ -160,9 +160,9 @@ if ("ajax" == $_POST['use']) ob_start();
             defaultDate: '<?=$m?>/<?=$d?>/<?=$y?>',
             onSelect: function(chosenDate, picker){
                 var dateitems = chosenDate.split('/'); // MM/DD/YYYY
-                $("#month").val(dateitems[0].replace(/^0+/g,""));
-                $("#day").val(dateitems[1].replace(/^0+/g,""));
-                $("#year").val(dateitems[2]);
+                $("#evmonth").val(dateitems[0].replace(/^0+/g,""));
+                $("#evday").val(dateitems[1].replace(/^0+/g,""));
+                $("#evyear").val(dateitems[2]);
                 checkOrigDate();
             } }).css("visibility", "visible");
         $("#year").change(checkOrigDate);
@@ -184,7 +184,7 @@ if ("ajax" == $_POST['use']) ob_start();
             <td>
             <input type="hidden" id="EditDatePicker" data-orig="<?="{$y}-{$m}-{$d}"?>"
                 value="<?="{$y}-{$m}-{$d}"?>">
-            <?php monthPullDown($m, __('months')); dayPullDown($d); yearPullDown($y); ?></td>
+            <?php monthPullDown($m, __('months'), "evmonth"); dayPullDown($d, "evday"); yearPullDown($y, "evyear"); ?></td>
             <?php if ($related) { ?>
             <td rowspan="2" class="related-options">
                 <span class="form_labels"><?=__('Include Related')?></span>&nbsp;

@@ -66,19 +66,19 @@ function pullDown($unit, $unitarray, $name, $values=array(), $multiple=false) {
     echo "</select>\n\n";
 }
 
-function monthPullDown($month, $montharray) {
-    pullDown($month, $montharray, "month");
+function monthPullDown($month, $montharray, $id="month") {
+    pullDown($month, $montharray, $id);
 }
 
-function yearPullDown($year) {
+function yearPullDown($year, $id="year") {
     $min = $year - 100;
     $max = $year + 100;
-    echo "\n<input type=\"number\" name=\"year\" id=\"year\" min=\"{$min}\" max=\"{$max}\" value=\"{$year}\" class=\"yearinput\">";
+    echo "\n<input type=\"number\" name=\"{$id}\" id=\"{$id}\" min=\"{$min}\" max=\"{$max}\" value=\"{$year}\" class=\"yearinput\">";
 }
 
-function dayPullDown($day) {
+function dayPullDown($day, $id="day") {
     $dayrange = range(1, 31);
-    pullDown($day, $dayrange, "day", $dayrange);
+    pullDown($day, $dayrange, $id, $dayrange);
 }
 
 function weekdayPullDown($day, $weekdayarray, $values=array(), $multiple=false) {

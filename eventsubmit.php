@@ -83,9 +83,9 @@ function submitEventData ($id="") {
     $rv = "";
     $include_related = getIndexOr($_POST, 'include_related', '');
 	$uid = $_POST['uid'];
-	$month = $_POST['month'];
-	$day = $_POST['day'];
-	$year = $_POST['year'];
+	$evmonth = $_POST['evmonth'];
+	$evday = $_POST['evday'];
+	$evyear = $_POST['evyear'];
 	$shour = intval($_POST['start_hour']);
 	$sminute = intval($_POST['start_minute']);
 	$s_ampm = $_POST['start_am_pm'];
@@ -103,7 +103,7 @@ function submitEventData ($id="") {
             FROM `{$tablepre}eventstb`
             WHERE id=:id");
         $q->bindValue(":selecteddate",
-            "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
+            "{$evyear}-{$evmonth}-{$evday}");
         $q->bindParam(":id", $id);
         $q->execute() or die("Problem getting datediff");
         $row = $q->fetch(PDO::FETCH_ASSOC);
@@ -114,7 +114,7 @@ function submitEventData ($id="") {
     // Check that Title is filled.
     if (!$_POST['title'] && !$_POST['related']) {
         setMessage(__('blanktitle'));
-        header("Location: {$SDir()}/index.php?month={$_POST['month']}&year={$_POST['year']}&day={$_POST['day']}");
+        header("Location: {$SDir()}/index.php");
         exit(0);
     }
     // If hour is less than 12, apply "pm" by adding 12
@@ -207,7 +207,7 @@ function submitEventData ($id="") {
                 `all_day`=:all_day, `timezone`=:timezone
                 WHERE `id`=:id");
 
-            $q->bindValue(':date', "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
+            $q->bindValue(':date', "{$evyear}-{$evmonth}-{$evday}");
             $q->bindParam(':uid', $_POST['uid']);
             $q->bindParam(':starttime', $starttime);
             $q->bindParam(':endtime', $endtime);
@@ -225,7 +225,7 @@ function submitEventData ($id="") {
             `start_time`=:starttime, `end_time`=:endtime,
             `title`=:title, `category`=:categoryid, `text`=:text,
             `all_day`=:all_day, `timezone`=:timezone");
-        $q->bindValue(':date', "{$_POST['year']}-{$_POST['month']}-{$_POST['day']}");
+        $q->bindValue(':date', "{$evyear}-{$evmonth}-{$evday}");
         $q->bindParam(':uid', $_POST['uid']);
         $q->bindParam(':starttime', $starttime);
         $q->bindParam(':endtime', $endtime);
@@ -240,7 +240,7 @@ function submitEventData ($id="") {
     $dbh->commit();
     $rowcount = $q->rowCount();
     unset($_SESSION[$sprefix]['allcategories']);
-    return $_POST['title'] . " {$result} ({$rowcount})";
+    return $_POST['title'] . " {$result} ({$rowcount}){$extra_info}";
 }
 
 function copyEvent($id)
@@ -254,9 +254,9 @@ function copyEvent($id)
         exit(0);
     }
     $repeattype = $_POST['repeattype'];
-	$month = $_POST['month'];
-	$day = $_POST['day'];
-	$year = $_POST['year'];
+	$month = $_POST['cpmonth'];
+	$day = $_POST['cpday'];
+	$year = $_POST['cpyear'];
     $repeatcount = $_POST['repeatcount'];
     if ($repeatcount == 0) {
         // This allows us to ignore it in our copy loop

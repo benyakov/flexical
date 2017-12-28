@@ -90,9 +90,9 @@ if (!auth()) {
             defaultDate: '<?=$m?>/<?=$d?>/<?=$y?>',
             onSelect: function(chosenDate, picker){
                 var dateitems = chosenDate.split('/'); // MM/DD/YYYY
-                $("#month").val(dateitems[0].replace(/^0+/g,""));
-                $("#day").val(dateitems[1].replace(/^0+/g,""));
-                $("#year").val(dateitems[2]);
+                $("#cpmonth").val(dateitems[0].replace(/^0+/g,""));
+                $("#cpday").val(dateitems[1].replace(/^0+/g,""));
+                $("#cpyear").val(dateitems[2]);
             } }).css("visibility", "visible");
     });
     </script>
@@ -165,7 +165,7 @@ if (!auth()) {
                 <span class="form_labels"><?=__('repeatcutoff')?></span></td>
                 <td>
             <input type="hidden" id="CopyDatePicker" value="<?="{$m}-{$d}-{$y}"?>">
-            <?php monthPullDown($m, __('months')); dayPullDown($d); yearPullDown($y); ?></td>
+            <?php monthPullDown($m, __('months'),"cpmonth"); dayPullDown($d,"cpday"); yearPullDown($y,"cpyear"); ?></td>
             </tr>
             <tr>
                 <td nowrap valign="top" align="right">
