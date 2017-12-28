@@ -504,4 +504,4 @@ function insertFromPost($dbh) {
     } else header("location:useradmin.php");
     $dbh->commit();
 }
-// vim: set tags+=../../**/tags :
+// vim: set foldmethod=indent :

@@ -255,4 +255,4 @@ if ("ajax" == $_POST['use']) ob_start();
 </html>
 
 
-<!-- vim: set tags+=../**/tags : -->
+<!-- vim: set foldmethod=indent : -->

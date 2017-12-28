@@ -513,4 +513,4 @@ function getDateRange() {
     return array($lowdate, time_sqldate($highdate));
 }
 
-// vim: set tags+=../**/tags :
+// vim: set foldmethod=indent :

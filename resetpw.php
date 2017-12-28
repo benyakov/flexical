@@ -87,4 +87,4 @@ if ( $_POST ) {
 	</body></html>
 <?php
 }
-// vim: set tags+=../../**/tags :
+// vim: set foldmethod=indent :

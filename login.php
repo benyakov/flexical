@@ -75,4 +75,4 @@ if ( $action == "login" ) {
 <?php
 
 }
-// vim: set tags+=../**/tags :
+// vim: set foldmethod=indent :

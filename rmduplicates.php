@@ -32,4 +32,4 @@ while ($row = $qm->fetch(PDO::FETCH_ASSOC)) {
 
 echo "{$deleted} duplicate rows deleted."
 
-// vim: set tags+=../../**/tags :
+// vim: set foldmethod=indent :

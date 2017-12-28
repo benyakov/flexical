@@ -192,4 +192,4 @@ if (array_key_exists('cancel', $_POST)) {
     </html>
 <?    }
 }
-//  vim: set tags+=../**/tags :
+//  vim: set foldmethod=indent :

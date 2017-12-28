@@ -75,6 +75,7 @@ if (!auth()) {
         $dbh->commit() or die(array_pop($q->errorInfo()));
         $affected = $q->rowCount();
         if ("ajax" == $_GET['use']) {
+            touch("timestamp.txt");
             echo json_encode(array(true, $datesAffected));
             exit(0);
         }
@@ -214,7 +215,7 @@ function submitEventData ($id="") {
             $q->bindparam(':related', $_POST['related']);
             $q->bindParam(':uid', $_POST['uid']);
             if ($future_only) $q->bindParam(":thisdate", $thisdate);
-            array_push($datesAffected, "all");
+            $datesAffected[] = "all";
         } else {
             $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
                 `uid`=:uid, `date`=:date,
@@ -225,7 +226,7 @@ function submitEventData ($id="") {
 
             $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$evmonth,$evday,$evyear));
             $q->bindValue(':date', $thisDate);
-            array_push($datesAffected, $thisDate);
+            $datesAffected[] = $thisDate;
             $q->bindParam(':uid', $_POST['uid']);
             $q->bindParam(':starttime', $starttime);
             $q->bindParam(':endtime', $endtime);
@@ -245,7 +246,7 @@ function submitEventData ($id="") {
             `all_day`=:all_day, `timezone`=:timezone");
         $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$evmonth,$evday,$evyear));
         $q->bindValue(':date', $thisDate);
-        array_push($datesAffected, $thisDate);
+        $datesAffected[] = $thisDate;
         $q->bindParam(':uid', $_POST['uid']);
         $q->bindParam(':starttime', $starttime);
         $q->bindParam(':endtime', $endtime);
@@ -261,6 +262,7 @@ function submitEventData ($id="") {
     $rowcount = $q->rowCount();
     unset($_SESSION[$sprefix]['allcategories']);
     if ("ajax" == $_POST['use']) {
+        touch("timestamp.txt");
         echo json_encode(array(true, $datesAffected));
         exit(0);
     }
@@ -338,7 +340,7 @@ function copyEvent($id)
             $q->bindParam($tokenl[$i], $row[$keyl[$i]]);
         }
         $q->execute() or die(__LINE__ . array_pop($q->errorInfo()));
-        $inserted[] = "$year-$month-$day";
+        $inserted[] = strftime("%Y-%m-%d", mktime(0,0,0,$month, $day, $year));
 
     } elseif ($repeattype == "daily") {
         $end = mktime(23, 59, 59, $month, $day, $year);
@@ -452,10 +454,15 @@ function copyEvent($id)
         }
     }
     $dbh->commit();
+    if ("ajax" == $_POST['use']) {
+        touch("timestamp.txt");
+        echo json_encode(array(true, $inserted));
+        exit(0);
+    }
     return __('datescopied') . implode(", ", $inserted);
 }
 
 touch("timestamp.txt");
 if ($action=="eventdisplay") $action="eventdisplay&id={$id}";
 header("Location: {$SDir()}/index.php?month={$month}&year={$year}&day={$day}&length={$length}&unit={$unit}&action={$action}");
-// vim: set tags+=../**/tags :
+// vim: set foldmethod=indent :

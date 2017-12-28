@@ -64,4 +64,4 @@ if (!(array_key_exists("step", $_POST) && $_POST['step'] == '2')) {
 
     header("Location: {$SDir()}/index.php");
 }
-// vim: set tags+=../../**/tags :
+// vim: set foldmethod=indent :

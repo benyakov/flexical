@@ -88,4 +88,4 @@ function getTemplateNames($includeroot='.') {
     return array_map("templateFileToName", $templates);
 }
 
-// vim: set foldmethod=indent tags+=../../tags :
+// vim: set foldmethod=indent :
