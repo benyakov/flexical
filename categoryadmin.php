@@ -211,4 +211,4 @@ if (array_key_exists("cancel", $_POST)) {
     refreshcss($dbh, $tablepre);
     header("Location: {$destination}");
 }
-// vim: set tags+=../**/tags :
+// vim: set foldmethod=indent :

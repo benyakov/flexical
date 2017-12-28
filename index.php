@@ -241,4 +241,4 @@ function setupMinorErrorLog()
         unlink("Error-Notices.log");
 }
 
-// vim: set tags+=../**/tags :
+// vim: set foldmethod=indent :

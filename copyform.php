@@ -191,4 +191,4 @@ if (!auth()) {
 <?
     }
 }
-// vim: set tags+=../**/tags :
+// vim: set foldmethod=indent :
