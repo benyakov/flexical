@@ -312,9 +312,11 @@ function copyEvent($id)
     $d = $row['d']; unset($row['d']);
     $y = $row['y']; unset($row['y']);
 
+    $inserted = array();
     if ($include_related) {
         if (! $row['related']) {
             $row['related'] = $row['id'];
+            $inserted[] = strftime("%Y-%m-%d", mktime(0,0,0,$m, $d, $y));
         }
         $qr = $dbh->prepare("UPDATE `{$tablepre}eventstb`
             SET `related` = :related
@@ -327,7 +329,6 @@ function copyEvent($id)
     }
     unset($row["id"]);
 
-    $inserted = array();
     $original = mktime(0, 0, 0, $m, $d, $y);
 
     if ($repeattype == "single") {
