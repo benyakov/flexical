@@ -90,15 +90,15 @@ if (!auth()) {
             defaultDate: '<?=$m?>/<?=$d?>/<?=$y?>',
             onSelect: function(chosenDate, picker){
                 var dateitems = chosenDate.split('/'); // MM/DD/YYYY
-                $("#cpmonth").val(dateitems[0].replace(/^0+/g,""));
-                $("#cpday").val(dateitems[1].replace(/^0+/g,""));
-                $("#cpyear").val(dateitems[2]);
+                $("#evmonth").val(dateitems[0].replace(/^0+/g,""));
+                $("#evday").val(dateitems[1].replace(/^0+/g,""));
+                $("#evyear").val(dateitems[2]);
             } }).css("visibility", "visible");
     });
     </script>
 
 	<span class="add_new_header"><?= $headerstr ?></span>
-		<form name="eventForm" method="POST" action="eventsubmit.php<?= $qstr ?>">
+		<form id="eventForm" name="eventForm" method="POST" action="eventsubmit.php<?= $qstr ?>">
 		<table border=0 cellspacing=7 cellpadding=0>
 		<input type="hidden" name="uid" value="<?=$uid?>">
 			<tr>
@@ -165,7 +165,7 @@ if (!auth()) {
                 <span class="form_labels"><?=__('repeatcutoff')?></span></td>
                 <td>
             <input type="hidden" id="CopyDatePicker" value="<?="{$m}-{$d}-{$y}"?>">
-            <?php monthPullDown($m, __('months'),"cpmonth"); dayPullDown($d,"cpday"); yearPullDown($y,"cpyear"); ?></td>
+            <?php monthPullDown($m, __('months'),"evmonth"); dayPullDown($d,"evday"); yearPullDown($y,"evyear"); ?></td>
             </tr>
             <tr>
                 <td nowrap valign="top" align="right">

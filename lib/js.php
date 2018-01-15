@@ -171,13 +171,13 @@ function js_revealjsonly() {
 function js_checkrepeat() {
     ?>function checkrepeatcount() {
         if (document.eventForm.repeatcount.value == "0") {
-            document.eventForm.month.disabled = false;
-            document.eventForm.day.disabled = false;
-            document.eventForm.year.disabled = false;
+            document.eventForm.evmonth.disabled = false;
+            document.eventForm.evday.disabled = false;
+            document.eventForm.evyear.disabled = false;
         } else {
-            document.eventForm.month.disabled = true;
-            document.eventForm.day.disabled = true;
-            document.eventForm.year.disabled = true;
+            document.eventForm.evmonth.disabled = true;
+            document.eventForm.evday.disabled = true;
+            document.eventForm.evyear.disabled = true;
         }
     }
     function checkrepeattype() {

@@ -15,6 +15,7 @@ $q = $dbh->prepare("SELECT e.`id`, e.date, YEAR(e.date) AS `y`,
         WHERE e.`id`= ?");
 if ($q->execute(array($id))) {
     $row = $q->fetch(PDO::FETCH_ASSOC);
+    if (! $row) $id = -1;
 } else die(array_pop($q->errorInfo()));
 
 
@@ -23,8 +24,8 @@ $dateline = "$d " . __('months', $m-1) . " $y";
 
 // get day of week
 $wday = date("w", mktime (0,0,0,$m,$d,$y));
+if ("eventdisplay" != getGET('json')) {
 ?>
-
 <!DOCTYPE html>
 <html lang="<?=$language?>">
 <head>
@@ -39,6 +40,7 @@ $wday = date("w", mktime (0,0,0,$m,$d,$y));
     jqueryuiCDN();
     javaScript()
     ?>
+    <script type="text/javascript" src="templates/eventdisplay/js/eventdisplay.js"></script>
     <script type="text/javascript" src="lib/ajax.js"></script>
 </head>
 <body>
@@ -46,15 +48,20 @@ $wday = date("w", mktime (0,0,0,$m,$d,$y));
 <?php echo topMatter($action, $sitetabs); ?>
 
 <div id="page">
+<div id="eventview-content">
 <?php
+}
 // When no event has been selected yet in this session.
 if ($id == -1 || !$row) {
+    if ("eventdisplay" == getGET('json')) ob_start();
     setMessage(__('no id provided'));
-    showMessage();?>
-    </div>
-    </body>
-    </html>
-    <?php  return;
+    showMessage();
+    ?></div></div></body></html><?
+    if ("eventdisplay" == getGET('json')) {
+        $content = ob_get_clean();
+        echo json_encode(array($content));
+    }
+    exit(0);
 }
 $currentevent = $row;
 $currentevent['current'] = true;
@@ -97,10 +104,12 @@ foreach ($eventcollector as $e) {
         $events[$e['start_hour']][] = $e;
     }
 }
+if ("eventdisplay" == getGET('json')) {
+    ob_start();
+}
 ?>
-<div id="eventview-content">
 
-<h1><?php echo __('days', $wday) ?>, <?php echo $dateline ?></h1>
+<h1><?= __('days', $wday) ?>, <?= $dateline ?></h1>
 
 <table cellspadding="0" cellspacing="0" border="0" width="100%"> <?php
 foreach ($alldays as $a) {
@@ -145,6 +154,13 @@ foreach (range(0, 23) as $hour) {
     </tr>                         <?php
 }                                 ?>
 </table>
+<?php
+if ("eventdisplay" == getGET('json')) {
+    $content = ob_get_clean();
+    echo json_encode(array($content));
+    exit(0);
+}
+?>
 </div>
 </div>
 <?=footprint($auth)?>

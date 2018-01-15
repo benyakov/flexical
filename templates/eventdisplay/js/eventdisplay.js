@@ -1,38 +1,25 @@
-function ajaxUpdate(datesAffected) {
-    var params = location.search
-    if (params.length == 0) {
-        params = "?"
-    } else {
-        params = params + "&"
+function updateEventViewContent(r) {
+    if (r[0]) {
+        $('#eventview-content').html(r[0]);
+        setupEventActions();
+        setupRelatedLinks();
     }
+}
+function ajaxUpdate(datesAffected) {
     $.post({
-        url: 'index.php'+params+'json=eventdisplay',
+        url: 'index.php?json=eventdisplay',
         dataType: 'json',
-        success: function(r) {
-            if (r[0]) {
-                $('#eventview-content').html(r[0]);
-                setupEventActions();
-                setupRelatedLinks();
-            }
-        }
+        success: updateEventViewContent
     });
 }
 function setupRelatedLinks() {
     $(".related-link").click(function(evt) {
         evt.preventDefault();
-        var params = location.search
-        if (params.length == 0) {
-            params = "?"
-        } else {
-            params = params + "&"
-        }
         var url = $(this).attr('href');
-        $.ajax({
-            type: 'POST',
-            url: url+params+"ajax=eventdisplay",
-            data: {'use':'ajax'},
+        $.post({
+            url: url+"&json=eventdisplay",
             dataType: 'json',
-            success: ajaxUpdate
+            success: updateEventViewContent
         });
     });
 }
