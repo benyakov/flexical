@@ -1,3 +1,6 @@
+<?php
+if ("eventlist" != getGET('json')) {
+?>
 <!DOCTYPE html>
 <html lang="<?=$language?>">
 <head>
@@ -10,40 +13,25 @@
     <link rel="stylesheet" type="text/css" href="css/categorystyles.css"/>
     <?php jqueryCDN(); ?>
     <?php jqueryuiCDN(); ?>
-    <script type="text/javascript" src="lib/ajax.js"></script>
     <script type="text/javascript" src="templates/eventlist/js/eventlist.js"></script>
-	<script type="text/javascript" language="JavaScript">
-        $(function(){
-            $(".jsonly").css("visibility", "visible");
-            $("#DatePicker").datepicker({
-                buttonImage: 'images/calendarbutton.png',
-                buttonImageOnly: true,
-                changeMonth: true,
-                changeYear: true,
-                showOn: 'both',
-                onSelect: function(chosenDate, picker){
-                    var dateitems = chosenDate.split('/'); // Y/M/D
-                    document.displaySpan.month.value = dateitems[0];
-                    document.displaySpan.day.value = dateitems[1];
-                    document.displaySpan.year.value = dateitems[2];
-                } }).css("visibility", "visible");
-        });
-    </script>
+    <script type="text/javascript" src="lib/ajax.js"></script>
 </head>
 <body>
 
 <?php echo topMatter($action, $sitetabs); ?>
 
 <div id="page">
-<?php if (getGET('format') == "email") {
+<?php
+} else {
+    ob_start();
+}
+if ("email" == getGET('format')) {
     echo "<h1>{$d} ".__('months', $m-1)."</h1>";
 } else { ?>
     <div id="event-header">
         <?php if (! relatedFilter()) { ?>
-            <span class="noprint"><?= scrollArrows($d, $m, $y, $length, $unit, $action) ?></span>
-            <span class="date_header"><?=$d?>&nbsp;<?= __('months', $m-1) ?>&nbsp;<?= $y ?>&nbsp;</span>
-        <?php } ?>
-        <?php if (! relatedFilter()) { ?>
+        <span class="noprint"><?= scrollArrows($d, $m, $y, $length, $unit, $action) ?></span>
+        <span class="date_header"><?=$d?>&nbsp;<?= __('months', $m-1) ?>&nbsp;<?= $y ?>&nbsp;</span>
 
         <span class="gotoday">
         <a href="index.php?current=1"><?= __('current')?></a>
@@ -80,7 +68,14 @@ echo writeEvents($d, $m, $y, $l, $u, $o);
     <div><?= __('generationdate') . gmdate("Y-m-d H:i:s") ?></div>
     <div><?= __('modificationdate') . gmdate("Y-m-d H:i:s", $lastmodtime) ?></div>
 </div>
-</div>
+
+<?php
+if ("eventlist" == getGET('json')) {
+    $content = ob_get_clean();
+    echo json_encode(array($content));
+    exit(0);
+}
+?></div>
 <?php if (getGET('format') != 'email') echo footprint($auth);?>
 
 </body>

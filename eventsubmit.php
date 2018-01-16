@@ -280,9 +280,9 @@ function copyEvent($id)
         exit(0);
     }
     $repeattype = $_POST['repeattype'];
-	$month = $_POST['cpmonth'];
-	$day = $_POST['cpday'];
-	$year = $_POST['cpyear'];
+	$month = $_POST['evmonth'];
+	$day = $_POST['evday'];
+	$year = $_POST['evyear'];
     $repeatcount = $_POST['repeatcount'];
     if ($repeatcount == 0) {
         // This allows us to ignore it in our copy loop

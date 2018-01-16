@@ -274,7 +274,7 @@ $lang['allday'] = "All Day Event";
 $lang['backtocalendar'] = "Back to Calendar";
 $lang['previous related'] = "previous related";
 $lang['next related'] = "next related";
-$lang['no id provided'] = "Please choose an event first from another view.";
+$lang['no id provided'] = "No event to display. Please choose one from another view.";
 $lang['hour'] = "Hour";
 
 // Custom stylesheet editor

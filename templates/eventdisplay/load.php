@@ -59,10 +59,10 @@ function writePosting($row, $auth)
             }
             $relatedstr = "";
             if ($prev_link) {
-                $relatedstr .= "[<a href=\"index.php?action=eventdisplay&id={$prev_link}\">{$_('previous related')}</a>] &lt;";
+                $relatedstr .= "[<a class=\"related-link\" href=\"index.php?action=eventdisplay&id={$prev_link}\">{$_('previous related')}</a>] &lt;";
             }
             if ($next_link) {
-                $relatedstr .= "&gt; [<a href=\"index.php?action=eventdisplay&id={$next_link}\">{$_('next related')}</a>]";
+                $relatedstr .= "&gt; [<a class=\"related-link\" href=\"index.php?action=eventdisplay&id={$next_link}\">{$_('next related')}</a>]";
             }
        }
     } else {

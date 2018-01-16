@@ -9,7 +9,7 @@ function popupClick(evt) {
 }
 
 function ajaxUpdate(datesAffected) {
-    console.log(datesAffected);
+    //console.log(datesAffected);
     var allDatesInPage = $('.day-cell').map(function(){
         return $(this).data('date');
     }).get();
@@ -43,7 +43,7 @@ function ajaxUpdate(datesAffected) {
             }
         });
     } else {
-        console.log(datesAffected);
+        //console.log(datesAffected);
         $.ajax({
             type: 'POST',
             url: 'index.php?action=calendar&json=days',
@@ -61,7 +61,7 @@ function ajaxUpdate(datesAffected) {
                     }
                     updateCategories(r[2]);
                 } else {
-                    console.log("Problem updating days: "+r[1]);
+                    //console.log("Problem updating days: "+r[1]);
                 }
             }
         });
@@ -72,7 +72,7 @@ function updateCategories(categories) {
     // TODO: Ensure that the listing of categories present includes the given ones.
     var existing = $(".categorykey span")
         .map(function() { return $(this).text() }).get();
-    console.log("Existing categories: "+existing);
+    //console.log("Existing categories: "+existing);
 }
 
 // vim: set foldmethod=indent :
