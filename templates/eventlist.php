@@ -11,6 +11,7 @@
     <?php jqueryCDN(); ?>
     <?php jqueryuiCDN(); ?>
     <script type="text/javascript" src="lib/ajax.js"></script>
+    <script type="text/javascript" src="templates/eventlist/js/eventlist.js"></script>
 	<script type="text/javascript" language="JavaScript">
         $(function(){
             $(".jsonly").css("visibility", "visible");
