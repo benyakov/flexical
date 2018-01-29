@@ -26,15 +26,15 @@ if (array_key_exists('cancel', $_POST)) {
     $filters = array();
     if ($_POST['title']) {
         // Prepare for using LIKE
-        $title = str_replace("\\", "\\\\\\\\", $_POST['title']);
-        $title = str_replace("'", "\\'", $title);
-        $filters['title'] = $title;
+        //$title = str_replace("\\", "\\\\\\\\", $_POST['title']);
+        //$title = str_replace("'", "\\'", $title);
+        $filters['title'] = $_POST['title'];
     }
     if ($_POST['text']) {
         // Prepare for REGEXP
-        $text = str_replace("\\", "\\\\\\\\", $_POST['text']);
-        $text = str_replace("'", "\\'", $text);
-        $filters['text'] = $text;
+        // $text = str_replace("\\", "\\\\\\\\", $_POST['text']);
+        // $text = str_replace("'", "\\'", $text);
+        $filters['text'] = $_POST['text'];
     }
     if (is_numeric($_POST['start_hour']) &&
         is_numeric($_POST['start_minute'])) {

@@ -74,8 +74,15 @@ if ($configuration['local_php_library']) {
 
 // print_r($_GET); // Useful for debugging
 if (getGET('debug')=="filter") {
-    print_r($_SESSION[$sprefix]['filters']);
+    echo "<pre>";
+    foreach ($_SESSION[$sprefix]['filters'] as $name => $filter) {
+        echo "Name: `{$name}'; Value: `{$filter}'; Value Quoted: `{$dbh->quote($filter)}'";
+    }
+    echo "\nFilter clause: `".getfilterclause(" AND ")."'";
+    echo "</pre>";
     exit(0);
+} elseif (getGET('debug') == "resetfilter") {
+    unset($_SESSION[$sprefix]['filters']);
 } elseif (getGET('debug')=="session") {
     print_r($_SESSION[$sprefix]);
     exit(0);
