@@ -43,8 +43,8 @@ class CalendarEvent extends CalendarItem
         $out = array();
         if ($compactfmt) $compact_text = " compact";
         else $compact_text = "";
-        $out[] = "<p class=\"title-txt{$compact_text}\"><span class=\"".
-            $this->categoryClass();
+        $out[] = "<p class=\"title-txt{$compact_text}\">";
+        $out[] = "<span class=\"".$this->categoryClass();
         if (0 == $this->id) {
             $out[] = " external-category\">";
         } else {
