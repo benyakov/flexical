@@ -107,20 +107,24 @@ function submitEventData ($id="") {
     $all_day = $_POST['all_day'];
     $timezone = $_POST['timezone'];
     $datesAffected = array();
+    $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$evmonth,$evday,$evyear));
 
-    if ($include_related) {
-        /* Determine how much the date has changed */
-        $q = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
-            AS `date`, DATEDIFF(date, :selecteddate) AS `diff`
-            FROM `{$tablepre}eventstb`
-            WHERE id=:id");
-        $q->bindValue(":selecteddate",
-            "{$evyear}-{$evmonth}-{$evday}");
-        $q->bindParam(":id", $id);
-        $q->execute() or die("Problem getting datediff");
-        $row = $q->fetch(PDO::FETCH_ASSOC);
-        $thisdate = $row['date'];
-        $datediff = $row['diff'];
+    $dbh->beginTransaction();
+    /* Determine how much the date has changed */
+    $q = $dbh->prepare("SELECT DATE_FORMAT(`date`, \"%Y-%m-%d\")
+        AS `date`, DATEDIFF(date, :selecteddate) AS `diff`
+        FROM `{$tablepre}eventstb`
+        WHERE id=:id");
+    $q->bindValue(":selecteddate",
+        "{$evyear}-{$evmonth}-{$evday}");
+    $q->bindParam(":id", $id);
+    $q->execute() or die("Problem getting datediff");
+    $row = $q->fetch(PDO::FETCH_ASSOC);
+    $origDate = $row['date'];
+    $datediff = $row['diff'];
+
+    if (0 != $datediff) {
+        $datesAffected[] = $origDate;
     }
 
     // Check that Title is filled.
@@ -158,9 +162,8 @@ function submitEventData ($id="") {
         $category = $_POST['category'];
     }
 
-    $dbh->beginTransaction();
     /* If we are NOT shifting related events across dates... */
-    if (! ($include_related && $datediff)) {
+    if (! ($include_related && (0!=$datediff))) {
         /* Make sure the specified category exists */
         $qc = $dbh->prepare("SELECT `category` FROM `{$tablepre}categories`
             WHERE `name`=:category");
@@ -214,7 +217,7 @@ function submitEventData ($id="") {
             }
             $q->bindparam(':related', $_POST['related']);
             $q->bindParam(':uid', $_POST['uid']);
-            if ($future_only) $q->bindParam(":thisdate", $thisdate);
+            if ($future_only) $q->bindParam(":thisdate", $origDate);
             $datesAffected[] = "all";
         } else {
             $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
@@ -224,7 +227,6 @@ function submitEventData ($id="") {
                 `all_day`=:all_day, `timezone`=:timezone
                 WHERE `id`=:id");
 
-            $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$evmonth,$evday,$evyear));
             $q->bindValue(':date', $thisDate);
             $datesAffected[] = $thisDate;
             $q->bindParam(':uid', $_POST['uid']);
@@ -244,7 +246,6 @@ function submitEventData ($id="") {
             `start_time`=:starttime, `end_time`=:endtime,
             `title`=:title, `category`=:categoryid, `text`=:text,
             `all_day`=:all_day, `timezone`=:timezone");
-        $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$evmonth,$evday,$evyear));
         $q->bindValue(':date', $thisDate);
         $datesAffected[] = $thisDate;
         $q->bindParam(':uid', $_POST['uid']);
