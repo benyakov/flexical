@@ -158,6 +158,14 @@ if ("ajax" == $_POST['use']) ob_start();
             changeYear: true,
             showOn: 'both',
             defaultDate: '<?=$m?>/<?=$d?>/<?=$y?>',
+            beforeShow: function (input, inst) {
+                    var width = $(window).width();
+                    width = width/2;
+                    var dpwidth = inst.dpDiv.width();
+                    setTimeout(function () {
+                        inst.dpDiv.css({ top: 40, left: width - dpwidth/2 });
+                    }, 0);
+            },
             onSelect: function(chosenDate, picker){
                 var dateitems = chosenDate.split('/'); // MM/DD/YYYY
                 $("#evmonth").val(dateitems[0].replace(/^0+/g,""));

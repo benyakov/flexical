@@ -85,6 +85,7 @@ foreach ($customcounts as $date => $category) {
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/categorystyles.css">
     <link rel="stylesheet" type="text/css" href="templates/summary/css/styles.css">
+    <? javaScript(); ?>
     <style type="text/css" media="print">
         <!--
         #page { width: 8.5in; height: 11in; margin: 0.25in; }

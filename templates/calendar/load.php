@@ -121,6 +121,17 @@ function getDayJSON($year, $month, $day, $short) {
     $q->bindparam(':day', $day);
     $q->execute() or die(array_pop($q->errorInfo()));
     $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+    $rangedata = array("", $month, $year, "", "");
+    require_once("./lib/remote.php");
+    if (! filter_set()
+        && $remoterows = getRemoteRows('calendar', $rangedata))
+    {
+        foreach ($remoterows as $rrow) {
+            $rrow['remote'] == true;
+            $rows[] = $rrow;
+        }
+        usort($rows, cmpEvents);
+    }
     list($events, $usedcategories) = prepareDBResults($rows, "normal");
     global $includeroot;
     require_once("{$includeroot}/templates/calendar/CalendarDay.php");
