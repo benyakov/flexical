@@ -194,7 +194,7 @@ p.title-txt              { font-size:55%;
 /**** time line under title text when event time given ****/
 /*  For (begin) times */
 div.start-time-str       { font-size: 50%; }
-div.end-time-str         {font-size: 45%;
+div.end-time-str         {font-size: 42%;
                           line-height: 80%; }
 div.end-time-str a:link,
 div.end-time-str a:active,
