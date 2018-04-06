@@ -33,5 +33,5 @@ password=\"{$dbconfig->get('dbpassword')}\"\n") ;
 fclose($fp);
 $mysqldumpcmd = "mysqldump --defaults-file=.my.cnf -h {$dbconfig->get('dbhost')} {$dbconfig->get('dbname')} --tables {$tablenamestring}";
 passthru($mysqldumpcmd);
-unlink(".my.cnf");
+@unlink(".my.cnf");
 // vim: set tags+=../../**/tags :

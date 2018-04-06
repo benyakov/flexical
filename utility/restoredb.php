@@ -61,8 +61,8 @@ if (! array_key_exists("stage", $_GET)) {
             "-h {$dbconfig->get('dbhost')} {$dbconfig->get('dbname')} ".
             "-e 'source {$dumpfile}';";
         $result = system($cmdline, $return);
-        unlink(".my.cnf");
-        unlink($dumpfile);
+        @unlink(".my.cnf");
+        @unlink($dumpfile);
         unset($dbconfig);
         if (0 == $return) {
             setMessage(__('restoresucceeded'));

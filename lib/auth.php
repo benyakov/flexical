@@ -106,7 +106,7 @@ class AuthKeeper {
                 if (in_array($seriesfile, array('.', '..'))) continue;
                 if (time() - filemtime("{$userdir}/{$seriesfile}")
                     > $max_age)
-                    unlink("{$userdir}/{$seriesfile}");
+                    @unlink("{$userdir}/{$seriesfile}");
             }
             closedir($userdirp);
             // Check against saved auth tokens
@@ -186,7 +186,7 @@ class AuthKeeper {
         $cookiepath = $this->getCookiePath();
         if ($_COOKIE['auth']['user']) {
             $acf = "{$this->getAuthCookiePath()}/{$_COOKIE['auth']['user']}/{$_COOKIE['auth']['series']}";
-            if (file_exists($acf)) unlink($acf);
+            @unlink($acf);
             $timestamp = time()-3600;
             setcookie('auth[user]', '', $timestamp, $cookiepath);
             setcookie('auth[series]', '', $timestamp, $cookiepath);

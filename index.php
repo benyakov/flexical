@@ -244,8 +244,7 @@ function recordMinorErrors($errno, $errstr, $errfile, $errline)
 
 function setupMinorErrorLog()
 {
-    if (file_exists("Error-Notices.log"))
-        unlink("Error-Notices.log");
+    @unlink("Error-Notices.log");
 }
 
 // vim: set foldmethod=indent :
