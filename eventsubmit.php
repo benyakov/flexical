@@ -24,8 +24,8 @@ if (!auth()) {
 
 } else {
 
-	$flag = $_GET['flag'];
-	$id = (int) $_GET['id'];
+	$flag = getGET('flag');
+	$id = (int) getGET('id');
 
 	if ($flag == "add") {
 		setMessage(submitEventData());
@@ -93,19 +93,19 @@ function submitEventData ($id="") {
     $tablepre = $dbh->getPrefix();
 	global $sprefix;
     $rv = "";
-    $include_related = getIndexOr($_POST, 'include_related', '');
-	$uid = $_POST['uid'];
-	$evmonth = $_POST['evmonth'];
-	$evday = $_POST['evday'];
-	$evyear = $_POST['evyear'];
-	$shour = intval($_POST['start_hour']);
-	$sminute = intval($_POST['start_minute']);
-	$s_ampm = $_POST['start_am_pm'];
-	$ehour = intval($_POST['end_hour']);
-	$eminute = intval($_POST['end_minute']);
-	$e_ampm = $_POST['end_am_pm'];
-    $all_day = $_POST['all_day'];
-    $timezone = $_POST['timezone'];
+    $include_related = getPOST('include_related');
+	$uid = getPOST('uid');
+	$evmonth = getPOST('evmonth');
+	$evday = getPOST('evday');
+	$evyear = getPOST('evyear');
+	$shour = intval(getPOST('start_hour'));
+	$sminute = intval(getPOST('start_minute'));
+	$s_ampm = getPOST('start_am_pm');
+	$ehour = intval(getPOST('end_hour'));
+	$eminute = intval(getPOST('end_minute'));
+	$e_ampm = getPOST('end_am_pm');
+    $all_day = getPOST('all_day');
+    $timezone = getPOST('timezone');
     $datesAffected = array();
     $thisDate = strftime("%Y-%m-%d", mktime(0,0,0,$evmonth,$evday,$evyear));
 
@@ -141,7 +141,7 @@ function submitEventData ($id="") {
         $ehour = $ehour + 12;
     }
 	$starttime = "$shour:$sminute:00";
-    if (mktime($shour,$minute,0,0,0,0)>mktime($ehour,$eminute,0,0,0,0)) {
+    if (mktime($shour,$sminute,0,0,0,0)>mktime($ehour,$eminute,0,0,0,0)) {
         $endtime = $starttime;
     } else {
         $endtime = "$ehour:$eminute:00";
@@ -273,7 +273,7 @@ function submitEventData ($id="") {
 function copyEvent($id)
 {
     global $tablepre, $dbh;
-    if (is_numeric($_POST['repeatskip'])) {
+    if (is_numeric(getPOST('repeatskip'))) {
         $repeatskip = intval($_POST['repeatskip']);
     } elseif (array_key_exists('repeatskip', $_POST)) {
         setMessage(__('repeatskipnan')." : {$_POST['repeatskip']} numeric? ".is_numeric($_POST['repeatskip']));
@@ -284,7 +284,7 @@ function copyEvent($id)
 	$month = $_POST['evmonth'];
 	$day = $_POST['evday'];
 	$year = $_POST['evyear'];
-    $repeatcount = $_POST['repeatcount'];
+    $repeatcount = getPOST('repeatcount');
     if ($repeatcount == 0) {
         // This allows us to ignore it in our copy loop
         $repeatcount = -1;

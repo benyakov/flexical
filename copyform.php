@@ -135,12 +135,12 @@ if (!auth()) {
             <tr>
 				<td nowrap valign="top" align="right" nowrap>
                 <span class="form_labels"><?=__('starttime')?></span></td>
-				<td><?= ($spm)?"$shour:$sminute PM":"$shour:$sminute AM"?></td>
+				<td><?= (isset($spm))?"$shour:$sminute PM":"$shour:$sminute AM"?></td>
             </tr>
 			<tr>
 				<td nowrap valign="top" align="right" nowrap>
                 <span class="form_labels"><?=__('endtime')?></span></td>
-				<td><?= ($epm)?"$ehour:$eminute PM":"$ehour:$eminute AM"?></td>
+				<td><?= (isset($epm))?"$ehour:$eminute PM":"$ehour:$eminute AM"?></td>
 			</tr>
         <?php } ?>
             <tr>
