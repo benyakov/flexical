@@ -16,7 +16,7 @@ $id = $_GET['id'];
 if ( $action == "login" ) {
     if (false !== ($auth = auth($_POST['username'], $_POST['password']))) {
         setMessage(__("logged in-$auth"));
-        if ($_SESSION[$sprefix]["destination"]) {
+        if (isset($_SESSION[$sprefix]["destination"])) {
             header("Location: {$_SESSION[$sprefix]["destination"]}");
             unset($_SESSION[$sprefix]["destination"]);
         } else {

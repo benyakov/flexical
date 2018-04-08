@@ -109,7 +109,7 @@ function showfile($path, $message) { ?>
         echo substr($mdtext, 21);
         echo "</pre>\n";
     } else {
-        $mdtext = preg_replace('/<\\{([^}]+)\\}>/e', '__("$1")', $mdtext);
+        $mdtext = preg_replace_callback('/<\\{([^}]+)\\}>/', function($matches){return __($matches[1]);}, $mdtext);
         echo Markdown($mdtext);
     }?>
         </body>

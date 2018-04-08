@@ -80,6 +80,7 @@ class AuthKeeper {
     }
 
     public function logout() {
+        global $sprefix;
         unset($_SESSION[$sprefix]['authdata']);
         $this->authcookie(false);
     }
@@ -138,7 +139,7 @@ class AuthKeeper {
             return true;
         }
         if ($authorized) {
-            if ($_COOKIE['auth']['series']) $series = $_COOKIE['auth']['series'];
+            if (isset($_COOKIE['auth']['series'])) $series = $_COOKIE['auth']['series'];
             else $series = $this->genCookieSeriesString();
             $this->setAuthCookie($_SESSION[$sprefix]["authdata"]["login"], $series,
                 $max_age);
