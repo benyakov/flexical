@@ -3,15 +3,15 @@ $installroot = dirname($_SERVER['SCRIPT_NAME']);
 $includeroot = dirname(__FILE__);
 require("./utility/initialize-entrypoint.php");
 
-$action = $_GET['action'];
+$action = getGET('action');
 /* Have to use "view" as a get_var, because "action" is login/logout. */
-$view = $_GET['view']? $_GET['view'] : $_SESSION[$sprefix]['action'];
-$d = $_GET['day']? $_GET['day'] : $_SESSION[$sprefix]['day'];
-$m = $_GET['month']? $_GET['month'] : $_SESSION[$sprefix]['month'];
-$y = $_GET['year']? $_GET['year'] : $_SESSION[$sprefix]['year'];
-$l = $_GET['length']? $_GET['length'] : $_SESSION[$sprefix]['length'];
-$u = $_GET['unit']? $_GET['unit'] : $_SESSION[$sprefix]['unit'];
-$id = $_GET['id'];
+$view = getGET('view')? $_GET['view'] : $_SESSION[$sprefix]['action'];
+$d = getGET('day')? $_GET['day'] : $_SESSION[$sprefix]['day'];
+$m = getGET('month')? $_GET['month'] : $_SESSION[$sprefix]['month'];
+$y = getGET('year')? $_GET['year'] : $_SESSION[$sprefix]['year'];
+$l = getGET('length')? $_GET['length'] : $_SESSION[$sprefix]['length'];
+$u = getGET('unit')? $_GET['unit'] : $_SESSION[$sprefix]['unit'];
+$id = getGET('id');
 
 if ( $action == "login" ) {
     if (false !== ($auth = auth($_POST['username'], $_POST['password']))) {

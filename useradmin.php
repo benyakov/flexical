@@ -3,7 +3,7 @@ $installroot = dirname($_SERVER['SCRIPT_NAME']);
 $includeroot = dirname(__FILE__);
 require('./utility/initialize-entrypoint.php');
 
-$flag = $_GET['flag'];
+$flag = getGET('flag');
 $authdata = getIndexOr($_SESSION[$sprefix],'authdata', array());
 $auth = auth();
 $authtype = getIndexOr($authdata, "authtype");
@@ -150,8 +150,7 @@ if ( $auth == 3 && $authtype!="cookie") {
     } else {
         if ($authtype == "cookie") {
             setMessage(__('accessdenied-cookie'));
-            $_SESSION[$sprefix]["destination"] = $_SERVER["REQUEST_URI"].
-                $_SERVER["PATH_INFO"].$_SERVER["REQUEST_METHOD"];
+            $_SESSION[$sprefix]["destination"] = $_SERVER["REQUEST_URI"].$_SERVER["REQUEST_METHOD"];
             header("Location: {$SDir()}/login.php?action=loginform");
         } else {
             setMessage(__('accessdenied'));
@@ -475,7 +474,7 @@ function userList() {
 
 function insertFromPost($dbh) {
     /* Insert a user record from $_POST, if authorized */
-
+    global $sprefix;
     $auth = auth();
     $authtype = $_SESSION[$sprefix]["authdata"]["authtype"];
     $ulevel = intval($_POST['userlevel']);
