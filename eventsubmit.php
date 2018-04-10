@@ -128,7 +128,7 @@ function submitEventData ($id="") {
     }
 
     // Check that Title is filled.
-    if (!$_POST['title'] && !$_POST['related']) {
+    if (!getPOST('title') && !getPOST('related')) {
         setMessage(__('blanktitle'));
         header("Location: {$SDir()}/index.php");
         exit(0);
@@ -147,19 +147,19 @@ function submitEventData ($id="") {
         $endtime = "$ehour:$eminute:00";
     }
 
-    if ($_POST['all_day'] == "1") {
+    if (getPOST('all_day') == "1") {
         $all_day = 1;
         $starttime = $endtime = "00:00:00";
     } else {
         $all_day = 0;
     }
 
-    if ($_POST['category'] == __("new-category")) {
-        $cat = preg_replace("/[^- A-Za-z0-9]+/", "", $_POST['newcategory']);
+    if (getPOST('category') == __("new-category")) {
+        $cat = preg_replace("/[^- A-Za-z0-9]+/", "", getPOST('newcategory'));
         $cat = preg_replace("/ +/", " ", $cat);
         $category = $cat;
     } else {
-        $category = $_POST['category'];
+        $category = getPOST('category');
     }
 
     /* If we are NOT shifting related events across dates... */
@@ -209,14 +209,14 @@ function submitEventData ($id="") {
                     WHERE `related`=:related {$future_only}");
                 $q->bindParam(':starttime', $starttime);
                 $q->bindParam(':endtime', $endtime);
-                $q->bindParam(':title', $_POST['title']);
+                $q->bindValue(':title', getPOST('title'));
                 $q->bindParam(':categoryid', $categoryid);
-                $q->bindParam(':text', $_POST['text']);
+                $q->bindValue(':text', getPOST('text'));
                 $q->bindParam(':all_day', $all_day);
                 $q->bindParam(':timezone', $timezone);
             }
-            $q->bindparam(':related', $_POST['related']);
-            $q->bindParam(':uid', $_POST['uid']);
+            $q->bindValue(':related', getPOST('related'));
+            $q->bindValue(':uid', getPOST('uid'));
             if ($future_only) $q->bindParam(":thisdate", $origDate);
             $datesAffected[] = "all";
         } else {
@@ -229,12 +229,12 @@ function submitEventData ($id="") {
 
             $q->bindValue(':date', $thisDate);
             $datesAffected[] = $thisDate;
-            $q->bindParam(':uid', $_POST['uid']);
+            $q->bindValue(':uid', getPOST('uid'));
             $q->bindParam(':starttime', $starttime);
             $q->bindParam(':endtime', $endtime);
-            $q->bindParam(':title', $_POST['title']);
+            $q->bindValue(':title', getPOST('title'));
             $q->bindParam(':categoryid', $categoryid);
-            $q->bindParam(':text', $_POST['text']);
+            $q->bindValue(':text', getPOST('text'));
             $q->bindParam(':all_day', $all_day);
             $q->bindParam(':timezone', $timezone);
             $q->bindParam(':id', $id);
@@ -248,12 +248,12 @@ function submitEventData ($id="") {
             `all_day`=:all_day, `timezone`=:timezone");
         $q->bindValue(':date', $thisDate);
         $datesAffected[] = $thisDate;
-        $q->bindParam(':uid', $_POST['uid']);
+        $q->bindValue(':uid', getPOST('uid'));
         $q->bindParam(':starttime', $starttime);
         $q->bindParam(':endtime', $endtime);
-        $q->bindParam(':title', $_POST['title']);
+        $q->bindValue(':title', getPOST('title'));
         $q->bindParam(':categoryid', $categoryid);
-        $q->bindParam(':text', $_POST['text']);
+        $q->bindValue(':text', getPOST('text'));
         $q->bindParam(':all_day', $all_day);
         $q->bindParam(':timezone', $timezone);
 		$result = __('added');
@@ -262,12 +262,12 @@ function submitEventData ($id="") {
     $dbh->commit();
     $rowcount = $q->rowCount();
     unset($_SESSION[$sprefix]['allcategories']);
-    if ("ajax" == $_POST['use']) {
+    if ("ajax" == getPOST('use')) {
         touch("timestamp.txt");
         echo json_encode(array(true, $datesAffected));
         exit(0);
     }
-    return $_POST['title'] . " {$result} ({$rowcount})";
+    return getPOST('title') . " {$result} ({$rowcount})";
 }
 
 function copyEvent($id)
