@@ -7,7 +7,7 @@
 if (function_exists("auth")) { // Running from the index.php entry point
     $authlevel = auth();
     $serverdir = SDir();
-} else { // Run directly
+} else { // Run directly (Not used anymore from the form below)
     chdir("..");
     require("./functions.php");
     $installroot = dirname(dirname($_SERVER["SCRIPT_NAME"]));
@@ -58,14 +58,14 @@ if (array_key_exists("step", $_POST) && 2 == $_POST['step']) {
         }
     }
     // Write the new configuration to the database
-    require('./utility/dbconnection.php');
-    require('./utility/configdb.php');
+    require_once('./utility/dbconnection.php');
+    require_once('./utility/configdb.php');
     require('./version.php');
     $Config = new Configdb($version);
     $Config->newconfig($_POST);
     // Put new config into session?
     setMessage(__('New Flexical configuration saved.'));
-    header("Location: {$serverdir}/index.php");
+    header("Location: {$serverdir}/index.php?action=eventlist");
 
 } else { // Generate form
 
@@ -107,7 +107,7 @@ configuration values.</p>
     <p><a href="./index.php?admin=configuration-history"><?=__("configuration history")?></a></p>
 
 <table border=0 cellspacing=7 cellpadding=0>
-<form name="configForm" method="POST" action="utility/config.php">
+<form name="configForm" method="POST" action="index.php?admin=configure">
     <input type="hidden" name="step" value="2"/>
     <tr>
         <td valign="top" align="right" nowrap>
