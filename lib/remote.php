@@ -25,6 +25,7 @@ function getRemoteRows($template, $rangedata) {
     $remoteInstallations = getRemotes();
     if (! $remoteInstallations) return array();
     $rv = array();
+    // $logfile = fopen("remotelog.txt", "w"); // For Debugging
     foreach ($remoteInstallations as $remote) {
         // fetch the data from each configured remote
         $postdata = http_build_query( // This already urlencodes everything
@@ -39,7 +40,9 @@ function getRemoteRows($template, $rangedata) {
                 'categories' => $remote['categories']
             ));
         $rows = file_get_contents($remote['url']."?".$postdata);
+        // fwrite($logfile, $remote['url']."?".$postdata);
         $decoded = json_decode($rows, true);
+        // fwrite($logfile, print_r($decoded, true));
         if (! (is_array($decoded) && count($decoded))) {
             continue;
         } else {
@@ -54,6 +57,7 @@ function getRemoteRows($template, $rangedata) {
             }
         }
     }
+    // fclose($logfile);
     return $rv;
 }
 

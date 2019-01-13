@@ -84,7 +84,7 @@ if (getGET('debug')=="filter") {
 } elseif (getGET('debug') == "resetfilter") {
     unset($_SESSION[$sprefix]['filters']);
 } elseif (getGET('debug')=="session") {
-    print_r($_SESSION[$sprefix]);
+    echo(json_encode($_SESSION[$sprefix]));
     exit(0);
 }
 $now = getdate();
@@ -137,7 +137,7 @@ if (! isset($_SESSION[$sprefix]['allcategories'])) {
     while ($row = $q->fetch()) $_SESSION[$sprefix]['allcategories'][] = $row[0];
 }
 if (getGET('categories')) {
-    $newcategories = explode(",", $_GET['categories']);
+    $newcategories = explode(",", urldecode($_GET['categories']));
     $_SESSION[$sprefix]['categories'] = array_intersect(
         $_SESSION[$sprefix]['allcategories'], $newcategories);
 } elseif (! array_key_exists('categories', $_SESSION[$sprefix])) {
