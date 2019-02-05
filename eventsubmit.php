@@ -94,6 +94,7 @@ function submitEventData ($id="") {
 	global $sprefix;
     $rv = "";
     $include_related = getPOST('include_related');
+    $leave_in_place = getPOST('leave_in_place');
 	$uid = getPOST('uid');
 	$evmonth = getPOST('evmonth');
 	$evday = getPOST('evday');
@@ -195,11 +196,32 @@ function submitEventData ($id="") {
                 $future_only = " AND date >= :thisdate";
             } else $future_only = "";
             if (0 != $datediff) {
-                $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
-                    `date` = DATE_SUB(date, INTERVAL :diff DAY),
-                    `uid`=:uid
-                    WHERE `related`=:related {$future_only}");
-                $q->bindParam(':diff', $datediff);
+                if ($leave_in_place) {
+                    $q = $dbh->prepare("CREATE TEMPORARY TABLE `{$tablepre}tmpevents`
+                        SELECT * FROM `{$tablepre}eventstb` WHERE `related`=:related
+                        {$future_only}");
+                    if ($future_only) $q->bindParam(":thisdate", $origDate);
+                    $q->bindValue(':related', getPOST('related'));
+                    $q->execute() or die("Creating temp table> ".array_pop($q->errorInfo()));
+                    $q = $dbh->prepare("UPDATE `{$tablepre}tmpevents` SET
+                        `id`=NULL, `uid`=:uid, `date` = DATE_SUB(date, INTERVAL :diff DAY)");
+                    $q->bindValue(':uid', getPOST('uid'));
+                    $q->bindParam(':diff', $datediff);
+                    $q->execute() or die("Updating temp table> ".array_pop($q->errorInfo()));
+                    $q = $dbh->prepare("INSERT INTO `{$tablepre}eventstb`
+                        SELECT * FROM `{$tablepre}tmpevents`");
+                    $q->execute() or die("Moving temp rows> ".array_pop($q->errorInfo()));
+                    $q = $dbh->prepare("DROP TEMPORARY TABLE IF EXISTS `{$tablepre}tmpevents`");
+                    $q->execute() or die("Dropping temp table> ".array_pop($q->errorInfo()));
+                } else {
+                    // If we're moving to another date, don't set the other stuff.
+                    // There may be related events with different data in them.
+                    $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
+                        `date` = DATE_SUB(date, INTERVAL :diff DAY),
+                        `uid`=:uid
+                        WHERE `related`=:related {$future_only}");
+                    $q->bindParam(':diff', $datediff);
+                }
             } else {
                 $q = $dbh->prepare("UPDATE `{$tablepre}eventstb` SET
                     `uid`=:uid,
@@ -258,7 +280,9 @@ function submitEventData ($id="") {
         $q->bindParam(':timezone', $timezone);
 		$result = __('added');
 	}
-    $q->execute() or die(array_pop($q->errorInfo()));
+    if (!$leave_in_place) {
+        $q->execute() or die(array_pop($q->errorInfo()));
+    }
     $dbh->commit();
     $rowcount = $q->rowCount();
     unset($_SESSION[$sprefix]['allcategories']);

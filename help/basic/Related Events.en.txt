@@ -35,11 +35,19 @@ original, will form a new group of related events.
 
 When editing an event that is related to others, an <{Include Related}>
 checkbox will appear on the edit form. When it is checked, *all* related
-events will be updated.  If a change is made to the date of the event
-being edited, the dates of all related events will be adjusted the same
-number of days that the date of the current event is being adjusted.  If
-the <{Include Related}> checkbox is not checked, then changes are only
-made to the current event, and its relation or relatedness to other
+events will be updated.
+
+If a change is made to the date of the event being edited, the dates of
+all related events will be adjusted the same number of days that the
+date of the current event is being changed.  If there is <em>no</em>
+change being made to the date, then the other information is saved to
+all related events. But any time there is a change made to the date, the
+dates are the only thing that will be changed. This means if you want to
+move a series of related events to another day while also updating their
+other information, you will have to do it in two edit steps.
+
+If the <{Include Related}> checkbox is not checked, then changes are
+only made to the current event, and its relation or relatedness to other
 events will be unchanged.
 
 ## Forcing a Collection of Events to Be Related
