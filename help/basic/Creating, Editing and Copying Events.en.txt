@@ -19,7 +19,7 @@ form is used for editing events that already exist.  The form contains:
   entry space.  If you enter the time in 24-hour format, you can leave
   the AM/PM drop-down menu alone.
 * The <{endtime}>, with the same spaces as for the Start Time.
-* A checkbox for "<{All Day}>" events, which don't have a time associated
+* A checkbox for "<{all day}>" events, which don't have a time associated
   with them.
 * A <{category}> drop-down (see below for the <{new-category}> entry in
   this menu.)
@@ -32,9 +32,6 @@ In Calendar View, when a user with sufficient privileges is logged in,
 new events can be created for a certain date by clicking the number of
 that day on the calendar.  This conveniently puts the date in question
 into the appropriate fields on the event form.  The rest is up to you.
-
-See [the Related Events page](<?n=basic/Related Events.en.txt>) for the
-usage of the <{Include Related}> checkbox.
 
 In Event List View, there is no similar mechanism, because the dates
 that appear depend upon the events already in the database.
@@ -104,6 +101,19 @@ sufficient privileges.
 The same event form used to create events is also used to edit them,
 only now it will be filled with all the data for the event you're
 editing.
+
+## Editing Related Events
+
+See [the Related Events page](<?n=basic/Related Events.en.txt>) for more
+about special uses of the event form. You can
+
+* Move an entire set of related events to a different set of dates on
+  the calendar.
+* Move that entire set of related events while leaving the original set
+  in place, making a new copy of them.
+* Change details of a group of related events.
+* Limit the effect of your changes to events in the future of the one
+  you are editing.
 
 [pmconcepts]: http://michelf.com/projects/php-markdown/concepts/
 

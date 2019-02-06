@@ -152,7 +152,7 @@ if (array_key_exists('cancel', $_POST)) {
             </tr>
             <tr>
                 <td nowrap valign="top" align="right">
-                <span class="form_labels"><?=__('All Day')?></span></td>
+                <span class="form_labels"><?=__('all day')?></span></td>
                 <td><input type="checkbox" name="all_day" <?=$adchecked?> value="1" onClick="zeroTime()"></td>
             </tr>
             <tr>

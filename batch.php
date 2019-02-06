@@ -168,7 +168,7 @@ if ("delete" == $_GET['flag']) {
         <input type="hidden" name="time" value="1">
         <tr>
             <td nowrap valign="top" align="right">
-            <span class="form_labels"><?=__('All Day')?></span></td>
+            <span class="form_labels"><?=__('all day')?></span></td>
             <td><input type="checkbox" name="all_day" value="1" onClick="zeroTime()"></td>
         </tr>
         <tr>

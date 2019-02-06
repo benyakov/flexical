@@ -129,7 +129,7 @@ if (!auth()) {
 			<tr>
 				<td nowrap valign="top" align="right" nowrap>
 				<span class="form_labels"><?=__('duration')?></span></td>
-				<td><?= __('All Day')?></td>
+				<td><?= __('all day')?></td>
 			</tr>
         <?php } else { ?>
             <tr>

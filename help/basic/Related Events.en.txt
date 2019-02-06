@@ -33,7 +33,7 @@ original, will form a new group of related events.
 
 ## Editing Related Events Together
 
-When editing an event that is related to others, an <{Include Related}>
+When editing an event that is related to others, an <{include related}>
 checkbox will appear on the edit form. When it is checked, *all* related
 events will be updated.
 
@@ -46,9 +46,43 @@ dates are the only thing that will be changed. This means if you want to
 move a series of related events to another day while also updating their
 other information, you will have to do it in two edit steps.
 
-If the <{Include Related}> checkbox is not checked, then changes are
+If the <{include related}> checkbox is not checked, then changes are
 only made to the current event, and its relation or relatedness to other
 events will be unchanged.
+
+If the <{future only}> checkbox is checked along with
+<{include related}>, your changes will be applied only to
+events subsequent in time to the one you are editing.
+
+If the <{leave originals}> checkbox is checked when you are changing the
+dates on a set of related events, then new copies are made of the
+related set of events at the new place on the calendar.
+
+By using these settings you can:
+
+* Move an entire set of related events to a different set of dates on
+  the calendar. (with <{include related}> by itself, changing the date)
+* Move that entire set of related events while leaving the original set
+  in place, making a new copy of them. (with <{include related}> and
+  <{leave originals}>)
+* Change details of a group of related events. (with <{include related},
+  not changing the date)
+* Limit the effect of your changes to events in the future of the one
+  you are editing. (by adding <{future only}>)
+
+### Cautions When Manipulating Related Events
+
+There is no undo. You have been warned. If unsure, save backups of your
+data.
+
+You may not realize how extensive is the group of related events that
+you want to manipulate. FlexiCal can show you, using the
+![Show All](../images/showall.png) icon.
+
+Finally, if you use <{leave originals}>, the newly-copied events will be
+*added* to the existing group of related events. If you don't want to
+leave them this way, you can regroup them as a new set of related events
+by [using the filter](?n=filtering) feature.
 
 ## Forcing a Collection of Events to Be Related
 

@@ -148,9 +148,22 @@ if ("ajax" == $_POST['use']) ob_start();
             showSpecifics();
         }
     }
-
+    function checkLeaveInPlace() {
+        if (Boolean($("#include_related:checked").length)) {
+            $("#leave_in_place").removeAttr("disabled");
+        } else {
+            $("#leave_in_place").attr("disabled", true);
+        }
+    }
     $(function(){
         $(".jsonly").css("visibility", "visible");
+        $("#leave_in_place").attr("disabled", true);
+        $("#evyear").change(checkOrigDate);
+        $("#evmonth").change(checkOrigDate);
+        $("#evday").change(checkOrigDate);
+        $("#include_related").change(checkOrigDate);
+        $("#include_related").change(checkLeaveInPlace);
+        $("#resetbutton").click(showSpecifics);
         $("#EditDatePicker").datepicker({
             buttonImage: 'images/calendarbutton.png',
             buttonImageOnly: true,
@@ -173,11 +186,6 @@ if ("ajax" == $_POST['use']) ob_start();
                 $("#evyear").val(dateitems[2]);
                 checkOrigDate();
             } }).css("visibility", "visible");
-        $("#year").change(checkOrigDate);
-        $("#month").change(checkOrigDate);
-        $("#day").change(checkOrigDate);
-        $("#include_related").change(checkOrigDate);
-        $("#resetbutton").click(showSpecifics);
     });
     </script>
 
@@ -195,8 +203,10 @@ if ("ajax" == $_POST['use']) ob_start();
             <?php monthPullDown($m, __('months'), "evmonth"); dayPullDown($d, "evday"); yearPullDown($y, "evyear"); ?></td>
             <?php if ($related) { ?>
             <td rowspan="2" class="related-options">
-                <span class="form_labels"><?=__('Include Related')?></span>&nbsp;
+                <span class="form_labels"><?=__('include related')?></span>&nbsp;
                 <input type="checkbox" name="include_related" id="include_related" value="1"><br>
+                <span class="form_labels"><?=__('leave originals')?></span>&nbsp;
+                <input type="checkbox" name="leave_in_place" id="leave_in_place" value="1"><br>
                 <span class="form_labels"><?=__('future only')?></span>&nbsp;
                 <input type="checkbox" name="future_only" id="future_only" value="1"><br>
             </td>
@@ -216,7 +226,7 @@ if ("ajax" == $_POST['use']) ob_start();
             <textarea class="specifics" cols=44 rows=6 name="text"><?= $text ?></textarea></td>
         </tr>
         <tr>
-            <td nowrap valign="top" align="right"><span class="form_labels"><?=__('All Day')?></span></td>
+            <td nowrap valign="top" align="right"><span class="form_labels"><?=__('all day')?></span></td>
             <td><input type="checkbox" class="specifics" name="all_day" value="1" <?=$alldaystr?>
             onClick="zeroTime('batchform')"></td>
         </tr>

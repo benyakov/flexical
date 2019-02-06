@@ -16,7 +16,7 @@ List view. The "Time" button allows you to change the time of all of the
 events.
 
 For related events: If you have related events, you can very easily adjust the
-details of all the events by ticking the "Include Related" box when you're
+details of all the events by ticking the <{include related}> box when you're
 editing one of the events.
 
 You may wonder how to get a bunch of related events. When you copy an event,
