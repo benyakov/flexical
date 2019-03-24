@@ -239,7 +239,7 @@ function dayCount($results, &$customcounts) {
         $col = 1;
         foreach ($counts as $name=>$count) {
             if (1 == $col) echo "<tr>"; ?>
-            <th><span class="<?=toCSSID($name)?>"><?=$name?></span></th><td><?=$count?></td>
+            <th><a href="#" class="highlight_link" data-class="<?=toCSSID($name)?>"><span class="<?=toCSSID($name)?>"><?=$name?></span></a></th><td><?=$count?></td>
         <?php
             if ($columns == $col) {
                 echo "</tr>\n";
@@ -447,8 +447,8 @@ function specialDayClass($year, $month, $day, $edays) {
     if ($edays[$thisday]) {
         $categories = $edays[$thisday];
         foreach ($categories as $class) {
-            $clean_class = preg_replace('/["\'<>& \t]/', '_', $class);
-            $classes .= " summary-{$clean_class}";
+            //$clean_class = preg_replace('/["\'<>& \t]/', '_', $class);
+            $classes .= " summary-".toCSSID($class);
         }
     }
     return $classes;

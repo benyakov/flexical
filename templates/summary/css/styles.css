@@ -1,3 +1,10 @@
+a.highlight_link:link,
+a.highlight_link:visited {
+    color: black;
+    text-decoration: inherit;
+    font: inherit;
+}
+
 body {
     max-width: 9.5in;
     margin-left: auto;
@@ -53,6 +60,13 @@ div.clear {
 td.specialday {
     border: thin solid #777;
     padding: 0;
+}
+td.highlightday {
+    background-color: #FAFC71;
+    color: inherit;
+}
+span.highlightday {
+    background-color: #FAFC71;
 }
 h3.monthname { text-align: left; }
 dl.monthlist dt {

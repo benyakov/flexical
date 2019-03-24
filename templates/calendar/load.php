@@ -79,13 +79,6 @@ function genCatKey($categories) {
     return $rv;
 }
 
-function cmpEvents($a, $b) {
-    if ($a['start_time'] == $b['start_time'])
-        return strcmp($a['category'], $b['category']);
-    else
-        return ($a['start_time'] < $b['start_time'])? -1 : 1;
-}
-
 function getDayJSON($year, $month, $day, $short) {
     // Return the json-encoded html to refresh a specific day
     // Same query as used in writeCalendar, adding date to where clause

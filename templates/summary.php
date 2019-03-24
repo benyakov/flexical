@@ -66,26 +66,12 @@ foreach ($customcounts as $date => $category) {
     <?php
     jqueryCDN();
     ?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#minimizesetup").click(function(evt) {
-                evt.preventDefault();
-                if ($(this).html() == "[-]") {
-                    $("#rangesetup").hide();
-                    $(this).html("[+]");
-                } else if ($(this).html() == "[+]") {
-                    $("#rangesetup").show();
-                    $(this).html("[-]");
-                } else {
-                    $(this).html("[-]");
-                }
-            }).click();
-        });
-    </script>
+    <? javaScript(); ?>
+    <script type="text/javascript" src="templates/summary/contractrange.js"></script>
+    <script type="text/javascript" src="templates/summary/highlighter.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/categorystyles.css">
     <link rel="stylesheet" type="text/css" href="templates/summary/css/styles.css">
-    <? javaScript(); ?>
     <style type="text/css" media="print">
         <!--
         #page { width: 8.5in; height: 11in; margin: 0.25in; }

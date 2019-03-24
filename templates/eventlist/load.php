@@ -97,12 +97,28 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
     //print_r($q); // Useful for debugging
     $q->execute() or die(array_pop($q->errorInfo()));
     $dbh->commit();
+    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+
+    if ("remote" == $mode) {
+        provideRemoteRows($rows);
+        exit(0);
+    }
+    $rangedata = array($day, $month, $year, $length, $unit);
+    if (! filter_set()
+        && $remoterows = getRemoteRows('calendar', $rangedata))
+    {
+        foreach ($remoterows as $rrow) {
+            $rrow['remote'] == true;
+            $rows[] = $rrow;
+        }
+        usort($rows, cmpEvents);
+    }
     $rowcount = 0;
     $lastday = null;
     $lasttime = new DateTime("$year-$month-$day 00:00");
     $lasttime->setTimezone(userTimeZone());
     $fmt = formattime("php");
-    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    for ($row in $rows) {
         if ($row['restricted'] && !$auth) { continue; }
         $rowcount += 1;
         $rowclasses = array();
