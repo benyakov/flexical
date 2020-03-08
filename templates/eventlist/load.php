@@ -1,7 +1,8 @@
 <?php
 
-function writeEvents($day, $month, $year, $length, $unit, $showopen) {
+function writeEvents($day, $month, $year, $length, $unit, $showopen, $mode) {
     global $sprefix;
+
     $Config = new CalendarConfig();
     $configuration = $Config->getConfig();
     $language = $configuration['language'];
@@ -79,8 +80,8 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
                DATE_FORMAT(`m`.`date`, '%d') AS `day`,
                DATE_FORMAT(`m`.`date`, '%Y') AS `year`,
                /* The following are converted to PHP Datetime objects */
-               ADDTIME(`m`.`date`,`m`.`start_time`) AS `stime`,
-               ADDTIME(`m`.`date`,`m`.`end_time`) AS `etime`,
+               ADDTIME(`m`.`date`,`m`.`start_time`) AS `start_time`,
+               ADDTIME(`m`.`date`,`m`.`end_time`) AS `end_time`,
                `m`.timezone,
                `m`.`text`,
                `c`.`name` AS `category`,
@@ -104,8 +105,9 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
         exit(0);
     }
     $rangedata = array($day, $month, $year, $length, $unit);
+    require_once("./lib/remote.php");
     if (! filter_set()
-        && $remoterows = getRemoteRows('calendar', $rangedata))
+        && $remoterows = getRemoteRows('eventlist', $rangedata))
     {
         foreach ($remoterows as $rrow) {
             $rrow['remote'] == true;
@@ -118,16 +120,16 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
     $lasttime = new DateTime("$year-$month-$day 00:00");
     $lasttime->setTimezone(userTimeZone());
     $fmt = formattime("php");
-    for ($row in $rows) {
+    foreach ($rows as $row) {
         if ($row['restricted'] && !$auth) { continue; }
         $rowcount += 1;
         $rowclasses = array();
         if ($rowcount % 2 == 1) $rowclasses[] = "oddrow";
         if ($row['all_day']) $rowclasses[] = "allday";
         $tr = buildopentag('tr', $rowclasses);
-        $start_time = new DateTime($row['stime'],
+        $start_time = new DateTime($row['start_time'],
             new DateTimeZone($row['timezone']));
-        $end_time = new DateTime($row['etime'],
+        $end_time = new DateTime($row['end_time'],
             new DateTimeZone($row['timezone']));
         if (! $row['all_day']) {
             $start_time->setTimezone(userTimeZone());
@@ -174,7 +176,7 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
         } else {
             $related = "";
         }
-        if ($auth > 1) {
+        if ($auth > 1 && 0 != $row["id"]) {
             $aicons = "<div class=\"actionicons\"><a class=\"copyform\" href=\"copyform.php?id={$row['id']}\" title=\"{$_('copy')}\"><img src=\"images/copy.png\"/ alt=\"{$_('copy')}\"/></a>
                 <a class=\"eventform\" href=\"eventform.php?id={$row['id']}\" title=\"{$_('edit')}\"><img src=\"images/edit.png\" alt=\"{$_('edit')}\"/></a>
                 <a href=\"javascript:void(0);\" onClick=\"deleteConfirm({$row['id']});\" title=\"{$_('delete')}\"><img src=\"images/trash.png\" alt=\"{$_('delete')}\"></a>";
@@ -207,9 +209,10 @@ function writeEvents($day, $month, $year, $length, $unit, $showopen) {
             $endcoincidence = " coincident";
         else
           $endcoincidence = "";
+        $urlbase = getIndexOr($row, "urlbase", "")."/";
         $str .= "<td class=\"eventstarttime hbar$stcoincidence\">{$stime}</td>
                  <td class=\"eventendtime hbar$endcoincidence\">{$etime}</td>
-                 <td class=\"eventtitle\"><a href=\"index.php?action=eventdisplay&id={$row['id']}\">{$title}</a></td>
+                 <td class=\"eventtitle\"><a href=\"{$urlbase}index.php?action=eventdisplay&id={$row['id']}\">{$title}</a></td>
                  <td class=\"eventdescription\">{$description}{$aicons}</td>
                  <td class=\"eventcategory\">
                  <span class=\"".toCSSID($row['category'])."\">

@@ -39,6 +39,7 @@ function getRemoteRows($template, $rangedata) {
                 'action'   => $template,
                 'categories' => $remote['categories']
             ));
+        error_log("Requesting remote rows from {$remote['url']}.");
         $rows = file_get_contents($remote['url']."?".$postdata);
         // fwrite($logfile, $remote['url']."?".$postdata);
         $decoded = json_decode($rows, true);
@@ -69,6 +70,7 @@ function needsRemoteRows() {
 }
 
 function provideRemoteRows($rows) {
+    error_log("Providing remote rows");
     echo json_encode($rows);
     die(0);
 }

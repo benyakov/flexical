@@ -71,7 +71,7 @@ try {
         `include_end_times` tinyint,
         `default_time` enum('twelve', 'twenty-four'),
         `default_open_time` tinyint,
-        `cross_links` varchar(512),
+        `cross_links` text,
         `email_from_address` varchar(255),
         `google_user` varchar(255),
         `google_password` varchar(255),

@@ -1,5 +1,13 @@
 <?php
-if ("eventlist" != getGET('json')) {
+require_once("./lib/remote.php");
+if (needsRemoteRows()) {
+    $mode = "remote";
+} else {
+    $mode = "normal";
+}
+if ("eventlist" == getGET('json')) {
+    ob_start();
+} else {
 ?>
 <!DOCTYPE html>
 <html lang="<?=$language?>">
@@ -22,8 +30,6 @@ if ("eventlist" != getGET('json')) {
 
 <div id="page">
 <?php
-} else {
-    ob_start();
 }
 if ("email" == getGET('format')) {
     echo "<h1>{$d} ".__('months', $m-1)."</h1>";
@@ -61,7 +67,11 @@ if ("email" == getGET('format')) {
     </div>
 <?php }
 if (relatedFilter()) { $o = false; }
-echo writeEvents($d, $m, $y, $l, $u, $o);
+echo writeEvents($d, $m, $y, $l, $u, $o, $mode);
+if ("remote" == $mode) {
+    if ("eventlist" == getGET('json')) ob_end_clean();
+    exit(0);
+}
 ?>
 
 <div class="generationdate">
