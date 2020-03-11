@@ -1,5 +1,4 @@
 <?php
-// Allow showing remote installation categories
 if ("day" == $_GET["json"]) {
     list($html, $categories) = getDayJSON($year, $month, $day, "true"==$_GET['short']);
     echo json_encode(array($html, $categories));
@@ -19,6 +18,7 @@ if ("day" == $_GET["json"]) {
     exit(0);
 }
 ob_start();
+// Allow showing remote installation categories
 require_once("./lib/remote.php");
 if (needsRemoteRows()) {
     $mode = "remote";

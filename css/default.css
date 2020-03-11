@@ -116,7 +116,7 @@ table.monthheading       { width: 99%; background-color: #fff;
 .day-cell               { vertical-align: top;
                           background-color:#FFF; height:auto; width: 14.29%;
                           overflow: hidden;
-                          border: 1.5pt solid #333;
+                          border: 0.4pt solid #222;
                           padding: 2px; margin: 0pt;
                           z-index: 2; }
 .empty-day-cell         { background-color:#FFF; height:auto;

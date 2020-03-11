@@ -1,6 +1,14 @@
 <?php
 
-function writeLaTeXevents($day, $month, $year, $length, $unit) {
+function cmpEvents($a, $b) {
+    if ($a['date'] == $b['date']) {
+        return ($a['time'] < $b['time']) ? -1 : 1;
+    } else {
+        return ($a['date'] < $b['date']) ? -1 : 1;
+    }
+}
+
+function writeLaTeXevents($day, $month, $year, $length, $unit, $mode="normal") {
     $dbh = new DBConnection();
     $tablepre = $dbh->getPrefix();
     global $language;
@@ -9,7 +17,6 @@ function writeLaTeXevents($day, $month, $year, $length, $unit) {
     $auth = auth();
     $output = "";
     $categoryMatches = categoryMatchString();
-
     $time = formattime('mysql-tex');
 
     // Set up Where clause
@@ -25,7 +32,9 @@ function writeLaTeXevents($day, $month, $year, $length, $unit) {
         `m`.`all_day`, `m`.`related`,
           DATE_FORMAT(`m`.`date`, '%a') AS `weekday`,
           DATE_FORMAT(`m`.`date`, '%m/%d') AS `day`,
+          `m`.`date` AS `date`,
           TIME_FORMAT(`m`.`start_time`, {$time}) AS `stime`,
+          `m`.`start_time` AS `time`,
           `c`.`name` AS `category`,
           `c`.`restricted`
           FROM `{$tablepre}eventstb` AS `m`
@@ -36,8 +45,16 @@ function writeLaTeXevents($day, $month, $year, $length, $unit) {
     $q->bindParam(':lowdate', $lowdate);
     $q->bindParam(':highdate', time_sqldate($highdate));
     $q->execute();
-
-    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+    require_once("./lib/remote.php");
+    if ("remote" == $mode) {
+        provideRemoteRows($rows);
+        exit(0);
+    }
+    $remoterows = getRemoteRows('latex-bulletin', array($day, $month, $year, $length, $unit));
+    $rows = array_merge($rows, $remoterows);
+    usort($rows, cmpEvents);
+    foreach ($rows as $row) {
         if ($row['restricted'] && !$auth)  continue;
         if ($row['all_day'])  continue;
         $title = str_replace('&', '\&', stripslashes($row['title']));
